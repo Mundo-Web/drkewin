@@ -9,6 +9,12 @@
             /* Ancho máximo para el contenedor */
         }
 
+
+
+
+
+        
+
         .img-container {
             position: relative;
             width: 100%;
@@ -150,10 +156,9 @@
         }
 
         .card {
-
+            display: flex;
             transition: all 0.5s;
             transform-style: preserve-3d;
-            width: 100%;
         }
 
         .front,
@@ -194,7 +199,6 @@
             -moz-border-radius: 1rem;
             -ms-border-radius: 1rem;
             -o-border-radius: 1rem;
-            width: 100%;
         }
 
         /* --------------------- deslizante ------------------- */
@@ -804,7 +808,57 @@
             <div class="bg-bgRosaWeak" data-aos="fade-up" data-aos-offset="150">
                 <div class="flex flex-col lg:flex-row w-11/12 mx-auto py-10 md:p-10 gap-12 md:gap-24">
                     <div class="basis-1/2 contenedor w-full">
+                        <div class="flip ">
+                            <div class="card">
+                                <div class="front bg-indice h-auto rounded-3xl p-5">
+                                    <div class="flex flex-col gap-5 justify-center items-center front">
+                                        <div class="flex flex-col gap-4 w-full">
+                                            <label for="peso"
+                                                class="text-textAzul font-medium text-text14 xl:text-text18">
+                                                Peso (kg):
+                                            </label>
+                                            <input type="number" id="peso" step="1" placeholder="00 kg"
+                                                class="bg-white w-full py-4 rounded-lg px-2 peso" />
+                                        </div>
+                                        <div class="flex flex-col gap-4 w-full">
+                                            <label for="altura"
+                                                class="text-textAzul font-medium text-text14 xl:text-text18">
+                                                Altura (mts):
+                                            </label>
+                                            <input type="number" id="altura" step="1" placeholder="00 mts"
+                                                class="bg-white w-full py-4 rounded-lg px-2 altura" />
+                                        </div>
+                                        <!-- <div></div> -->
 
+                                        <div class="w-full">
+                                            <button type="button"
+                                                class="bg-bgAzul py-4 px-20 rounded-xl inline-block text-center hover:bg-blue-500 md:duration-500 w-full text-textWhite onButton1 font-semibold text-text18 xl:text-text22 btnCalcular">
+                                                Calcular
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="back bg-indice hidden h-auto rounded-3xl p-5">
+                                    <div class="flex flex-col items-center justify-center gap-10">
+                                        <div class="bg-white p-10 rounded-lg flex flex-col gap-5 text-center w-full">
+                                            <p class="uppercase font-medium text-text22 xl:text-text26 text-textAzul">
+                                                IMC
+                                            </p>
+                                            <p class="font-bold text-text64 xl:text-text68 text-textAzul resultado"></p>
+                                        </div>
+                                        <div class="w-full">
+                                            <button type="button"
+                                                class="bg-bgAzul py-4 rounded-xl text-center hover:bg-blue-500 md:duration-500 w-full text-textWhite font-semibold text-text18 xl:text-text22 btnRegresar px-5">
+                                                Calcular de nuevo
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Agregar alerta -->
+                            <!-- <p class="alerta">Hubo un error, vuelva a intentarlo</p> -->
+                        </div>
 
                         <div class="flex justify-center items-center">
                             <img src="{{ asset('images/img/image_imc.png') }}" alt="imc" />
@@ -818,141 +872,82 @@
                             ¡Tu camino hacia una vida más saludable comienza ahora!
                         </p>
                         <h2
-                            class="font-bold text-text48 xl:text-text56 text-textAzul leading-none md:leading-tight mb-2 md:mb-0">
+                            class="font-bold text-text48 xl:text-text52 text-textAzul leading-none md:leading-tight mb-2 md:mb-0">
                             Calcula tu índice de Masa Corporal (IMC)
                         </h2>
-                        <div class=" ">
-                            <div class="card">
 
-                                <div class="front bg-bgWhiteWeak h-auto rounded-3xl p-5">
-                                    <div class="flex flex-col gap-5 justify-center items-center front">
-                                        <div class="flex flex-col gap-4 w-full">
-                                            <label for="peso"
-                                                   class="text-textAzul font-medium text-text14 xl:text-text18">
-                                                Peso (kg):
-                                            </label>
-                                            <input type="number" id="peso" step="1" placeholder="00 kg"
-                                                   class="bg-bgRosaWeak w-full py-4 rounded-lg px-2 peso border-none" />
-                                        </div>
-                                        <div class="flex flex-col gap-4 w-full">
-                                            <label for="altura"
-                                                   class="text-textAzul font-medium text-text14 xl:text-text18">
-                                                Altura (mts):
-                                            </label>
-                                            <input type="number" id="altura" step="1" placeholder="00 mts"
-                                                   class="bg-bgRosaWeak w-full py-4 rounded-lg px-2 altura border-none" />
-                                        </div>
-                                        <!-- <div></div> -->
-
-                                        <div class="w-full">
-                                            <button type="button"
-                                                    class="bg-bgAzul py-4 px-20 rounded-xl inline-block text-center hover:bg-blue-500 md:duration-500 w-full text-textWhite onButton1 font-semibold text-text18 xl:text-text22 btnCalcular">
-                                                Calcular
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="back bg-bgWhiteWeak hidden h-auto rounded-3xl p-5">
-                                    <div class="flex flex-col items-center justify-center gap-10">
-                                        <div class="bg-white p-10 rounded-lg flex flex-col gap-5 text-center w-full">
-                                            <p class="uppercase font-medium text-text22 xl:text-text26 text-textAzul">
-                                                IMC
-                                            </p>
-                                            <p class="font-bold text-text64 xl:text-text68 text-textAzul resultado"></p>
-                                        </div>
-                                        <div class="w-full">
-                                            <button type="button"
-                                                    class="bg-bgAzul py-4 rounded-xl text-center hover:bg-blue-500 md:duration-500 w-full text-textWhite font-semibold text-text18 xl:text-text22 btnRegresar px-5">
-                                                Calcular de nuevo
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Agregar alerta -->
-
-                            <!-- <p class="alerta">Hubo un error, vuelva a intentarlo</p> -->
-
-                        </div>
-                        <div class="w-full px-4 hidden " id="alert">
-                            <div class="flex justify-between p-4 rounded-md bg-red-50 border border-red-300">
-                                <div class="flex gap-2 items-center">
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    </div>
-                                    <div class="self-center">
-                                        <div class="text-red-600">
-                                            <p class="  font-medium text-text18" id="alertMessage">
-
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="flex flex-col gap-5">
-                            <div class="flex gap-5 p-2 rounded-lg imcItems hidden bg-bgWhiteWeak" id="imc0">
+                            <div class="flex gap-5 p-2 rounded-lg imcItems" id="imc0">
                                 <div>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="12" cy="12" r="12" fill="#66FF66" />
                                     </svg>
                                 </div>
-                                <p class="font-medium text-text18  text-textAzul imcpInfo leading-none">
+                                <p class="font-medium text-text18 xl:text-text22 text-textAzul imcpInfo leading-none">
                                     Si tu <b>Índice de Masa Corporal</b> (IMC) es inferior a
                                     18.5, se considera que tienes bajo peso.
                                 </p>
                             </div>
 
-                            <div class=" flex gap-5 p-2 rounded-lg imcItems hidden  bg-bgWhiteWeak" id="imc1">
+                            <div class="flex gap-5 p-2 rounded-lg imcItems" id="imc1">
                                 <div>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="12" cy="12" r="12" fill="#66FF66" />
                                     </svg>
                                 </div>
-                                <p class="font-medium text-text18  text-textAzul imcpInfo leading-none">
+                                <p class="font-medium text-text18 xl:text-text22 text-textAzul imcpInfo leading-none">
                                     Si tu IMC se encuentra en el rango de 18.5 a 24.9, estás
                                     dentro de los límites considerados como normales.
                                 </p>
                             </div>
 
-                            <div class="flex  gap-5 p-2 rounded-lg imcItems hidden bg-bgWhiteWeak " id="imc3">
+                            <div class="flex gap-5 p-2 rounded-lg imcItems" id="imc2">
+                                <div>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="12" cy="12" r="12" fill="#66FF66" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-text18 xl:text-text22 text-textAzul imcpInfo leading-none">
+                                    Si tu IMC cae en el intervalo de 25 a 29.9, se considera  sobrepeso.
+                                </p>
+                            </div>
+
+                            <div class="flex gap-5 p-2 rounded-lg imcItems" id="imc3">
                                 <div>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="12" cy="12" r="12" fill="#FF6666" />
                                     </svg>
                                 </div>
-                                <p class="font-medium text-text18 text-textAzul imcpInfo leading-none">
+                                <p class="font-medium text-text18 xl:text-text22 text-textAzul imcpInfo leading-none">
                                     Si tu IMC se encuentra en el rango de 30.0 a 34.9, se
                                     considera obesidad leve.
                                 </p>
                             </div>
 
-                            <div class="flex gap-5 p-2 rounded-lg imcItems hidden bg-bgWhiteWeak" id="imc4">
+                            <div class="flex gap-5 p-2 rounded-lg imcItems" id="imc4">
                                 <div>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="12" cy="12" r="12" fill="#FF6666" />
                                     </svg>
                                 </div>
-                                <p class="font-medium text-text18  text-textAzul imcpInfo leading-none">
+                                <p class="font-medium text-text18 xl:text-text22 text-textAzul imcpInfo leading-none">
                                     Si tu IMC oscila entre 35.0 y 39.9, se considera obesidad moderada.
                                 </p>
                             </div>
 
-                            <div class="flex gap-5 p-2 rounded-lg imcItems hidden bg-bgWhiteWeak" id="imc5">
+                            <div class="flex gap-5 p-2 rounded-lg imcItems" id="imc5">
                                 <div>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="12" cy="12" r="12" fill="#FF6666" />
                                     </svg>
                                 </div>
-                                <p class="font-medium text-text18  text-textAzul imcpInfo leading-none">
+                                <p class="font-medium text-text18 xl:text-text22 text-textAzul imcpInfo leading-none">
                                     Si tu IMC es superior a 40, se considera obesidad severa.
                                 </p>
                             </div>
@@ -1256,15 +1251,11 @@
             let imc = null;
 
             onCalcular.addEventListener("click", () => {
-                if(peso.value<=0 || altura.value<=0|| altura.value>3){
-                    createAlert("Por favor, ingrese datos válidos");
-                    return;
-                }
                 imc = (
                     parseFloat(peso.value) / Math.pow(parseFloat(altura.value), 2)
                 ).toFixed(1);
 
-                if (imc <= 0) {
+                if (imc < 0) {
                     createAlert("Solo se aceptan valores mayores a cero");
                     return;
                 }
@@ -1291,25 +1282,14 @@
                 peso.value = "";
                 altura.value = "";
 
-              /*  imc0.classList.remove("bg-green-200");
+                imc0.classList.remove("bg-green-200");
                 imc1.classList.remove("bg-green-200");
                 imc2.classList.remove("bg-green-200");
                 imc3.classList.remove("bg-red-200");
                 imc4.classList.remove("bg-red-200");
-                imc5.classList.remove("bg-red-200");*/
+                imc5.classList.remove("bg-red-200");
 
-                imc0.classList.add("hidden");
-
-                imc1.classList.add("hidden");
-                imc2.classList.add("hidden");
-
-                imc3.classList.add("hidden");
-
-                imc4.classList.add("hidden");
-
-                imc5.classList.add("hidden");
-
-                /* Vuelve a eliminar los estilos y coloca el color inicial
+                /* Vuelve a eliminar los estilos y coloca el color inicial */
                 imcp.forEach((imc) => {
                     imc.classList.remove(
                         "text-red-600",
@@ -1319,40 +1299,34 @@
                     );
 
                     imc.classList.add("text-textAzul");
-                });*/
+                });
             });
 
             function createAlert(mensaje) {
-                const alertMessage = document.getElementById("alertMessage");
-                const alerta = document.getElementById("alert");
+                const alerta = document.createElement("p");
                 onCalcular.disabled = true;
-                alertMessage.textContent = mensaje;
-                alerta.classList.remove('hidden')
+                alerta.textContent = mensaje;
+                alerta.classList.add("alerta");
+                card.parentNode.insertBefore(alerta, card.nextSibling);
                 setTimeout(() => {
-                    alerta.classList.add('hidden')
+                    alerta.remove();
                     onCalcular.disabled = false;
                 }, 3000);
             }
 
             function validateImc(imc) {
                 if (imc <= 18.5) {
-
-                    imc0.classList.remove("hidden")
+                    imc0.classList.add("bg-green-200");
                 } else if (imc >= 18.5 && imc <= 24.9) {
-
-                    imc1.classList.remove("hidden")
+                    imc1.classList.add("bg-green-200");
                 } else if (imc >= 25 && imc <= 29.9) {
-
-                    imc2.classList.remove("hidden")
+                    imc2.classList.add("bg-green-200");
                 } else if (imc >= 30 && imc <= 34.9) {
-
-                    imc3.classList.remove("hidden")
+                    imc3.classList.add("bg-red-200");
                 } else if (imc >= 35 && imc <= 39.9) {
-
-                    imc4.classList.remove("hidden")
+                    imc4.classList.add("bg-red-200");
                 } else {
-                    //imc5.classList.add("bg-red-200");
-                    imc5.classList.remove("hidden")
+                    imc5.classList.add("bg-red-200");
                 }
 
                 /* Cambia de color al parrafo */
