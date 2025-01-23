@@ -134,16 +134,16 @@
 
         </section>
         <!------------------------------------------------------
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ------------------------------------------------------
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ---------------------------------------------->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ------------------------------------------------------
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ---------------------------------------------->
 
         <!-- Sección de Rotaciones Médicas Internacionales -->
 
         <section class="py-12   grid grid-cols-1 lg:grid-cols-2 items-center gap-14  w-11/12 mx-auto">
             <!-- Imagen del médico -->
             <div>
-                <img src="https://i.ibb.co/7p0TQVy/image.png" alt="Médico en cirugía" class="rounded-xl shadow-md"
-                    loading="lazy" />
+                <img src="https://i.ibb.co/7p0TQVy/image.png" alt="Médico en cirugía"
+                    class="rounded-xl shadow-md md:hidden lg:flex" loading="lazy" />
             </div>
 
             <!-- Información -->
@@ -187,7 +187,7 @@
             </div>
             <!--Seccion Servicios-->
             <div class="w-11/12 mx-auto ">
-                <div class="hidden  relative md:flex">
+                <div class="hidden  relative lg:flex">
                     <div id="desktopSlideServicios"
                         class="swiper vertical-slide-carousel swiper-container relative h-[450px]">
                         <div class="swiper-wrapper">
@@ -213,6 +213,29 @@
                             @endforeach
                         </div>
                         <div class="swiper-pagination !right-10 !left-full !top-1/3 !translate-y-8"></div>
+                    </div>
+                </div>
+                <div class="relative hidden md:flex lg:hidden">
+                    <div id="desktopSlideServiciosMd" class="swiper relative">
+                        <div class="swiper-wrapper">
+                            @foreach ($allServicios as $servicio)
+                                <div class="swiper-slide">
+
+                                    <div class="w-full border-b-2 py-8">
+                                        <div class="flex gap-8 my-4 items-center">
+                                            <img src="{{ $servicio->url_image }}" alt="{{ $servicio->title }}"
+                                                class="bg-bgAzul w-[96px] h-[96px] rounded-full p-1" loading="lazy" />
+                                            <h4 class="text-text24 font-semibold text-textAzul">{{ $servicio->title }}
+                                            </h4>
+                                        </div>
+                                        <p class="text-text16 text-textAzul my-8">{{ $servicio->extracto }}</p>
+                                        <x-boton-solicitar-cita :generales="$generales"></x-boton-solicitar-cita>
+                                    </div>
+
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="swiper-pagination !bottom-2 !top-auto !w-80 right-0 mx-auto bg-gray-100"></div>
                     </div>
                 </div>
                 <div class="relative md:hidden">
@@ -261,21 +284,21 @@
             </div>
         </section>
         <!-- Sección de confianza -->
-        <section class="pt-16 md:py-16 mt-32 bg-bgRosaWeak md:bg-white">
-            <div class=" mx-auto flex gap-8 items-end w-11/12  relative flex-col md:flex-row ">
+        <section class="pt-16 lg:py-16 mt-32 bg-bgRosaWeak lg:bg-white">
+            <div class=" mx-auto flex gap-8 items-end w-11/12  relative flex-col md:items-center lg:flex-row ">
                 <!-- Imagen del doctor -->
-                <div class="order-2 md:order-1 text-center md:text-left md:absolute ">
+                <div class="order-2 lg:order-1 text-center lg:text-left lg:absolute ">
                     @if ($perfil)
                         <img src="{{ asset($perfil->url_image) }}" alt="Dr. Kewin"
-                            class="mx-auto md:mx-0 h-[500px] object-contain" loading="lazy" />
+                            class="mx-auto lg:mx-0 h-[500px] object-contain" loading="lazy" />
                     @else
                         <p>No hay imagen disponible para el perfil.</p>
                     @endif
 
                 </div>
                 <!-- Contenido textual -->
-                <div class="w-full justify-start md:bg-bgRosaWeak flex md:justify-end  md:rounded-xl order-1">
-                    <div class="md:w-4/6 md:p-8">
+                <div class="w-full justify-start lg:bg-bgRosaWeak flex lg:justify-end  lg:rounded-xl order-1">
+                    <div class="lg:w-4/6 lg:p-8">
                         <h2 class="text-text48 font-bold text-textAzul mb-4">{{ $about->lema }}</h2>
                         <p class="text-textAzul text-text24">{{ $about->parrafo }}</p>
                         <a target="_blank"
@@ -393,7 +416,29 @@
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true
+            },
+            breakpoints: {
+                // Pantallas medianas (768px o menos)
+                768: {
+                    slidesPerView: 2,
+
+                },
             }
+        });
+        var swiper = new Swiper("#desktopSlideServiciosMd", {
+            loop: false,
+            slidesPerView: 2,
+            spaceBetween: 20,
+            navigation: {
+                nextEl: ".multiple-slide-carousel .swiper-button-next",
+                prevEl: ".multiple-slide-carousel .swiper-button-prev",
+            },
+
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+            },
+
         });
 
         var swiper = new Swiper("#desktopSlideServicios", {

@@ -125,7 +125,7 @@
 {{-- style="background-image: url({{asset('images/img/Hero_Doctor_mobile.png')}})" --}}
 @section('content')
     <main class="flex flex-col gap-10 mb-10 bg-white font-outfit">
-        <!--Seccion liosta Especialidades-->
+        <!--Seccion lista Especialidades-->
         <section class=" bg-white mt-4 md:mt-10 w-11/12 mx-auto pt-32">
             <div class="">
                 <div class="text-center md:text-start">
@@ -214,7 +214,7 @@
                         </h1>
 
                         <x-boton-solicitar-cita :generales="$generales"
-                            classes="bg-bgAzul hover:bg-bgAzulStrong hidden md:flex"></x-boton-solicitar-cita>
+                            classes="bg-bgAzul hover:bg-bgAzulStrong hidden lg:flex"></x-boton-solicitar-cita>
                     </div>
                     <div id="servicio-description"
                         class="md:h-[200px] text-textAzul overflow-hidden md:columns-1 lg:columns-2 lg:h-auto gap-6  mt-4 text-text18 ">
@@ -310,9 +310,9 @@
             </div>
         </section>
         <!--Seccion Proceso-->
-        <section class="flex flex-col md:flex-row items-center w-11/12 mx-auto mt-8   gap-6">
+        <section class="flex flex-col lg:flex-row items-center w-11/12 mx-auto mt-8   gap-6">
             <!-- Texto -->
-            <div class="md:w-1/2 text-start md:text-left">
+            <div class="lg:w-1/2 text-start md:text-left">
                 <h2 class="text-textCeleste text-text18 md:text-text24 font-semibold">Servicio</h2>
                 <h1 class="text-text48 font-bold text-textAzul mb-4 text-center md:text-start">Sobre el Proceso</h1>
                 <div id="servicio-process" class="text-textAzul flex flex-col text-text18 mb-4 gap-4">
@@ -324,7 +324,7 @@
             </div>
 
             <!-- Imagen -->
-            <div class="md:w-1/2">
+            <div class="lg:w-1/2">
                 <img src="https://i.ibb.co/LpQhq5h/image.png" alt="Proceso médico"
                     class="rounded-lg shadow-lg w-full h-[720px] object-cover" loading="lazy" />
             </div>

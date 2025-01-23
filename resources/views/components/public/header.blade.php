@@ -8,7 +8,7 @@
 
         </div>
 
-        <div class="hidden md:flex justify-center items-center gap-10 font-semibold text-text18 xl:text-text22">
+        <div class="hidden lg:flex justify-center items-center gap-10 font-semibold text-text18 xl:text-text22">
             <nav class="flex justify-center items-center gap-10 text-center" data-aos="fade-up" data-aos-offset="150">
                 <a href="{{ route('index') }}"
                     class="{{ Route::currentRouteName() === 'index' ? 'text-textCeleste font-bold' : '' }} ">Inicio</a>
@@ -30,7 +30,7 @@
 
         <!--movile navbar-->
         <!-- Botón de menú para dispositivos móviles -->
-        <div class="md:hidden flex items-center">
+        <div class="lg:hidden flex items-center">
             <button id="menu-toggle" class="text-white focus:outline-none">
                 <i id="menu-icon" class="fa-solid fa-bars fa-xl"></i>
             </button>
@@ -50,7 +50,7 @@
     </div>
 
     <!-- Menú desplegable para móviles -->
-    <div id="menu" class="hidden md:hidden bg-bgAzul text-textWhite shadow-lg w-full h-screen absolute z-10">
+    <div id="menu" class="hidden lg:hidden bg-bgAzul text-textWhite shadow-lg w-full h-screen absolute z-10">
         <nav class="mb-8 flex flex-col justify-center items-center gap-10 text-center w-11/12 mx-auto"
             data-aos="fade-up" data-aos-offset="150">
             <a href="{{ route('index') }}"
