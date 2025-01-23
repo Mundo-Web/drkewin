@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreIndexRequest;
 use App\Http\Requests\UpdateIndexRequest;
+use App\Models\About;
+use App\Models\Album;
+use App\Models\Blog;
+use App\Models\Evento;
 use App\Models\Index;
 use App\Models\Message;
 use App\Models\Service;
@@ -11,137 +15,312 @@ use App\Models\Category;
 use App\Models\General;
 use App\Models\Testimony;
 use App\Models\ClientLogos;
+use App\Models\Rotacion;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use PhpParser\Node\Stmt\TryCatch;
 use App\Helpers\EmailConfig;
+use App\Models\Subscriber;
 
 class IndexController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-        $servicios = Service::where('status', '=', true)->where('visible', '=', true)->get();
-        $titulos = Category::where('status', '=', true)->where('visible', '=', true)->get();
-        $testimonios = Testimony::where('status', '=', true)->where('visible', '=', true)->get();
-        $logos = ClientLogos::all();
-        $generales = General::all()->first();
+  /**
+   * Display a listing of the resource.
+   */
+  public function index()
+  {
+    //
+    $servicios = Service::where('status', '=', true)->where('visible', '=', true)->get();
+    $titulos = Category::where('status', '=', true)->where('visible', '=', true)->get();
+    $testimonios = Testimony::where('status', '=', true)->where('visible', '=', true)->get();
+    $logos = ClientLogos::all();
+    $generales = General::all()->first();
+    $albumPerfil = Album::where('name', 'Perfil')->with('images')->first();
+    $perfil = $albumPerfil ? $albumPerfil->images->first() : null;
+    $albumPortada = Album::where('name', 'Portada')->with('images')->first();
+    $imagenPortada = $albumPortada ? $albumPortada->images->first() : null;
+    return view('public.index', compact('servicios', 'titulos', 'generales', 'testimonios', 'logos', 'perfil', 'imagenPortada'));
+  }
 
-        return view('public.index', compact('servicios', 'titulos', 'generales', 'testimonios', 'logos'));
+  public function servicios(Request $request)
+  {
+    $generales = General::all()->first();
+    $servicio = Service::where('status', '=', true)->where('visible', '=', true)->first();
+    $modificarTextServicio = ucfirst(strtolower($servicio->title));
+    $servicioAlbum = Album::where('name', $modificarTextServicio)->first();
+    // Si el álbum no existe, manejar el caso
+    // Si el álbum no existe, manejar el caso
+    if (!$servicioAlbum) {
+      return redirect()->back()->with('error', 'El álbum "certificados" no existe.');
+    }
+    // Obtener las imágenes del álbum
+    $servicioGaleria = $servicioAlbum->images;
+
+    $servicios = Service::where('status', '=', true)->where('visible', '=', true)->get();
+    $albumPerfil = Album::where('name', 'Perfil')->with('images')->first();
+    $perfil = $albumPerfil ? $albumPerfil->images->first() : null;
+    return view('public.servicios', compact('generales', 'servicios', 'servicio', 'perfil', 'servicioGaleria'));
+  }
+  public function detalle_servicio($id)
+  {
+    $servicio = Service::findOrFail($id);
+    $modificarTextServicio = ucfirst(strtolower($servicio->title));
+    $servicioAlbum = Album::where('name', $modificarTextServicio)->first();
+    // Si el álbum no existe, manejar el caso
+    // Si el álbum no existe, manejar el caso
+    if (!$servicioAlbum) {
+      return redirect()->back()->with('error', 'El álbum "certificados" no existe.');
+    }
+    // Obtener las imágenes del álbum
+
+    // Obtener las imágenes del álbum y generar las URLs completas
+    $servicioGaleria = $servicioAlbum->images->map(function ($image) {
+      $image->url_image = asset($image->url_image);  // Generar la URL completa
+      return $image;
+    });
+    return response()->json([
+      'servicio' => $servicio,
+      'galeria' => $servicioGaleria,
+    ]); // Devuelve los detalles en formato JSON
+
+  }
+  public function detalleServicio($id)
+  {
+
+    $servicioById = Service::where('id', '=', $id)->first();
+    $servicios = Service::where('status', '=', true)->where('visible', '=', true)->get();
+    $generales = General::all()->first();
+    return view('public.servicios', compact('generales', 'servicios', 'servicioById'));
+  }
+  public function blogs(Request $request)
+  {
+    // Obtener el post más reciente
+    $latestPost = Blog::latest()->first();
+
+    // Obtener los 3 posts siguientes
+    $otherPosts = Blog::where('id', '!=', $latestPost->id)
+      ->latest()
+      ->take(3)
+      ->get();
+
+    // Obtener todos los posts restantes
+    $allPosts = Blog::where('id', '!=', $latestPost->id)
+      ->latest()
+      ->paginate(12);
+    $generales = General::all()->first();
+
+    $categoriaId = $request->get('categoria_id', null);
+
+    // Obtener posts por categoría (si se selecciona)
+    $query = Blog::query();
+
+    if ($categoriaId && $categoriaId != "todos") {
+      $query->where('category_id', $categoriaId);
     }
 
-    public function servicios($id)
-    {
-        
-        $servicioById = Service::where('id', '=', $id)->first();
-        $servicios = Service::where('status', '=', true)->where('visible', '=', true)->get();
-        $generales = General::all()->first();
-        return view('public.servicios', compact('generales', 'servicios', 'servicioById'));
+
+    $posts = $query->paginate(12); // Cambia 10 
+
+    if ($request->ajax()) {
+
+      return view('public.filtro_posts', compact('posts'))->render();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    $allCategorias = Category::all();
+    return view('public.blogs', compact('generales', 'latestPost', 'otherPosts', 'allPosts', 'allCategorias'));
+  }
+  public function filter_posts(Request $request)
+  {
+    $categoriaId = $request->get('categoria_id', null);
+
+
+    // Obtener posts por categoría (si se selecciona)
+    $query = Blog::query();
+    if ($categoriaId) {
+      $query->where('categoria_id', $categoriaId);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreIndexRequest $request)
-    {
-        //
+    $posts = $query->paginate(10); // Cambia 10 
+
+
+    if ($request->ajax()) {
+
+      return view('public.filtro_posts', compact('posts'))->render();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Index $index)
-    {
-        //
+    // Si no es AJAX, redirige o devuelve algo más (opcional)
+    return response()->json(['error' => 'Solicitud no válida'], 400);
+  }
+
+  public function detalle_post($slug)
+  {
+    $post = Blog::where('slug', $slug)->first();
+    $otherPosts = Blog::where('slug', '!=', $slug)
+      ->latest()
+      ->take(3)
+      ->get();
+    $generales = General::all()->first();
+    if (!$post) {
+      return redirect()->route('blogs')->with('error', 'Post no encontrado.');
+    }
+    $url = url("/blogs/post/{$slug}");
+    $title = $post->title;
+    return view('public.post', compact('generales', 'post', 'otherPosts', 'url', 'title'));
+  }
+
+
+  public function nosotros()
+  {
+    $allServicios = Service::where('status', '=', true)->where('visible', '=', true)->get();
+    $generales = General::all()->first();
+    $about = About::all()->first();
+    /*obtener imagenes de certificados*/
+    // Buscar el álbum "certificados"
+    $albumCertificado = Album::where('name', 'Certificados')->first();
+    $allEventos = Evento::where('status', '=', true)->where('visible', '=', true)->get();
+    // Si el álbum no existe, manejar el caso
+    if (!$albumCertificado) {
+      return redirect()->back()->with('error', 'El álbum "certificados" no existe.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Index $index)
-    {
-        //
+    // Obtener las imágenes del álbum
+    $imagesCertificados = $albumCertificado->images;
+
+    // Buscar el álbum "certificados"
+    $albumGaleria = Album::where('name', 'Galeria')->first();
+
+    // Si el álbum no existe, manejar el caso
+    if (!$albumGaleria) {
+      return redirect()->back()->with('error', 'El álbum "galeria" no existe.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateIndexRequest $request, Index $index)
-    {
-        //
+    // Obtener las imágenes del álbum
+    $imagesGaleria = $albumGaleria->images;
+
+    $albumPerfil = Album::where('name', 'Perfil')->with('images')->first();
+    $perfil = $albumPerfil ? $albumPerfil->images->first() : null;
+    $albumPortada = Album::where('name', 'Portada')->with('images')->first();
+    $imagenPortada = $albumPortada ? $albumPortada->images->first() : null;
+
+    $allRotaciones = Rotacion::where('status', '=', true)->where('visible', '=', true)->get();
+
+    return view('public.nosotros', compact('generales', 'about', 'allServicios', 'allEventos', 'imagesCertificados', 'albumGaleria', 'imagesGaleria', 'perfil', 'imagenPortada', 'allRotaciones'));
+  }
+
+  /**
+   * Show the form for creating a new resource.
+   */
+  public function create()
+  {
+    //
+  }
+
+  /**
+   * Store a newly created resource in storage.
+   */
+  public function store(StoreIndexRequest $request)
+  {
+    //
+  }
+
+  /**
+   * Display the specified resource.
+   */
+  public function show(Index $index)
+  {
+    //
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   */
+  public function edit(Index $index)
+  {
+    //
+  }
+
+  /**
+   * Update the specified resource in storage.
+   */
+  public function update(UpdateIndexRequest $request, Index $index)
+  {
+    //
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   */
+  public function destroy(Index $index)
+  {
+    //
+  }
+  public function guardarSubscriptor(Request $request)
+  {
+
+
+    $request->validate([
+      'email' => 'required|email|unique:subscribers',
+    ]);
+
+    Subscriber::create([
+      'email' => $request->email,
+    ]);
+
+    return response()->json(['message' => 'Suscripción realizada con éxito']);
+  }
+
+  /**
+   * Save contact from blade
+   */
+  public function guardarContacto(Request $request)
+  {
+    //Del modelo
+    //'full_name', 'email', 'phone', 'message', 'status', 'is_read'
+    $data = $request->all();
+    $data['full_name'] = $request->name . ' ' . $request->last_name;
+
+    try {
+      $reglasValidacion = [
+        'name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'address' => 'required|string|max:255',
+        'phone' => 'required|string|max:99999999999',
+        'message' => 'required|string|max:255',
+      ];
+      $mensajes = [
+        'name.required' => 'El campo nombre es obligatorio.',
+        'last_name.required' => 'El campo apellido es obligatorio.',
+        'email.required' => 'El campo correo electrónico es obligatorio.',
+        'email.email' => 'El formato del correo electrónico no es válido.',
+        'email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
+        'phone.required' => 'El campo teléfono es obligatorio.',
+        'phone.integer' => 'El campo teléfono debe ser un número entero.',
+        'address.required' => 'El campo dirección es obligatorio.',
+        'message.required' => 'El campo mensaje es obligatorio.',
+      ];
+      $request->validate($reglasValidacion, $mensajes);
+      $formlanding = Message::create($data);
+      $this->envioCorreo($formlanding);
+      $this->envioCorreoInterno($formlanding);
+      // return redirect()->route('landingaplicativos', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
+      return response()->json(['message' => 'Mensaje enviado con exito']);
+    } catch (ValidationException $e) {
+      return response()->json(['message' => $e->validator->errors()], 400);
     }
+  }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Index $index)
-    {
-        //
-    }
+  private function envioCorreo($data)
+  {
+    $name = $data['full_name'];
+    $mail = EmailConfig::config($name);
+    $generales = General::all()->first();
+    $instagram = $generales->instagram;
 
-    /**
-     * Save contact from blade
-     */
-    public function guardarContacto(Request $request)
-    {
-        //Del modelo
-        //'full_name', 'email', 'phone', 'message', 'status', 'is_read'
-        $data = $request->all();
-        $data['full_name'] = $request->name . ' ' . $request->last_name;
-
-        try {
-            $reglasValidacion = [
-                'name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
-                'address' => 'required|string|max:255',
-                'phone' => 'required|string|max:99999999999',
-                'message' => 'required|string|max:255',
-            ];
-            $mensajes = [
-                'name.required' => 'El campo nombre es obligatorio.',
-                'last_name.required' => 'El campo apellido es obligatorio.',
-                'email.required' => 'El campo correo electrónico es obligatorio.',
-                'email.email' => 'El formato del correo electrónico no es válido.',
-                'email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
-                'phone.required' => 'El campo teléfono es obligatorio.',
-                'phone.integer' => 'El campo teléfono debe ser un número entero.',
-                'address.required' => 'El campo dirección es obligatorio.',
-                'message.required' => 'El campo mensaje es obligatorio.',
-            ];
-            $request->validate($reglasValidacion, $mensajes);
-            $formlanding = Message::create($data);
-            $this->envioCorreo($formlanding);
-            $this->envioCorreoInterno($formlanding);
-            // return redirect()->route('landingaplicativos', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
-            return response()->json(['message' => 'Mensaje enviado con exito']);
-        } catch (ValidationException $e) {
-            return response()->json(['message' => $e->validator->errors()], 400);
-        }
-    }
-
-    private function envioCorreo($data)
-    {
-        $name = $data['full_name'];
-        $mail = EmailConfig::config($name);
-        $generales = General::all()->first();
-        $instagram = $generales->instagram;
-
-        try {
-            $mail->addAddress($data['email']);
-            $mail->Body =
-                '
+    try {
+      $mail->addAddress($data['email']);
+      $mail->Body =
+        '
             <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -223,8 +402,8 @@ class IndexController extends Controller
                 "
               >
                 <span style="display: block">' .
-                $name .
-                ' </span>
+        $name .
+        ' </span>
               </p>
             </td>
           </tr>
@@ -291,22 +470,22 @@ class IndexController extends Controller
           <tr>
               <td style="padding: 10px 0">
               <a href="https://' .
-                htmlspecialchars($generales->instagram, ENT_QUOTES, 'UTF-8') .
-                '" target="_blank"><img src="https://cirugiasdelima.com/mail/instagram0.png" alt="instagram" /></a>
+        htmlspecialchars($generales->instagram, ENT_QUOTES, 'UTF-8') .
+        '" target="_blank"><img src="https://cirugiasdelima.com/mail/instagram0.png" alt="instagram" /></a>
               <a href="https://' .
-                htmlspecialchars($generales->facebook, ENT_QUOTES, 'UTF-8') .
-                '" target="_blank"><img src="https://cirugiasdelima.com/mail/facebook0.png" alt="facebook" /></a>
+        htmlspecialchars($generales->facebook, ENT_QUOTES, 'UTF-8') .
+        '" target="_blank"><img src="https://cirugiasdelima.com/mail/facebook0.png" alt="facebook" /></a>
               <a href="https://' .
-                htmlspecialchars($generales->linkedin, ENT_QUOTES, 'UTF-8') .
-                '" target="_blank"><img src="https://cirugiasdelima.com/mail/linkedin0.png" alt="linkedin" /></a>
+        htmlspecialchars($generales->linkedin, ENT_QUOTES, 'UTF-8') .
+        '" target="_blank"><img src="https://cirugiasdelima.com/mail/linkedin0.png" alt="linkedin" /></a>
               <a href="https://' .
-                htmlspecialchars($generales->tiktok, ENT_QUOTES, 'UTF-8') .
-                '" target="_blank"><img src="https://cirugiasdelima.com/mail/tiktok0.png" alt="linkedin" /></a>
+        htmlspecialchars($generales->tiktok, ENT_QUOTES, 'UTF-8') .
+        '" target="_blank"><img src="https://cirugiasdelima.com/mail/tiktok0.png" alt="linkedin" /></a>
               <a href="https://api.whatsapp.com/send?phone=' .
-                htmlspecialchars($generales->whatsapp, ENT_QUOTES, 'UTF-8') .
-                '&text=' .
-                htmlspecialchars($generales->mensaje_whatsapp, ENT_QUOTES, 'UTF-8') .
-                '" target="_blank"><img src="https://cirugiasdelima.com/mail/whatsapp_1.png" alt="whatsapp" /></a>
+        htmlspecialchars($generales->whatsapp, ENT_QUOTES, 'UTF-8') .
+        '&text=' .
+        htmlspecialchars($generales->mensaje_whatsapp, ENT_QUOTES, 'UTF-8') .
+        '" target="_blank"><img src="https://cirugiasdelima.com/mail/whatsapp_1.png" alt="whatsapp" /></a>
               </td>
           </tr>
           <tr>
@@ -321,12 +500,12 @@ class IndexController extends Controller
 
 </html>
 ';
-            $mail->isHTML(true);
-            $mail->send();
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+      $mail->isHTML(true);
+      $mail->send();
+    } catch (\Throwable $th) {
+      //throw $th;
     }
+  }
 
 
 
@@ -334,16 +513,16 @@ class IndexController extends Controller
 
 
 
-    private function envioCorreoInterno($data)
-    {
-        $name = $data['full_name'];
-        $mail = EmailConfig::config($name);
-        $emailCliente = General::all()->first();
-    
-        try {
-            $mail->addAddress($emailCliente->email);
-            $mail->Body =
-                '
+  private function envioCorreoInterno($data)
+  {
+    $name = $data['full_name'];
+    $mail = EmailConfig::config($name);
+    $emailCliente = General::all()->first();
+
+    try {
+      $mail->addAddress($emailCliente->email);
+      $mail->Body =
+        '
 <html lang="en">
 
 <head>
@@ -416,8 +595,8 @@ class IndexController extends Controller
                                 margin: 30px 0;
                               ">
                             <span style="display: block">' .
-                $name .
-                ' </span>
+        $name .
+        ' </span>
                         </p>
                     </td>
                 </tr>
@@ -454,10 +633,10 @@ class IndexController extends Controller
 </html>
 
 ';
-            $mail->isHTML(true);
-            $mail->send();
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+      $mail->isHTML(true);
+      $mail->send();
+    } catch (\Throwable $th) {
+      //throw $th;
     }
+  }
 }

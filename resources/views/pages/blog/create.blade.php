@@ -1,7 +1,7 @@
 <x-app-layout>
    
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-    <form action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data">
+    <form id="form-create-post" action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="col-span-full xl:col-span-8 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
             <header class="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
@@ -32,10 +32,17 @@
                                                 </div>
                                             </div>
 
+                                    <div class="md:col-span-5">
+                                        <label for="extracto">Extracto</label>
+                                        <div class="relative mb-2  mt-2">
+                                            <textarea type="text" id="extracto" name="extracto" value="" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nombre"></textarea>
+                                        </div>
+                                    </div>
+
                                             <div class="md:col-span-5">
                                                 <label for="imagen">Imagen principal</label>
                                                 <div class="relative mb-2  mt-2">
-                                                    <input id="imagen" name="imagen" class="p-2.5 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file">
+                                                    <input id="image" name="image" class="p-2.5 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file"  accept="image/*" required>
                                                 </div>
                                             </div>
 
@@ -81,5 +88,48 @@
 
     })
 </script>
+    <script>
+        $(document).ready(function() {
+            $('#form-create-post').submit(function(e) {
+                e.preventDefault();  // Prevenir el envío del formulario por defecto
+
+                $.ajax({
+                    url: '{{ route("blog.store") }}',  // Asegúrate de que esta URL esté bien
+                    type: 'POST',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // Si la validación es correcta, se redirige automáticamente.
+                        // Si ocurre otro tipo de error
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Nuevo Post Creado',
+                            text: 'Continuemos creando...'
+                        });
+                        window.location.href = '/admin/blog';  // O la URL que desees para el índice
+                    },
+                    error: function(xhr) {
+                        // Si la validación falla, se muestra el mensaje con SweetAlert
+                        if (xhr.responseJSON.error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: '¡Error en la validación!',
+                                text: xhr.responseJSON.message  // Muestra los errores de validación
+                            });
+                        } else {
+                            // Si ocurre otro tipo de error
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: xhr.responseJSON.message || 'Hubo un error desconocido.'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
 
 </x-app-layout>

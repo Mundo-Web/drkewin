@@ -87,11 +87,7 @@ class LogosClientController extends Controller
 
         $post->title = $request->title;
         $post->description = $request->description;
-        
         $post->status = 1;
-
-       
-
         $post->save();
         return redirect()->route('logos.index')->with('success', 'Publicación creado exitosamente.');
     }

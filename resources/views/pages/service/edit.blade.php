@@ -66,6 +66,15 @@
                 </div>
               </div>
 
+              <div class="md:col-span-5">
+                <label for="process">Descripción del proceso</label>
+                <div class="relative mb-2 mt-2">
+                  <textarea type="text" rows="2" id="process" name="process"
+                    class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Descripción del proceso">{{ $servicios->process }}</textarea>
+                </div>
+              </div>
+
 
               <div class="md:col-span-5">
                 <label for="description">Imagen de servicio (808x445 px)</label>
@@ -305,6 +314,20 @@
 
       tinymce.init({
         selector: 'textarea#description',
+        height: 500,
+        plugins: [
+          'advlist', 'autolink', 'lists', 'link', 'charmap', 'preview',
+          'searchreplace', 'visualblocks', 'code', 'fullscreen',
+          'insertdatetime', 'table'
+        ],
+        toolbar: 'undo redo | blocks | ' +
+          'bold italic backcolor | alignleft aligncenter ' +
+          'alignright alignjustify | bullist numlist outdent indent | ' +
+          'removeformat | help',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px;}'
+      });
+       tinymce.init({
+        selector: 'textarea#process',
         height: 500,
         plugins: [
           'advlist', 'autolink', 'lists', 'link', 'charmap', 'preview',

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->text('extracto')->nullable();
             $table->text('description')->nullable();
+            $table->text('process')->nullable();
             $table->string('url_image')->nullable();
             $table->string('name_image')->nullable();
             $table->string('link')->nullable();

@@ -29,9 +29,12 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-         <!-- TinyMCE -->
-        <script src="https://cdn.tiny.cloud/1/i2lf2egqns56ftu0812lpnih9nl0vnndkgjjeun1bhg24xsp/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+         <!-- TinyMCE   -->
 
+
+        <!-- <script src="https://cdn.tiny.cloud/1/i2lf2egqns56ftu0812lpnih9nl0vnndkgjjeun1bhg24xsp/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>-->
+
+        <script src="https://cdn.tiny.cloud/1/0ivxwwh4ikqrvmr5gbv61vf2xxpax8guf0jn0had0m9n443d/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 

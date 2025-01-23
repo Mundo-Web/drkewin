@@ -54,9 +54,9 @@
                     <p class="font-medium text-text16 xl:text-text20">Enlaces</p>
                     <div class="flex flex-col gap-2">
                         <a href="{{route('index')}}" class="font-normal text-text14 xl:text-text18 block">Inicio</a>
-                        <a href="{{route('index').'#servicios'}}" class="font-normal text-text14 xl:text-text18 block">Servicios</a>
-                        <a href="{{route('index').'#acerca'}}" class="font-normal text-text14 xl:text-text18 block">Acerca del Doctor</a>
-                        <a href="{{route('index').'#proceso'}}" class="font-normal text-text14 xl:text-text18 block">Proceso</a>
+                        <a href="{{route('servicios')}}" class="font-normal text-text14 xl:text-text18 block">Servicios</a>
+                        <a href="{{route('nosotros')}}" class="font-normal text-text14 xl:text-text18 block">Acerca del Doctor</a>
+                        <a href="{{route('blogs')}}" class="font-normal text-text14 xl:text-text18 block">Blogs</a>
                     </div>
                 </div>
                 <div class="flex flex-col gap-5">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
+use App\Models\Album;
 use App\Models\ClientLogos;
 use App\Models\General;
 use App\Models\Service;
@@ -50,11 +51,103 @@ class ServiceController extends Controller
   /**
    * Store a newly created resource in storage.
    */
+    public function store(Request $request)
+    {
 
-  public function store(Request $request)
+        // Paso 1: Validación de la solicitud
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'imagen' => 'required|image', // Validación para el SVG
+        ]);
+
+        // Paso 2: Crear y guardar el servicio (si hay imagen SVG)
+        $service = new Service();
+
+        try {
+            // Si la solicitud tiene un archivo de imagen
+            if ($request->hasFile('imagen')) {
+                // Obtener el archivo SVG
+                $file = $request->file('imagen');
+                $routeImg = 'storage/images/svgs/';
+                $nombreImagen = Str::random(10) . '_' . $file->getClientOriginalName();
+
+                // Guardar el archivo SVG
+
+                $this->saveImg($file, $routeImg, $nombreImagen);
+
+                // Establecer la URL de la imagen SVG
+                $service->url_image = $routeImg . $nombreImagen;
+            }
+
+            // Guardar el resto de los datos del servicio
+            $service->link = $request->link;
+            $service->title = $request->title;
+            $service->description = $request->description;
+            $service->process = $request->process;
+            $service->extracto = $request->extracto;
+
+            // Beneficios (puedes agregar más si es necesario)
+            $service->name_beneficio1 = $request->name_beneficio1;
+            $service->description_beneficio1 = $request->description_beneficio1;
+            $service->name_beneficio2 = $request->name_beneficio2;
+            $service->description_beneficio2 = $request->description_beneficio2;
+            $service->name_beneficio3 = $request->name_beneficio3;
+            $service->description_beneficio3 = $request->description_beneficio3;
+            $service->name_beneficio4 = $request->name_beneficio4;
+            $service->description_beneficio4 = $request->description_beneficio4;
+
+            // Estado y visibilidad
+            $service->status = 1; // Por ejemplo, activo
+            $service->visible = 1; // Visible
+
+            // Guardar el servicio
+            $service->save();
+
+            // Paso 3: Crear la carpeta principal "Especialidades" si no existe
+            $especialidadesAlbum = Album::firstOrCreate([
+                'name' => 'Especialidades',
+            ], [
+                'description' => 'Contenedor principal para las especialidades.',
+            ]);
+
+
+            // Paso 4: Crear la carpeta principal en el sistema de archivos si no existe
+            $mainFolder = 'Especialidades';
+            $pathMainFolder = public_path('storage/images/albums/' . $mainFolder);
+            if (!is_dir($pathMainFolder)) {
+                mkdir($pathMainFolder, 0777, true); // Crear la carpeta principal
+            }
+           ;
+            // Paso 5: Crear la subcarpeta con el nombre de la especialidad (por ejemplo "Problemas de Cirugías")
+            $subFolder = $request->title;
+            $pathSubFolder = $pathMainFolder . '/' . $subFolder;
+            if (!is_dir($pathSubFolder)) {
+                mkdir($pathSubFolder, 0777, true); // Crear la subcarpeta
+            }
+
+            // Paso 6: Crear el álbum de la especialidad y asociarlo con la carpeta principal
+
+            $album = Album::updateOrCreate([
+                'name' => ucfirst(strtolower($request->title)), // Primer palabra en mayúscula
+            ],[
+                'parent_id' => $especialidadesAlbum->id, // Asociar como hijo de "Especialidades"
+            ]);
+
+            // Paso 7: Redirigir con mensaje de éxito
+            return redirect()->route('servicios.index')->with('success', 'Servicio creado exitosamente.');
+        } catch (\Throwable $th) {
+            // Paso 8: Manejo de excepciones
+         
+            return response()->json(['message' => 'Error al procesar la solicitud. ' . $th->getMessage()], 400);
+        }
+    }
+
+  public function storeJordan(Request $request)
   {
+
     $request->validate([
       'title' => 'required',
+        'imagen'=>'required|image|mimes:svg|',
     ]);
 
     //tamaño imagenes 808x445
@@ -63,7 +156,7 @@ class ServiceController extends Controller
     try {
       if ($request->hasFile('imagen')) {
         $file = $request->file('imagen');
-        $routeImg = 'storage/images/imagen/';
+        $routeImg = 'storage/images/svgs/';
         $nombreImagen = Str::random(10) . '_' . $file->getClientOriginalName();
         $this->saveImg($file, $routeImg, $nombreImagen);
         $service->url_image = $routeImg . $nombreImagen;
@@ -93,6 +186,31 @@ class ServiceController extends Controller
       $service->visible = 1;
 
       $service->save();
+        //Buscar el álbum "Especialidades" o crearlo si no existe
+        $especialidadesAlbum = Album::firstOrCreate([
+            'name' => 'Especialidades',
+        ], [
+            'description' => 'Contenedor principal para las especialidades.',
+        ]);
+        // Crear la carpeta principal "Especialidades" si no existe
+        $mainFolder = 'Especialidades';
+        $pathMainFolder = storage_path('app/public/images/albums/' . $mainFolder);
+        if (!is_dir($pathMainFolder)) {
+            mkdir($pathMainFolder, 0777, true); // Crear la carpeta principal
+        }
+
+        // Crear la subcarpeta con el nombre de la especialidad (por ejemplo "Problemas de Cirugías")
+        $subFolder = $request->name;
+        $pathSubFolder = $pathMainFolder . '/' . $subFolder;
+        if (!is_dir($pathSubFolder)) {
+            mkdir($pathSubFolder, 0777, true); // Crear la subcarpeta
+        }
+        // Crear el álbum (subcarpeta) de la especialidad
+        $album = Album::create([
+            'name' => ucfirst(strtolower($request->title)),
+            // Asociar la especialidad con la carpeta principal (Especialidades)
+            'parent_id' => $especialidadesAlbum->id,
+        ]);
 
       return redirect()->route('servicios.index')->with('success', 'Servicio creado exitosamente.');
     } catch (\Throwable $th) {
@@ -134,8 +252,13 @@ class ServiceController extends Controller
   public function update(Request $request, $id)
   {
     $service = Service::findOrfail($id);
+
+      // Guardar el título anterior para actualizar el álbum y la carpeta
+    $oldTitle = $service->title;
+
     $service->title = $request->title;
     $service->description = $request->description;
+    $service->process=$request->process;
     $service->extracto = $request->extracto;
 
     try {
@@ -170,6 +293,8 @@ class ServiceController extends Controller
 
       /*  */
       $service->save();
+      // Actualizar el álbum y la carpeta en el sistema de archivos
+        $this->updateAlbumAndFolder($oldTitle, $service->title);
 
       return redirect()->route('servicios.index')->with('success', 'Servicio actualizado exitosamente.');
     } catch (\Throwable $th) {
@@ -178,6 +303,16 @@ class ServiceController extends Controller
     }
   }
 
+  private function updateAlbumAndFolder($oldTitle, $newTitle)
+{
+    // Actualizar el título del álbum en la base de datos
+    $album = Album::where('name', ucfirst(strtolower($oldTitle)))->first();
+    if ($album) {
+        $album->name = ucfirst(strtolower($newTitle));
+        $album->save();
+    }
+
+}
   /**
    * Remove the specified resource from storage.
    */

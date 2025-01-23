@@ -443,9 +443,9 @@
                         </a>
 
                         <!-- <a href="#imc"
-                            class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
-                            Calcula tu IMC
-                        </a> -->
+                                                class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
+                                                Calcula tu IMC
+                                            </a> -->
                     </div>
 
                     <div class="flex flex-col gap-5">
@@ -502,12 +502,20 @@
                     </div>
                 </div>
 
-                <div class="image-container flex justify-center items-center basis-1/2 relative md:mt-24"><!-- md:mt-24 - mt-12  xl:mt-32-->
+                <div class="image-container flex justify-center items-center basis-1/2 relative md:mt-24">
+                    <!-- md:mt-24 - mt-12  xl:mt-32-->
                     <div class="hidden md:flex flex-col justify-end h-full items-end">
-                        <img src="{{ asset('images/img/doctor_kewin_2.png') }}" alt="doctor Kewin" class="w-[95%]">
+                        <img src="{{ asset('images/img/doctor_kewin_2.png') }}" alt="doctor Kewin" class="w-[95%]"
+                            loading="lazy" />
                     </div>
                     <div class="relative md:absolute bottom-0">
-                        <img src="{{ asset('images/img/doctor_kewin_1.png') }}" alt="doctor kevin" class="h-full w-full">
+                        @if ($perfil)
+                            <img src="{{ asset($perfil->url_image) }}" alt="Dr. Kewin" class="h-full w-full"
+                                loading="lazy" />
+                        @else
+                            <p>No hay imagen disponible para el perfil.</p>
+                        @endif
+
                     </div>
                 </div>
             </div>
@@ -539,13 +547,15 @@
 
             <div class="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-10 ">
                 @foreach ($servicios as $servicio)
-                    <div class="flex flex-col justify-start  gap-5 text-textAzul bg-bgRosa rounded-3xl py-16  group relative">
+                    <div
+                        class="flex flex-col justify-start  gap-5 text-textAzul bg-bgRosa rounded-3xl py-16  group relative">
                         <div class="flex flex-col justify-center items-center gap-3 ">
 
                             <div class="relative">
                                 <div class="flex justify-center items-center">
                                     <img src="{{ asset($servicio->url_image) }}"
-                                        alt="{{ substr(strrchr($servicio->url_image, '_'), 1) }}" class="w-[96px] h-[96px] rounded-full">
+                                        alt="{{ substr(strrchr($servicio->url_image, '_'), 1) }}"
+                                        class="w-[96px] h-[96px] rounded-full bg-bgAzul" />
                                 </div>
                             </div>
 
@@ -573,36 +583,39 @@
                 <div class="swiper  enfermedades ">
                     <div class="swiper-wrapper">
                         @foreach ($servicios as $servicio)
-                        <div class="swiper-slide">
-                            <div class="flex flex-col justify-start  gap-5 text-textAzul bg-bgRosa rounded-3xl py-16  group relative">
-                                <div class="flex flex-col justify-center items-center gap-3 ">
+                            <div class="swiper-slide">
+                                <div
+                                    class="flex flex-col justify-start  gap-5 text-textAzul bg-bgRosa rounded-3xl py-16  group relative">
+                                    <div class="flex flex-col justify-center items-center gap-3 ">
 
-                                    <div class="relative">
-                                        <div class="flex justify-center items-center">
-                                            <img src="{{ asset($servicio->url_image) }}"
-                                                alt="{{ substr(strrchr($servicio->url_image, '_'), 1) }}" class="w-[96px] h-[96px] rounded-full">
+                                        <div class="relative">
+                                            <div class="flex justify-center items-center">
+                                                <img src="{{ asset($servicio->url_image) }}"
+                                                    alt="{{ substr(strrchr($servicio->url_image, '_'), 1) }}"
+                                                    class="w-[96px] h-[96px] rounded-full bg-bgAzul" loading="lazy" />
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class=" flex flex-col gap-5 text-center items-center">{{-- se agrego : items-center --}}
-                                        <h2 class="font-bold text-text32 xl:text-text36 w-full md:w-2/3 mx-auto px-5">
-                                            {{ $servicio->title }}
-                                        </h2>
-                                        <p class="font-medium text-text16 xl:text-text20 px-5">
-                                            {!! $servicio->extracto !!}<!-- {!! Str::limit($servicio->extracto, 250) !!} -->
-                                        </p>
+                                        <div class=" flex flex-col gap-5 text-center items-center">{{-- se agrego : items-center --}}
+                                            <h2 class="font-bold text-text32 xl:text-text36 w-full md:w-2/3 mx-auto px-5">
+                                                {{ $servicio->title }}
+                                            </h2>
+                                            <p class="font-medium text-text16 xl:text-text20 px-5">
+                                                {!! $servicio->extracto !!}<!-- {!! Str::limit($servicio->extracto, 250) !!} -->
+                                            </p>
 
-                                        <div class="flex justify-center items-center absolute -bottom-[25px] md:w-auto">
-                                            <a href="{{ route('servicios', $servicio->id) }}"
-                                                class="bg-bgCeleste py-3 px-10 rounded-xl inline-block text-center text-textWhite font-semibold text-text16 xl:text-text20 w-full md:w-auto group-hover:bg-bgAzul md:duration-500">
-                                                Ver más
-                                            </a>
+                                            <div
+                                                class="flex justify-center items-center absolute -bottom-[25px] md:w-auto">
+                                                <a href="{{ route('servicios', $servicio->id) }}"
+                                                    class="bg-bgCeleste py-3 px-10 rounded-xl inline-block text-center text-textWhite font-semibold text-text16 xl:text-text20 w-full md:w-auto group-hover:bg-bgAzul md:duration-500">
+                                                    Ver más
+                                                </a>
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
 
                     </div>
@@ -622,22 +635,28 @@
                         </p>
                         <h2 class="font-bold text-[40px] md:text-text56  leading-tight">
                             <!-- Explora el Mundo de la Gastroenterología con el Dr. Kewin -->
-                            Su compromiso con la seguridad y la calidad en cada procedimiento asegura el éxito en tu cirugía.
+                            Su compromiso con la seguridad y la calidad en cada procedimiento asegura el éxito en tu
+                            cirugía.
 
                         </h2>
                     </div>
                     <div class="md:basis-1/2 flex flex-col gap-4">
                         <p class="font-medium text-text16 xl:text-text22 text-justify">
-                            El Dr. Quispe de la Roca ha construido una carrera basada en una formación académica rigurosa y una amplia experiencia quirúrgica. Su enfoque centrado en el paciente ofrece una atención personalizada que considera las necesidades y preocupaciones únicas de cada persona.
+                            El Dr. Quispe de la Roca ha construido una carrera basada en una formación académica rigurosa y
+                            una amplia experiencia quirúrgica. Su enfoque centrado en el paciente ofrece una atención
+                            personalizada que considera las necesidades y preocupaciones únicas de cada persona.
 
                         </p>
 
                         <p class="font-medium text-text16 xl:text-text22 text-justify">
-                            Su habilidad para comunicar claramente los procedimientos y expectativas hace que los pacientes se sientan seguros y apoyados. Está dedicado a brindar un cuidado integral que abarca desde la evaluación inicial hasta la recuperación postoperatoria.
+                            Su habilidad para comunicar claramente los procedimientos y expectativas hace que los pacientes
+                            se sientan seguros y apoyados. Está dedicado a brindar un cuidado integral que abarca desde la
+                            evaluación inicial hasta la recuperación postoperatoria.
                         </p>
 
                         <p class="font-medium text-text16 xl:text-text22 text-justify">
-                            Su dedicación y habilidades excepcionales lo convierten en el especialista ideal para guiarte hacia tu bienestar.
+                            Su dedicación y habilidades excepcionales lo convierten en el especialista ideal para guiarte
+                            hacia tu bienestar.
                         </p>
                     </div>
                 </div>
@@ -682,7 +701,7 @@
                 </div>
             </div>
         </section>
-
+        <!--Proceso-->
         <section id="proceso">
             <div class="flex flex-col md:flex-row w-11/12 mx-auto gap-10">
                 <div class="basis-1/2 order-2 md:order-1 flex flex-col justify-between" data-aos="fade-up"
@@ -695,7 +714,9 @@
                     </h2>
                     <p class="font-medium text-text18 xl:text-text22 text-textAzul" data-aos="fade-up"
                         data-aos-offset="150">
-                        Para ser candidato a una cirugía, necesitas una evaluación médica completa, estudios diagnósticos, y evaluaciones preoperatorias para asegurar que estás en condiciones óptimas y bien informado sobre el procedimiento quirúrgico indicado. Aquí te cuento todo el proceso.
+                        Para ser candidato a una cirugía, necesitas una evaluación médica completa, estudios diagnósticos, y
+                        evaluaciones preoperatorias para asegurar que estás en condiciones óptimas y bien informado sobre el
+                        procedimiento quirúrgico indicado. Aquí te cuento todo el proceso.
                     </p>
 
                     <ul class="text-textAzul" data-aos="fade-up" data-aos-offset="150">
@@ -721,7 +742,9 @@
                                         </h3>
 
                                         <p class="font-normal text-text16 xl:text-text20">
-                                            Necesitas una evaluación médica completa, incluyendo historia clínica, examen físico y estudios diagnósticos para determinar tu estado de salud general y específico.
+                                            Necesitas una evaluación médica completa, incluyendo historia clínica, examen
+                                            físico y estudios diagnósticos para determinar tu estado de salud general y
+                                            específico.
                                         </p>
                                     </div>
                                 </div>
@@ -749,7 +772,9 @@
                                         </h3>
 
                                         <p class="font-normal text-text16 xl:text-text20">
-                                            Requiere consultas con especialistas en cardiología y anestesiología, además de pruebas sanguíneas adicionales para asegurar que estás en condiciones óptimas para la cirugía.
+                                            Requiere consultas con especialistas en cardiología y anestesiología, además de
+                                            pruebas sanguíneas adicionales para asegurar que estás en condiciones óptimas
+                                            para la cirugía.
                                         </p>
                                     </div>
                                 </div>
@@ -777,7 +802,9 @@
                                         </h3>
 
                                         <p class="font-normal text-text16 xl:text-text20">
-                                            La cirugía se programará una vez que se hayan cumplido todos los requisitos previos, asegurando una información clara y adecuada respecto a la cirugía, seguido de un plan de recuperación adecuado.
+                                            La cirugía se programará una vez que se hayan cumplido todos los requisitos
+                                            previos, asegurando una información clara y adecuada respecto a la cirugía,
+                                            seguido de un plan de recuperación adecuado.
                                         </p>
                                     </div>
                                 </div>
@@ -793,12 +820,13 @@
                     </div>
                 </div>
                 <div class="basis-1/2 flex justify-center items-center order-1 md:order-2">
-                    <img src="{{ asset('images/img/nueva_imagen_que.jpg') }}" class="h-full object-cover" alt="cirugía de obesidad" /> {{-- aquir --}}
+                    <img src="{{ asset('images/img/nueva_imagen_que.jpg') }}" class="h-full object-cover"
+                        alt="cirugía de obesidad" loading="lazy" /> {{-- aquir --}}
                     {{-- <img src="{{ asset('images/img/image_imc.png') }}" alt="imc" class="h-full"/> --}}
                 </div>
             </div>
         </section>
-
+        <!--IMC-->
         <section id="imc">
 
             <div class="bg-bgRosaWeak" data-aos="fade-up" data-aos-offset="150">
@@ -809,7 +837,7 @@
                         <div class="flex justify-center items-center">
                             <img src="{{ asset('images/img/image_imc.png') }}" alt="imc" />
                             {{-- <img src="{{ asset('images/img/image_imc.png') }}" alt="imc" /> --}}
-                           {{--  <img src="{{ asset('images/img/imc_nueva_imagen.jpg') }}" alt="imc" class="w-[488px] h-[720px]"/> --}}
+                            {{--  <img src="{{ asset('images/img/imc_nueva_imagen.jpg') }}" alt="imc" class="w-[488px] h-[720px]"/> --}}
                         </div>
                     </div>
 
@@ -828,25 +856,25 @@
                                     <div class="flex flex-col gap-5 justify-center items-center front">
                                         <div class="flex flex-col gap-4 w-full">
                                             <label for="peso"
-                                                   class="text-textAzul font-medium text-text14 xl:text-text18">
+                                                class="text-textAzul font-medium text-text14 xl:text-text18">
                                                 Peso (kg):
                                             </label>
                                             <input type="number" id="peso" step="1" placeholder="00 kg"
-                                                   class="bg-bgRosaWeak w-full py-4 rounded-lg px-2 peso border-none" />
+                                                class="bg-bgRosaWeak w-full py-4 rounded-lg px-2 peso border-none" />
                                         </div>
                                         <div class="flex flex-col gap-4 w-full">
                                             <label for="altura"
-                                                   class="text-textAzul font-medium text-text14 xl:text-text18">
+                                                class="text-textAzul font-medium text-text14 xl:text-text18">
                                                 Altura (mts):
                                             </label>
                                             <input type="number" id="altura" step="1" placeholder="00 mts"
-                                                   class="bg-bgRosaWeak w-full py-4 rounded-lg px-2 altura border-none" />
+                                                class="bg-bgRosaWeak w-full py-4 rounded-lg px-2 altura border-none" />
                                         </div>
                                         <!-- <div></div> -->
 
                                         <div class="w-full">
                                             <button type="button"
-                                                    class="bg-bgAzul py-4 px-20 rounded-xl inline-block text-center hover:bg-blue-500 md:duration-500 w-full text-textWhite onButton1 font-semibold text-text18 xl:text-text22 btnCalcular">
+                                                class="bg-bgAzul py-4 px-20 rounded-xl inline-block text-center hover:bg-blue-500 md:duration-500 w-full text-textWhite onButton1 font-semibold text-text18 xl:text-text22 btnCalcular">
                                                 Calcular
                                             </button>
                                         </div>
@@ -862,7 +890,7 @@
                                         </div>
                                         <div class="w-full">
                                             <button type="button"
-                                                    class="bg-bgAzul py-4 rounded-xl text-center hover:bg-blue-500 md:duration-500 w-full text-textWhite font-semibold text-text18 xl:text-text22 btnRegresar px-5">
+                                                class="bg-bgAzul py-4 rounded-xl text-center hover:bg-blue-500 md:duration-500 w-full text-textWhite font-semibold text-text18 xl:text-text22 btnRegresar px-5">
                                                 Calcular de nuevo
                                             </button>
                                         </div>
@@ -879,8 +907,10 @@
                             <div class="flex justify-between p-4 rounded-md bg-red-50 border border-red-300">
                                 <div class="flex gap-2 items-center">
                                     <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                            <path strokeLinecap="round" strokeLinejoin="round"
+                                                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
                                     </div>
                                     <div class="self-center">
@@ -961,7 +991,7 @@
                 </div>
             </div>
         </section>
-
+        <!--Testimonios-->
         <section>
             <div class="w-11/12 mx-auto">
                 <div class="swiper testimonios text-textAzul" data-aos="fade-up" data-aos-offset="150">
@@ -1008,11 +1038,11 @@
 
                                             <img src="{{ $testimonio->url_image_antes }}"
                                                 class="h-[200px] md:h-[400px] absolute opacity-50 md:left-1/3 myBox"
-                                                alt="testimonios" />
+                                                alt="testimonios" loading="lazy" />
 
                                             <img src="{{ $testimonio->url_image_posterior }}"
                                                 class="h-[200px] md:h-[400px] absolute top-1/4 left-1/4 md:left-1/2 z-[1] myBox"
-                                                alt="testimonios" />
+                                                alt="testimonios" loading="lazy" />
 
 
                                         </div>
@@ -1050,7 +1080,8 @@
                                 @foreach ($logos as $logo)
                                     <div class="swiper-slide">
                                         <div class="flex justify-center items-center">
-                                            <img src="{{ asset($logo->url_image) }}" alt="Apebem" class="w-[217px] h-[122px]"/>
+                                            <img src="{{ asset($logo->url_image) }}" alt="Apebem"
+                                                class="w-[217px] h-[122px]" loading="lazy" />
                                         </div>
                                     </div>
                                 @endforeach
@@ -1075,13 +1106,15 @@
             <div class="flex flex-col lg:flex-row lg:w-full mx-auto md:gap-10" data-aos="fade-up" data-aos-offset="150">
                 <div class="basis-1/2 order-2 lg:order-1">
                     <div class="w-full">
-                      {{--   <img src="{{ asset('images/img/doctor.png') }}" class="h-full" alt="doctor kewin" /> --}}
+                        {{--   <img src="{{ asset('images/img/doctor.png') }}" class="h-full" alt="doctor kewin" /> --}}
                         {{-- <img src="{{ asset('images/img/Foto_desktop.png') }}" class=" hidden lg:block" alt="doctor kewin" />
                         <img src="{{ asset('images/img/Foto_mobile.png') }}" class="h-full block lg:hidden" alt="doctor kewin" /> --}}
-                        <img src="{{ asset('images/img/doctor_2.png') }}" class="w-full object-cover" alt="doctor kewin" />
+                        <img src="{{ asset($imagenPortada->url_image) }}" alt="Dr. Kevin"
+                            class=" shadow-md h-[606px] w-full rounded-r-xl object-cover" loading="lazy" />
                     </div>
                 </div>
-                <div class="basis-1/2 flex flex-col gap-5 order-1 lg:order-2 justify-center pb-10 md:pb-0  w-11/12 mx-auto lg:pr-10">
+                <div
+                    class="basis-1/2 flex flex-col gap-5 order-1 lg:order-2 justify-center pb-10 md:pb-0  w-11/12 mx-auto lg:pr-10">
                     <p class="text-textCeleste font-semibold text-text24">
                         Contáctanos
                     </p>
@@ -1092,7 +1125,8 @@
                     </div>
 
                     <div class="">
-                        <form class="flex flex-col gap-5 md:gap-5 font-semibold text-text18 xl:text-text20" id="formContactos">
+                        <form class="flex flex-col gap-5 md:gap-5 font-semibold text-text18 xl:text-text20"
+                            id="formContactos">
                             @csrf
                             <div class="flex flex-col md:flex-row gap-5">
                                 <div class="w-full">
@@ -1224,8 +1258,8 @@
                 centeredSlides: true,
                 initialSlide: 0, // Empieza en el cuarto slide (índice 3) */
                 autoplay: {
-                  delay: 2500,
-                  disableOnInteraction: false,
+                    delay: 2500,
+                    disableOnInteraction: false,
                 },
                 breakpoints: {
                     0: {
@@ -1256,7 +1290,7 @@
             let imc = null;
 
             onCalcular.addEventListener("click", () => {
-                if(peso.value<=0 || altura.value<=0|| altura.value>3){
+                if (peso.value <= 0 || altura.value <= 0 || altura.value > 3) {
                     createAlert("Por favor, ingrese datos válidos");
                     return;
                 }
@@ -1291,12 +1325,12 @@
                 peso.value = "";
                 altura.value = "";
 
-              /*  imc0.classList.remove("bg-green-200");
-                imc1.classList.remove("bg-green-200");
-                imc2.classList.remove("bg-green-200");
-                imc3.classList.remove("bg-red-200");
-                imc4.classList.remove("bg-red-200");
-                imc5.classList.remove("bg-red-200");*/
+                /*  imc0.classList.remove("bg-green-200");
+                  imc1.classList.remove("bg-green-200");
+                  imc2.classList.remove("bg-green-200");
+                  imc3.classList.remove("bg-red-200");
+                  imc4.classList.remove("bg-red-200");
+                  imc5.classList.remove("bg-red-200");*/
 
                 imc0.classList.add("hidden");
 

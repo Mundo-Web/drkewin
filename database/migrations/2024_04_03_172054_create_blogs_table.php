@@ -16,6 +16,11 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
 
             $table->string('title');
+
+            //add news columns
+            $table->string('slug');
+            $table->text('extracto');
+
             $table->text('description');
             $table->string('url_image')->nullable();
             $table->string('name_image')->nullable();

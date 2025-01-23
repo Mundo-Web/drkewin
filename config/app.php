@@ -155,7 +155,7 @@ return [
     |
     */
 
-    'providers' => ServiceProvider::defaultProviders()->merge([
+    'providers' => ServiceProvider::defaultProviders()->merge(providers: [
         /*
          * Package Service Providers...
          */
@@ -172,8 +172,8 @@ return [
         App\Providers\JetstreamServiceProvider::class,
         
         //Add Image Intervention
-          
-        //Intervention\Image\ImageServiceProvider::class,
+
+     //    Intervention\Image\ImageServiceProvider::class,
 
     ])->toArray(),
 
@@ -192,7 +192,7 @@ return [
         // 'Example' => App\Facades\Example::class,
 
         //Add Image Intervention
-        //'Image' => Intervention\Image\Facades\Image::class,
+       // 'Image' => Intervention\Image\Facades\Image::class,
     ])->toArray(),
 
 ];
