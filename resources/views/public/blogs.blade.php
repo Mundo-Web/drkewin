@@ -120,16 +120,17 @@
 {{-- style="background-image: url({{asset('images/img/Hero_Doctor_mobile.png')}})" --}}
 @section('content')
     <main class="flex flex-col gap-10  bg-white font-outfit">
-        <div class="h-[122px] w-full bg-bgAzulStrong"></div>
+
 
         <!-- Blog Principal -->
-        <section class="pt-6 md:pt-12 bg-white mt-4 md:mt-10 w-11/12 mx-auto">
+        <section class="pt-6 md:pt-12 lg:pt-44 bg-white mt-4 md:mt-10 w-11/12  md:max-w-6xl mx-auto">
             <h2 class="text-textAzul font-bold text-start text-text20">Descubre lo nuevo en Medicina</h2>
             <h1 class="text-text56 font-bold text-textAzul text-start mb-8">Nuestro Blog de artículos</h1>
             <div class="flex flex-col md:flex-row items-start gap-8">
                 <!-- Artículo principal -->
-                <div class="md:w-3/5 bg-bgRosa overflow-hidden rounded-xl">
-                    <img src="{{ asset($latestPost->url_image) }}" alt="{{ $latestPost->name_image }}" loading="lazy" />
+                <div class="md:w-3/5  bg-bgRosa overflow-hidden rounded-xl" data-aos="fade-up" data-aos-offset="150">
+                    <img src="{{ asset($latestPost->url_image) }}" alt="{{ $latestPost->name_image }}" loading="lazy"
+                        class="h-[340px] w-full" />
                     <div class="p-6 ">
                         <h3 class="text-text24 font-bold text-textAzul mb-2">{{ $latestPost->title }}</h3>
                         <div class="line-clamp-2   text-textAzul text-text16 mb-4 ">
@@ -143,13 +144,13 @@
                 </div>
 
                 <!-- Últimos Posts -->
-                <div class="md:w-2/5">
+                <div class="md:w-2/5" data-aos="fade-up" data-aos-offset="150">
                     <h3 class="text-text24 font-bold text-textAzul mb-4">Últimos posts</h3>
                     <ul class="space-y-4">
                         @foreach ($otherPosts as $otherPost)
                             <li class="bg-bgRosa rounded-xl overflow-hidden flex items-center justify-between">
                                 <div class="w-7/12 p-4 ">
-                                    <p class="text-textAzul font-bold mb-4">{{ $otherPost->title }}</p>
+                                    <p class="text-textAzul font-bold mb-4 line-clamp-2">{{ $otherPost->title }}</p>
                                     <a href="{{ route('detalle-post', $otherPost->slug) }}"
                                         class="text-white bg-bgCeleste py-1 px-3 rounded-xl text-text16">Leer más</a>
                                 </div>
@@ -166,8 +167,8 @@
         </section>
 
         <!-- Últimas publicaciones -->
-        <section class="p-6 md:p-12 bg-white">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+        <section class="p-6 md:p-12 bg-white " data-aos="fade-up" data-aos-offset="150">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12 w-11/12  md:max-w-6xl mx-auto">
                 <div class="w-full md:w-3/6">
                     <h2 class="text-textCeleste text-text20 font-semibold text-start">Descubre lo nuevo en tecnología</h2>
                     <h1 class="text-text48 font-bold text-textAzul text-start mb-4 ">Últimas publicaciones</h1>
@@ -196,7 +197,7 @@
 
                 </div>
             </div>
-            <div id="posts" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div id="posts" class="grid grid-cols-1 md:grid-cols-3 gap-6 w-11/12  md:max-w-6xl mx-auto">
 
                 @include('public.filtro_posts', ['posts' => $allPosts])
                 <!-- Tarjetas de publicaciones -->
@@ -206,8 +207,8 @@
         </section>
 
         <!-- Suscripción -->
-        <section class="bg-bgCeleste py-14 text-white text-center">
-            <div class=" w-11/12 mx-auto flex flex-col md:flex-row gap-4 items-center ">
+        <section class="bg-bgCeleste py-14 text-white text-center" data-aos="fade-up" data-aos-offset="150">
+            <div class=" w-11/12  md:max-w-6xl mx-auto flex flex-col md:flex-row gap-4 items-center ">
                 <div class="md:w-1/2 text-start">
                     <h2 class="text-text20 font-semibold ">¡Tu camino hacia una vida más saludable comienza ahora!</h2>
                     <h1 class="text-text40 md:text-text60 font-bold ">¡Déjanos tu correo y recibe la mejor info!</h1>

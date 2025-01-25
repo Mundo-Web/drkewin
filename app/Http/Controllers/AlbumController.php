@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
 
 class AlbumController extends Controller
 {
@@ -24,10 +25,7 @@ class AlbumController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
-    {
-
-    }
+    public function create(Request $request) {}
 
     /**
      * Store a newly created resource in storage.
@@ -86,7 +84,7 @@ class AlbumController extends Controller
                 'message' => 'Imagen eliminada correctamente.'
             ]);
         } catch (\Exception $e) {
-            \Log::error('Error al eliminar imagen: ' . $e->getMessage());
+            // Log::error('Error al eliminar imagen: ' . $e->getMessage());
 
             return response()->json([
                 'success' => false,
@@ -99,6 +97,11 @@ class AlbumController extends Controller
     {
         $request->validate([
             'images.*' => 'required|image|mimes:png,jpg|max:2048', // Validar todas las imágenes
+        ], [
+            'images.*.required' => 'Por favor selecciona al menos una imagen para cargar.',
+            'images.*.image' => 'El archivo debe ser una imagen válida.',
+            'images.*.mimes' => 'Solo se permiten imágenes con formato PNG o JPG.',
+            'images.*.max' => 'El tamaño máximo permitido por imagen es 10MB.',
         ]);
 
         if ($request->hasFile('images')) {
@@ -129,10 +132,57 @@ class AlbumController extends Controller
                 ]);
             }
 
-            return redirect()->route('albums.show', $album->id)->with('success', 'Imágenes subidas correctamente.');
+            return redirect()->route('albums.show', $album->id)->with('success', 'Imágenes subidas y optimizadas correctamente.');
         }
 
         return back()->with('error', 'No se pudo subir las imágenes.');
     }
+    /*  public function uploadImages(Request $request, Album $album)
+    {
+        $request->validate([
+            'images.*' => 'required|image|mimes:png,jpg|max:20480', // Aumentado a 10 MB
+        ], [
+            'images.*.required' => 'Por favor selecciona al menos una imagen para cargar.',
+            'images.*.image' => 'El archivo debe ser una imagen válida.',
+            'images.*.mimes' => 'Solo se permiten imágenes con formato PNG o JPG.',
+            'images.*.max' => 'El tamaño máximo permitido por imagen es 10MB.',
+        ]);
 
+        if ($request->hasFile('images')) {
+
+            $manager = new ImageManager(new Driver());
+
+            foreach ($request->file('images') as $file) {
+                if (!$file->isValid()) {
+                    return back()->with('error', 'Hubo un problema con la carga de la imagen.');
+                }
+                $nombreImagen = Str::random(10) . '_' . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '.jpg';
+                $ruta = 'storage/images/albums/' . $album->name . '/';
+
+                if (!is_dir(public_path($ruta))) {
+                    mkdir(public_path($ruta), 0777, true);
+                }
+
+                // Crear y guardar la imagen usando Intervention Image
+                $img = $manager->read($file);
+                // encode('jpg', 90); // Calidad al 90%
+
+                $img->save(public_path($ruta . $nombreImagen));
+
+                // Optimizar la imagen usando spatie/laravel-image-optimizer
+                $optimizer = OptimizerChainFactory::create();
+                $optimizer->optimize(public_path($ruta . $nombreImagen));
+
+                // Guardar en la base de datos
+                $album->images()->create([
+                    'url_image' => $ruta . $nombreImagen,
+                    'name_image' => $nombreImagen,
+                ]);
+            }
+
+            return redirect()->route('albums.show', $album->id)->with('success', 'Imágenes subidas y optimizadas correctamente.');
+        }
+
+        return back()->with('error', 'No se pudo subir las imágenes.');
+    }*/
 }

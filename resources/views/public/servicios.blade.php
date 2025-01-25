@@ -126,7 +126,7 @@
 @section('content')
     <main class="flex flex-col gap-10 mb-10 bg-white font-outfit">
         <!--Seccion lista Especialidades-->
-        <section class=" bg-white mt-4 md:mt-10 w-11/12 mx-auto pt-32">
+        <section class=" bg-white mt-4 md:mt-10 w-11/12  md:max-w-6xl mx-auto pt-32">
             <div class="">
                 <div class="text-center md:text-start">
                     <h2 class="text-text32  md:text-text64 font-bold text-textAzul mb-4">
@@ -137,9 +137,9 @@
                     </p>
                 </div>
                 <!--Servicios desktop-->
-                <div class="hidden md:grid  grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="hidden md:grid  grid-cols-2 lg:grid-cols-3 gap-4" data-aos="fade-up" data-aos-offset="150">
                     @foreach ($servicios as $service)
-                        <a class="cursor-pointer servicio-item flex flex-col justify-start  gap-5 text-textAzul bg-bgRosa rounded-3xl py-16  group relative {{ $servicio->id === $service->id ? 'active' : 'bg-gray-100 ' }}"
+                        <a class=" transition-all duration-300 cursor-pointer servicio-item flex flex-col justify-start  gap-5 text-textAzul bg-bgRosaWeak rounded-3xl py-16 hover:bg-bgCeleste  group relative {{ $servicio->id === $service->id ? 'active' : 'bg-bgRosaWeak ' }}"
                             data-id="{{ $service->id }}">
                             <div class="flex flex-col justify-center items-center gap-3 ">
 
@@ -147,14 +147,14 @@
                                     <div class="flex justify-center items-center">
                                         <img src="{{ asset($service->url_image) }}"
                                             alt="{{ substr(strrchr($service->url_image, '_'), 1) }}"
-                                            class=" {{ $servicio->id === $service->id ? 'bg-bgCeleste' : 'bg-bgAzul' }} w-[96px] h-[96px] rounded-full p-1"
+                                            class=" {{ $servicio->id === $service->id ? 'bg-bgCeleste' : 'bg-bgAzul' }} group-hover:bg-bgCeleste w-[96px] h-[96px] rounded-full p-1"
                                             loading="lazy" />
                                     </div>
                                 </div>
 
                                 <div class=" flex flex-col gap-5 text-center items-center">{{-- se agrego : items-center --}}
                                     <h3
-                                        class="font-bold  text-textAzul text-text32 xl:text-text36 w-full md:w-2/3 mx-auto px-5 {{ $servicio->id === $service->id ? 'text-white' : 'text-textAzul ' }}">
+                                        class="font-bold  text-textAzul text-text32 xl:text-text36 w-full md:w-2/3 mx-auto px-5 group-hover:text-white  {{ $servicio->id === $service->id ? 'text-white' : 'text-textAzul ' }}">
                                         {{ $service->title }}
                                     </h3>
                                 </div>
@@ -163,12 +163,12 @@
                     @endforeach
                 </div>
                 <!--Servicios mobile-->
-                <div class="cursor-pointer block md:hidden">
+                <div class="cursor-pointer block md:hidden" data-aos="fade-up" data-aos-offset="150">
                     <div class="swiper  servicios default-carousel swiper-container ">
                         <div class="swiper-wrapper">
                             @foreach ($servicios as $service)
                                 <div class="swiper-slide ">
-                                    <div class=" servicio-item flex flex-col justify-start  gap-5 text-textAzul bg-bgRosa rounded-3xl py-16  group relative {{ $servicio->id === $service->id ? 'active' : 'bg-gray-100 ' }}"
+                                    <div class=" transition-all duration-300 servicio-item flex flex-col justify-start  gap-5 text-textAzul bg-bgRosa rounded-3xl py-16  group relative {{ $servicio->id === $service->id ? 'active' : 'bg-gray-100 ' }}"
                                         data-id="{{ $service->id }}">
                                         <div class="flex flex-col justify-center items-center gap-3 ">
                                             <div class="relative">
@@ -200,8 +200,8 @@
             </div>
         </section>
         <!--seccion descripcion-->
-        <section class=" bg-white md:mt-10 ">
-            <div class="w-11/12 mx-auto ">
+        <section class=" bg-white md:mt-10 " data-aos="fade-up" data-aos-offset="150">
+            <div class="w-11/12  md:max-w-6xl mx-auto ">
                 <!-- Encabezado -->
                 <div class="mb-8">
                     <p class="text-textCeleste  font-semibold text-text18 md:text-text24 mb-4">Servicio</p>
@@ -222,7 +222,7 @@
                     </div>
                 </div>
                 <!-- Imagen y botón -->
-                <section class="bg-white ">
+                <section class="bg-white " data-aos="fade-up" data-aos-offset="150">
                     <div class="swiper centered-slide-carousel swiper-container relative">
                         <div class="swiper-wrapper" id="swiperWrapperServicio">
                             @foreach ($servicioGaleria as $image)
@@ -238,8 +238,8 @@
             </div>
         </section>
         <!--Seccion Beneneficios-->
-        <section class=" bg-white">
-            <div class="w-11/12 mx-auto  ">
+        <section class=" bg-white" data-aos="fade-up" data-aos-offset="150">
+            <div class="w-11/12  md:max-w-6xl mx-auto  ">
                 <!-- Título y descripción -->
                 <div class="text-center mb-12 md:w-1/2 mx-auto">
                     <p class="text-blue-500 font-semibold text-text18 md:text-text24">Beneficios</p>
@@ -250,10 +250,12 @@
                 </div>
 
                 <!-- Beneficios -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6" data-aos="fade-up" data-aos-offset="150">
                     <!-- Beneficio 1 -->
                     <div
-                        class="group cursor-pointer bg-bgRosa rounded-xl p-6 shadow-xl  hover:bg-bgAzul hover:text-white transition-colors duration-300">
+                        class="group
+                    cursor-pointer bg-bgRosa rounded-xl p-6 shadow-xl hover:bg-bgAzul hover:text-white transition-color
+                    duration-500">
                         <h3 class="text-text64 font-bold text-textCeleste mb-4 group-hover:text-textWhite">1</h3>
                         <h4 id="servicio-name_beneficio1"
                             class="text-text32 text-textAzul font-bold  mb-2 group-hover:text-textWhite">
@@ -267,7 +269,7 @@
 
                     <!-- Beneficio 2 -->
                     <div
-                        class="group cursor-pointer bg-bgRosa  rounded-xl p-6 shadow-xl  hover:bg-bgAzul hover:text-white transition-colors duration-300">
+                        class="group cursor-pointer bg-bgRosa  rounded-xl p-6 shadow-xl  hover:bg-bgAzul hover:text-white transition-colors duration-500">
                         <h3 class="text-text64 font-bold text-textCeleste mb-4 group-hover:text-textWhite">2</h3>
                         <h4 id="servicio-name_beneficio2"
                             class="text-text32 text-textAzul font-bold  mb-2 group-hover:text-textWhite">
@@ -281,7 +283,7 @@
 
                     <!-- Beneficio 3 -->
                     <div
-                        class="group cursor-pointer bg-bgRosa  rounded-xl p-6 shadow-xl  hover:bg-bgAzul hover:text-white transition-colors duration-300">
+                        class="group cursor-pointer bg-bgRosa  rounded-xl p-6 shadow-xl  hover:bg-bgAzul hover:text-white transition-colors duration-500">
                         <h3 class="text-text64 font-bold text-textCeleste mb-4 group-hover:text-textWhite">3</h3>
                         <h4 id="servicio-name_beneficio3"
                             class="text-text32 text-textAzul font-bold  mb-2 group-hover:text-textWhite">
@@ -295,7 +297,7 @@
 
                     <!-- Beneficio 4 -->
                     <div
-                        class="group cursor-pointer bg-bgRosa  rounded-xl p-6 shadow-xl  hover:bg-bgAzul hover:text-white transition-colors duration-300">
+                        class="group cursor-pointer bg-bgRosa  rounded-xl p-6 shadow-xl  hover:bg-bgAzul hover:text-white transition-colors duration-500">
                         <h3 class="text-text64 font-bold text-textCeleste mb-4 group-hover:text-textWhite">4</h3>
                         <h4 id="servicio-name_beneficio4"
                             class="text-text32 text-textAzul font-bold  mb-2 group-hover:text-textWhite">
@@ -310,7 +312,8 @@
             </div>
         </section>
         <!--Seccion Proceso-->
-        <section class="flex flex-col lg:flex-row items-center w-11/12 mx-auto mt-8   gap-6">
+        <section class="flex flex-col lg:flex-row items-center w-11/12  md:max-w-6xl mx-auto mt-8   gap-6"
+            data-aos="fade-up" data-aos-offset="150">
             <!-- Texto -->
             <div class="lg:w-1/2 text-start md:text-left">
                 <h2 class="text-textCeleste text-text18 md:text-text24 font-semibold">Servicio</h2>
@@ -335,11 +338,12 @@
 
 
 @section('scripts_improtados')
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
 
 
-            /* ---------------- CARROSUEL PARA GRILLAS --------- */
+
 
             var servicios = new Swiper(".servicios", {
                 slidesPerView: 1,
@@ -351,12 +355,12 @@
                 allowTouchMove: true,
 
                 pagination: {
-                    el: ".swiper-pagination",
+                    el: ".servicios .swiper-pagination",
                     clickable: true,
                 },
                 navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
+                    nextEl: ".servicios .swiper-button-next",
+                    prevEl: ".servicios .swiper-button-prev",
                 },
             });
         });

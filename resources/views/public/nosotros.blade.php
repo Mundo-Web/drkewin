@@ -59,22 +59,22 @@
     <main class="flex flex-col  font-outfit ">
 
         <!-- Encabezado principal -->
-        <section class="text-center py-8 bg-white w-11/12 mx-auto pt-32">
+        <section class="text-center py-8 bg-white w-11/12  md:max-w-6xl mx-auto pt-32">
             <h2 class="text-text18 md:text-text24 font-semibold text-textAzul mt-8">{{ $about->titulo }}</h2>
             <h1 class="text-text32 md:text-text56 font-bold text-textAzul mt-2">{{ $about->subtitulo }}</h1>
         </section>
 
         <!-- Sección de contenido -->
-        <section
-            class="w-11/12 mx-auto mb-10  gap-8 md:h-[500px] overflow-hidden md:columns-1 lg:columns-2 lg:h-auto text-textAzul  ">
+        <section data-aos="fade-up" data-aos-offset="150"
+            class="w-11/12  md:max-w-6xl mx-auto mb-10  gap-8 md:h-[500px] overflow-hidden md:columns-1 lg:columns-2 lg:h-auto text-textAzul  ">
             <div>
                 {!! $about->descripcion !!}
             </div>
         </section>
 
         <!-- Imagen del doctor Portada -->
-        <section class="text-center relative z-10">
-            <div class="mx-auto  w-11/12 z-40">
+        <section class="text-center relative z-10" data-aos="fade-up" data-aos-offset="150">
+            <div class="mx-auto  w-11/12  md:max-w-6xl z-40">
                 <img src="{{ asset($imagenPortada->url_image) }}" alt="Dr. Kevin"
                     class=" shadow-md h-[606px] rounded-xl w-full object-cover" loading="lazy" />
             </div>
@@ -83,13 +83,13 @@
 
         <!-- Sección de eventos -->
         <section class="py-12 bg-bgAzul text-white ">
-            <div class=" mb-8 mx-auto w-11/12 md:w-10/12 text-center md:text-start">
+            <div class=" mb-8 mx-auto w-11/12  md:max-w-6xl md:w-10/12 text-center md:text-start">
                 <h3 class="text-text24 font-semibold">Actualiza tu conocimiento en medicina</h3>
                 <h4 class="text-text48 font-bold mt-2">Capacítate con Expertos Médicos</h4>
             </div>
 
             <!--Slide Eventos-->
-            <div class="hidden md:flex relative w-10/12 mx-auto">
+            <div class="hidden md:flex relative w-10/12 mx-auto" data-aos="fade-up" data-aos-offset="150">
                 <div class="swiper multiple-slide-carousel swiper-container relative" id="desktopSlideEventos">
                     <div class="swiper-wrapper ">
                         @foreach ($allEventos as $evento)
@@ -118,7 +118,7 @@
                                     </ul>
                                     <div class="text-center">
                                         <a href="{{ $evento->link }}" target="__blank"
-                                            class="block px-4 py-4 bg-bgCeleste text-white rounded-b-lg text-text18 font-semibold">Ver
+                                            class="block px-4 py-4 bg-bgCeleste text-white rounded-b-lg text-text18 font-semibold hover:bg-bgCelesteStrong transition-colors duration-300">Ver
                                             evento</a>
                                     </div>
                                 </div>
@@ -128,7 +128,7 @@
                     <div class="swiper-pagination "></div>
                 </div>
             </div>
-            <div class="w-11/12 mx-auto relative md:hidden">
+            <div class="w-11/12  md:max-w-6xl mx-auto relative md:hidden" data-aos="fade-up" data-aos-offset="150">
 
                 @foreach ($allEventos as $evento)
                     <div class="flex flex-col my-8">
@@ -163,12 +163,13 @@
 
         </section>
         <!------------------------------------------------------
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ------------------------------------------------------
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ---------------------------------------------->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ------------------------------------------------------
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ---------------------------------------------->
 
         <!-- Sección de Rotaciones Médicas Internacionales -->
 
-        <section class="py-12   grid grid-cols-1 lg:grid-cols-2 items-center gap-14  w-11/12 mx-auto">
+        <section class="py-12   grid grid-cols-1 lg:grid-cols-2 items-center gap-14  w-11/12  md:max-w-6xl mx-auto"
+            data-aos="fade-up" data-aos-offset="150">
             <!-- Imagen del médico -->
             <div>
                 <img src="https://i.ibb.co/7p0TQVy/image.png" alt="Médico en cirugía"
@@ -237,14 +238,14 @@
         </section>
 
         <!-- Sección de Procedimientos Especializados -->
-        <section class="py-12 bg-bgRosa  ">
+        <section class="py-12 bg-bgRosa " data-aos="fade-up" data-aos-offset="150">
             <div class="text-center mb-8">
-                <h3 class="text-text18 md:text-text24 text-textAzul">Confianza y precisión siempre.</h3>
+                <h3 class="text-text18 md:text-text24 text-textAzul font-medium">Confianza y precisión siempre.</h3>
                 <h2 class="text-text36 font-bold text-textAzul md:text-text48">Procedimientos Especializados a tu
                     Alcance </h2>
             </div>
             <!--Seccion Servicios-->
-            <div class="w-11/12 mx-auto ">
+            <div class="w-11/12  md:max-w-6xl mx-auto ">
                 <div class="hidden  relative lg:flex">
                     <div id="desktopSlideServicios"
                         class="swiper vertical-slide-carousel swiper-container relative h-[450px] flex w-full gap-10">
@@ -337,7 +338,7 @@
         </section>
 
         <!-- Sección de imagen grupal -->
-        <section class="bg-white py-16 w-11/12 mx-auto md:hidden">
+        <section class="bg-white py-16 w-11/12  md:max-w-6xl mx-auto md:hidden" data-aos="fade-up" data-aos-offset="150">
             <div id="mobileSlideGaleria" class="swiper centered-slide-carousel swiper-container relative">
                 <div class="swiper-wrapper">
                     @foreach ($imagesGaleria as $image)
@@ -351,8 +352,9 @@
             </div>
         </section>
         <!-- Sección de confianza -->
-        <section class="pt-16 lg:py-16 mt-32 bg-bgRosaWeak lg:bg-white">
-            <div class=" mx-auto flex gap-8 items-end w-11/12  relative flex-col md:items-center lg:flex-row ">
+        <section class="pt-16 lg:py-16 mt-32 bg-bgRosaWeak lg:bg-white" data-aos="fade-up" data-aos-offset="150">
+            <div
+                class=" mx-auto flex gap-8 items-end w-11/12  md:max-w-6xl  relative flex-col md:items-center lg:flex-row ">
                 <!-- Imagen del doctor -->
                 <div class="order-2 lg:order-1 text-center lg:text-left lg:absolute ">
                     @if ($perfil)
@@ -380,14 +382,14 @@
         </section>
 
         <!-- Sección de certificaciones -->
-        <section class="py-16">
-            <div class="w-11/12 mx-auto">
+        <section class="py-16" data-aos="fade-up" data-aos-offset="150">
+            <div class="w-11/12  md:max-w-6xl mx-auto">
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <!-- Contenido textual -->
                     <div>
                         <h3 class="text-text24 text-textCeleste">Estudios</h3>
-                        <h2 class="text-text44 font-bold text-blue-900 text-start mb-8">Certificaciones y Reconocimientos
+                        <h2 class="text-text44 font-bold text-textAzul text-start mb-8">Certificaciones y Reconocimientos
                             Médicos</h2>
                         <p class="text-textAzul text-text18 my-8 ">
                             {{ $about->descripcion_estudios }}
@@ -401,7 +403,8 @@
                                 @foreach ($imagesCertificados as $image)
                                     <div class="swiper-slide">
                                         <img src="{{ asset($image->url_image) }}" alt="{{ $image->name_image }}"
-                                            class="w-full h-auto rounded-xl overflow-hidden" loading="lazy" />
+                                            class="w-full h-full rounded-xl overflow-hidden object-cover"
+                                            loading="lazy" />
                                     </div>
                                 @endforeach
                             </div>
@@ -413,7 +416,8 @@
         </section>
 
         <!-- Sección de imagen grupal -->
-        <section class="hidden md:flex bg-white py-16 w-11/12 mx-auto ">
+        <section class="hidden md:flex bg-white py-16 w-11/12  md:max-w-6xl mx-auto " data-aos="fade-up"
+            data-aos-offset="150">
             <div id="desktopSlideGaleria" class="swiper centered-slide-carousel swiper-container relative">
                 <div class="swiper-wrapper">
                     @foreach ($imagesGaleria as $image)

@@ -13,8 +13,9 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
+        "phpmailer/phpmailer": "^6.9",
         "sode/extend": "dev-master",
-        "phpmailer/phpmailer": "^6.9"
+        "spatie/laravel-image-optimizer": "^1.8"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.9",

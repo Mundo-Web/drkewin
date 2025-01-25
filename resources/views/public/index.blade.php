@@ -420,7 +420,7 @@
 @section('content')
     <main class="flex flex-col gap-20 font-outfit">
         <section class="bg__image-header bg-cover bg-center bg-no-repeat sm:w-full h-full pt-24 md:pt-32">
-            <div class="flex flex-col items-center lg:flex-row gap-10 md:gap-32 w-11/12 mx-auto text-textWhite mt-12 lg:items-start"
+            <div class="flex flex-col items-center lg:flex-row gap-10 md:gap-32 w-11/12 md:max-w-6xl mx-auto text-textWhite mt-12 lg:items-start"
                 data-aos="fade-up" data-aos-offset="150">
                 <div class="flex flex-col gap-10 basis-1/2 justify-center ">
                     <div class="flex flex-col gap-8 md:gap-5">
@@ -443,9 +443,9 @@
                         </a>
 
                         <!-- <a href="#imc"
-                                                                                                                                                                                                                                                                                                                                                    class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
-                                                                                                                                                                                                                                                                                                                                                    Calcula tu IMC
-                                                                                                                                                                                                                                                                                                                                                </a> -->
+                                                                                                                                                                                                                                                                                                                                                                                                            class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
+                                                                                                                                                                                                                                                                                                                                                                                                            Calcula tu IMC
+                                                                                                                                                                                                                                                                                                                                                                                                        </a> -->
                     </div>
 
                     <div class="flex flex-col gap-5">
@@ -535,7 +535,7 @@
                 </div>
             </div>
         </section>
-        <section class="flex flex-col gap-10 w-11/12 mx-auto" data-aos="fade-up" data-aos-offset="150">
+        <section class="flex flex-col gap-10 w-11/12 md:max-w-6xl mx-auto" data-aos="fade-up" data-aos-offset="150">
             <div class="flex flex-col gap-3 text-center">
                 <h3 class="font-semibold text-textCeleste text-text24 xl:text-text28 leading-none md:leading-tight">
                     Descubre nuestros métodos avanzados
@@ -624,7 +624,7 @@
             </div>
 
 
-            <div class="flex flex-col gap-3 text-center mt-12">
+            <div class="flex flex-col gap-3 text-center mt-12 " data-aos="fade-up" data-aos-offset="150">
                 <h3 class="font-semibold text-textCeleste text-text24 xl:text-text28 leading-none md:leading-tight">
                     Explora nuestras historias
                 </h3>
@@ -635,7 +635,7 @@
 
 
 
-            <div class="w-11/12 relative mx-auto">
+            <div class="w-11/12 md:max-w-6xl relative mx-auto">
                 <div id="sliderVideos" class="swiper multiple-slide-carousel swiper-container relative">
                     <div class="swiper-wrapper mb-16">
                         @foreach ($videos as $video)
@@ -679,7 +679,7 @@
         </section>
 
         <section class="bg-bgAzul text-textWhite" id="acerca">
-            <div class="relative py-12 md:pt-20  w-11/12 mx-auto xs:pb-[120px] 2xs:pb-[126px] sm:pb-[280px] lg:pb-[350px] xl:pb-[285px] 2xl:pb-[400px] flex flex-col items-center"
+            <div class="relative py-12 md:pt-20  w-11/12 md:max-w-6xl mx-auto xs:pb-[120px] 2xs:pb-[126px] sm:pb-[280px] lg:pb-[350px] xl:pb-[285px] 2xl:pb-[400px] flex flex-col items-center"
                 data-aos="fade-up" data-aos-offset="150">
                 <div class="flex flex-col xl:flex-row gap-6 xl:gap-20">
                     <div class="md:basis-1/2 flex flex-col gap-4">
@@ -730,7 +730,7 @@
             </div>
 
             <div class="bg-bgCeleste pt-[126px] md:pt-[180px] 3md:pt-[200px] lg:pt-[268px] xl:pt-[280px] 2xl:pt-[350px]">
-                <div class="w-11/12 mx-auto flex flex-col md:flex-row justify-center text-center items-start sm:pt-[90px] pb-10  md:pt-20 lg:pb-20 lg:px-20 lg:pt-10"
+                <div class="w-11/12 md:max-w-6xl mx-auto flex flex-col md:flex-row justify-center text-center items-start sm:pt-[90px] pb-10  md:pt-20 lg:pb-20 lg:px-20 lg:pt-10"
                     data-aos="fade-up" data-aos-offset="150">
                     <div class="flex-1">
                         <p class="font-bold text-text68 xl:text-text72">300+</p>
@@ -756,7 +756,7 @@
         </section>
         <!--Proceso-->
         <section id="proceso">
-            <div class="flex flex-col md:flex-row w-11/12 mx-auto gap-10">
+            <div class="flex flex-col md:flex-row w-11/12 md:max-w-6xl mx-auto gap-10">
                 <div class="basis-1/2 order-2 md:order-1 flex flex-col justify-between" data-aos="fade-up"
                     data-aos-offset="150">
                     <h2 class="text-textCeleste font-semibold text-text24 xl:text-text28">
@@ -883,7 +883,7 @@
         <section id="imc">
 
             <div class="bg-bgRosaWeak" data-aos="fade-up" data-aos-offset="150">
-                <div class="flex flex-col lg:flex-row w-11/12 mx-auto py-10 md:p-10 gap-12 md:gap-24">
+                <div class="flex flex-col lg:flex-row w-11/12 md:max-w-6xl mx-auto py-10 md:p-10 gap-12 md:gap-24">
                     <div class="basis-1/2 contenedor w-full">
 
 
@@ -1046,7 +1046,7 @@
         </section>
         <!--Testimonios-->
         <section>
-            <div class="w-11/12 mx-auto">
+            <div class="w-11/12 md:max-w-6xl mx-auto">
                 <div class="swiper testimonios text-textAzul" data-aos="fade-up" data-aos-offset="150">
                     <div class="swiper-wrapper">
 
@@ -1112,7 +1112,7 @@
         </section>
 
         <section class="bg-bgRosaWeak">
-            <div class="flex flex-col gap-10 text-textAzul w-11/12 mx-auto py-10" data-aos="fade-up"
+            <div class="flex flex-col gap-10 text-textAzul w-11/12 md:max-w-6xl mx-auto py-10" data-aos="fade-up"
                 data-aos-offset="150">
                 <div class="flex flex-col 2md:flex-row gap-10">
                     <div class="flex flex-col-reverse 2md:flex-col basis-1/2 gap-4">
@@ -1156,9 +1156,9 @@
         </section>
 
         <section id="formulario">
-            <div class="flex flex-col lg:flex-row lg:w-full mx-auto md:gap-10" data-aos="fade-up" data-aos-offset="150">
-                <div class="basis-1/2 order-2 lg:order-1">
-                    <div class="w-full">
+            <div class="flex flex-col lg:flex-row lg:w-full mx-auto md:gap-10 " data-aos="fade-up" data-aos-offset="150">
+                <div class="basis-1/2 order-2 lg:order-1 ">
+                    <div class="w-full ">
                         {{--   <img src="{{ asset('images/img/doctor.png') }}" class="h-full" alt="doctor kewin" /> --}}
                         {{-- <img src="{{ asset('images/img/Foto_desktop.png') }}" class=" hidden lg:block" alt="doctor kewin" />
                         <img src="{{ asset('images/img/Foto_mobile.png') }}" class="h-full block lg:hidden" alt="doctor kewin" /> --}}
@@ -1167,7 +1167,7 @@
                     </div>
                 </div>
                 <div
-                    class="basis-1/2 flex flex-col gap-5 order-1 lg:order-2 justify-center pb-10 md:pb-0  w-11/12 mx-auto lg:pr-10">
+                    class="basis-1/2 flex flex-col gap-5 order-1 lg:order-2 justify-center pb-10 md:pb-0  w-11/12 md:max-w-6xl mx-auto lg:pr-10">
                     <p class="text-textCeleste font-semibold text-text24">
                         Contáctanos
                     </p>
@@ -1537,14 +1537,26 @@
                 prevEl: "#sliderVideos #slider-button-left",
             },
             breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                },
 
-                1028: {
-                    slidesPerView: 3,
-                    spaceBetween: 30
+                480: {
+                    slidesPerView: 1,
+                    spaceBetween: 20
+                },
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
                 },
                 990: {
                     slidesPerView: 2,
                     spaceBetween: 0
+                },
+                1028: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
                 }
             }
         });

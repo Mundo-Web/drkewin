@@ -1,6 +1,6 @@
 <header
     class="{{ Route::currentRouteName() === 'index' ? 'bg-transparent' : 'bg-bgAzul' }}  font-outfit absolute w-full ">
-    <div class="text-textWhite flex justify-between items-center w-11/12 mx-auto py-5">
+    <div class="text-textWhite flex justify-between items-center w-11/12 md:max-w-6xl mx-auto py-5">
         <div class="flex justify-start items-center w-full md:w-auto" data-aos="fade-up" data-aos-offset="150">
             <a href="{{ route('index') }}">
                 <img src="{{ asset('images/img/logo.png') }}" alt="doctor Kewin">
@@ -39,7 +39,7 @@
 
     </div>
 
-    <div class="flex justify-end w-11/12 mx-auto mb-4 z-10">
+    <div class="flex justify-end w-11/12 md:max-w-6xl mx-auto mb-4 z-10">
         <div class="fixed bottom-6 sm:bottom-[2rem] lg:bottom-[4rem] z-20">
             <a target="_blank"
                 href="https://api.whatsapp.com/send?phone={{ $generales->whatsapp }}&text={{ $generales->mensaje_whatsapp }}"
@@ -51,7 +51,7 @@
 
     <!-- Menú desplegable para móviles -->
     <div id="menu" class="hidden lg:hidden bg-bgAzul text-textWhite shadow-lg w-full h-screen absolute z-10">
-        <nav class="mb-8 flex flex-col justify-center items-center gap-10 text-center w-11/12 mx-auto"
+        <nav class="mb-8 flex flex-col justify-center items-center gap-10 text-center w-11/12 md:max-w-6xl mx-auto"
             data-aos="fade-up" data-aos-offset="150">
             <a href="{{ route('index') }}"
                 class="{{ Route::currentRouteName() === 'index' ? 'text-textCeleste font-bold' : '' }} ">Inicio</a>
@@ -64,7 +64,7 @@
                 class="{{ Route::currentRouteName() === 'blogs' ? 'text-textCeleste font-bold' : '' }} ">Blogs</a>
         </nav>
 
-        <div class="w-11/12 mx-auto">
+        <div class="w-11/12 md:max-w-6xl mx-auto">
             <x-boton-solicitar-cita :generales="$generales" data-aos="fade-up" data-aos-offset="150"></x-boton-solicitar-cita>
         </div>
     </div>
