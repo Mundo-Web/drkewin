@@ -251,7 +251,7 @@
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150 @if (in_array(Request::segment(2), ['videos'])) {{ 'hover:text-slate-200' }} @endif"
                             href="{{ route('videos.index') }}">
                             <div class="flex items-center">
-                                <i class="fa-solid fa-images"></i>
+                                <i class="fa-brands fa-youtube"></i>
                                 <span
                                     class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Videos</span>
                             </div>

@@ -33,74 +33,93 @@
                                     </div>
                                     <input type="date" rows="2" id="fecha" name="fecha" value=""
                                         class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Fecha"/>
+                                        placeholder="Fecha" />
                                 </div>
                             </div>
 
                             <div class="md:col-span-5">
                                 <label for="hora">Hora</label>
                                 <div class="relative mb-2 mt-2">
-
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <i class="fa-regular fa-clock"></i>
+                                    </div>
                                     <input type="time" rows="2" id="hora" name="hora" value=""
                                         class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
-                                        placeholder="Hora"/>
+                                        placeholder="Hora" />
+                                </div>
+                            </div>
+                            <div class="md:col-span-5">
+                                <label for="hora_final">Hora de la Finalización</label>
+                                <div class="relative mb-2 mt-2">
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <i class="fa-regular fa-clock"></i>
+                                    </div>
+                                    <input type="time" rows="2" id="hora_final" name="hora_final"
+                                        value=""
+                                        class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
+                                        placeholder="Hora" />
                                 </div>
                             </div>
 
                             <!-- agregar descripcione -->
                             <!-- <div class=""> -->
-                                <!-- 1 -->
-                                <!-- <div class="md:col-span-6">
+                            <!-- 1 -->
+                            <!-- <div class="md:col-span-6">
 
                                 </div> -->
-                                <div class="md:col-span-5">
-                                    <label for="lugar">Lugar</label>
-                                    <div class="relative mb-2  mt-2">
+                            <div class="md:col-span-5">
+                                <label for="lugar">Lugar</label>
+                                <div class="relative mb-2  mt-2">
 
-                                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </div>
-
-                                        <input type="text" id="lugar" name="lugar" value=""
-                                            class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="Lugar">
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <i class="fa-regular fa-pen-to-square"></i>
                                     </div>
+
+                                    <input type="text" id="lugar" name="lugar" value=""
+                                        class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Lugar">
                                 </div>
+                            </div>
 
-                                <div class="md:col-span-5">
-                                    <label for="modalidad">Modalidad</label>
-                                    <div class="relative mb-2 mt-2">
+                            <div class="md:col-span-5">
+                                <label for="modalidad">Modalidad</label>
+                                <div class="relative mb-2 mt-2">
 
-                                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </div>
-                                        <select id="modalidad" name="modalidad" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option value="" disabled selected>Seleccione una modalidad</option>
-                                            <option value="Presencial" {{ old('modalidad') == 'Presencial' ? 'selected' : '' }}>Presencial</option>
-                                            <option value="Virtual" {{ old('modalidad') == 'Virtual' ? 'selected' : '' }}>Virtual</option>
-                                            <option value="Presencial y Virtual" {{ old('modalidad') == 'Presencial y Virtual' ? 'selected' : '' }}>Presencial y Virtual</option>
-                                        </select>
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <i class="fa-regular fa-pen-to-square"></i>
                                     </div>
+                                    <select id="modalidad" name="modalidad"
+                                        class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option value="" disabled selected>Seleccione una modalidad</option>
+                                        <option value="Presencial"
+                                            {{ old('modalidad') == 'Presencial' ? 'selected' : '' }}>Presencial</option>
+                                        <option value="Virtual" {{ old('modalidad') == 'Virtual' ? 'selected' : '' }}>
+                                            Virtual</option>
+                                        <option value="Presencial y Virtual"
+                                            {{ old('modalidad') == 'Presencial y Virtual' ? 'selected' : '' }}>
+                                            Presencial y Virtual</option>
+                                    </select>
                                 </div>
-                                <!-- 2 -->
+                            </div>
+                            <!-- 2 -->
 
-                                <div class="md:col-span-5">
-                                    <label for="link">URL del evento</label>
-                                    <div class="relative mb-2  mt-2">
+                            <div class="md:col-span-5">
+                                <label for="link">URL del evento</label>
+                                <div class="relative mb-2  mt-2">
 
-                                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </div>
-
-                                        <input type="url" id="link" name="link" value=""
-                                            class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="URL del video">
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <i class="fa-regular fa-pen-to-square"></i>
                                     </div>
+
+                                    <input type="url" id="link" name="link" value=""
+                                        class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="URL del video">
                                 </div>
+                            </div>
 
                             <!-- </div> -->
 
-                            
+
                             <!-- -------------------- -->
                             <div class="md:col-span-5 text-right mt-6">
                                 <div class="inline-flex items-end">
@@ -119,34 +138,30 @@
     @vite(['resources/js/app.js']) {{-- Incluye tu app.js si usas Vite --}}
 
     <script>
-
-
         $('document').ready(function() {
 
-                tinymce.init({
-                    selector: 'textarea#description',
-                    height: 500,
-                    plugins: [
-                        'advlist', 'autolink', 'lists', 'link', 'charmap', 'preview',
-                        'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                        'insertdatetime', 'table'
-                    ],
-                    toolbar: 'undo redo | blocks | ' +
-                        'bold italic backcolor | alignleft aligncenter ' +
-                        'alignright alignjustify | bullist numlist outdent indent | ' +
-                        'removeformat | help',
-                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px;}',
-                    license_key: 'gpl'
-                });
-            
+            tinymce.init({
+                selector: 'textarea#description',
+                height: 500,
+                plugins: [
+                    'advlist', 'autolink', 'lists', 'link', 'charmap', 'preview',
+                    'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                    'insertdatetime', 'table'
+                ],
+                toolbar: 'undo redo | blocks | ' +
+                    'bold italic backcolor | alignleft aligncenter ' +
+                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                    'removeformat | help',
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px;}',
+                license_key: 'gpl'
+            });
 
-            
-    
+
+
+
         })
     </script>
     <!-- Script para manejar el envío del formulario con AJAX -->
-    <script>
-
-    </script>
+    <script></script>
 
 </x-app-layout>

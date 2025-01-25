@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Evento extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'fecha', 'hora','lugar','modalidad','link','visible','status'];
+    protected $fillable = ['nombre', 'fecha', 'hora', 'hora_final', 'lugar', 'modalidad', 'link', 'visible', 'status'];
     protected $casts = [
         'modalidad' => 'string', // O usar enum si soporta PHP >= 8.1
     ];
