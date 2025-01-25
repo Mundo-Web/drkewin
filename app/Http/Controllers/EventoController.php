@@ -75,19 +75,19 @@ class EventoController extends Controller
      */
     public function update(Request $request, $id)
     {
-// Normalizar el campo "hora" al formato H:i
+        // Normalizar el campo "hora" al formato H:i
         if ($request->has('hora')) {
             $request->merge(['hora' => date('H:i', strtotime($request->hora))]);
         }
 
-            $validatedData = $request->validate([
-                'nombre' => 'required|string|max:255',
-                'fecha' => 'required|date',
-                'hora' => 'required|date_format:H:i',
-                'lugar' => 'required|string|max:255',
-                'modalidad' => 'required|in:Presencial,Virtual,Presencial y Virtual',
-                'link' => 'nullable|url',
-            ]);
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'fecha' => 'required|date',
+            'hora' => 'required|date_format:H:i',
+            'lugar' => 'required|string|max:255',
+            'modalidad' => 'required|in:Presencial,Virtual,Presencial y Virtual',
+            'link' => 'nullable|url',
+        ]);
         $evento = Evento::find($id);
         // Actualizar los datos del evento
         $evento->update([
@@ -144,7 +144,5 @@ class EventoController extends Controller
         $evento->save();
 
         return response()->json(['message' => 'Actualizado el Registro.']);
-
     }
-
 }

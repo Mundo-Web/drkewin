@@ -443,9 +443,9 @@
                         </a>
 
                         <!-- <a href="#imc"
-                                                class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
-                                                Calcula tu IMC
-                                            </a> -->
+                                                                                                                                                                                                                                                                                                                                                    class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
+                                                                                                                                                                                                                                                                                                                                                    Calcula tu IMC
+                                                                                                                                                                                                                                                                                                                                                </a> -->
                     </div>
 
                     <div class="flex flex-col gap-5">
@@ -620,6 +620,59 @@
 
                     </div>
 
+                </div>
+            </div>
+
+
+            <div class="flex flex-col gap-3 text-center mt-12">
+                <h3 class="font-semibold text-textCeleste text-text24 xl:text-text28 leading-none md:leading-tight">
+                    Explora nuestras historias
+                </h3>
+                <h2 class="font-bold text-textAzul text-text48 md:text-text64 leading-none md:leading-tight">
+                    Conoce Nuestras Actividades y Procedimientos Especializados
+                </h2>
+            </div>
+
+
+
+            <div class="w-11/12 relative mx-auto">
+                <div id="sliderVideos" class="swiper multiple-slide-carousel swiper-container relative">
+                    <div class="swiper-wrapper mb-16">
+                        @foreach ($videos as $video)
+                            <div class="swiper-slide">
+                                <div
+                                    class="flex-shrink-0 w-auto h-[500px] rounded-xl relative bg-bgAzulStrong overflow-hidden bg-center shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/{{ $video->uid }}"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                    </iframe>
+                                    <div
+                                        class="absolute bottom-0 left-0 bg-gradient-to-t from-black to-transparent p-4 w-full">
+                                        <h3 class="text-textAzul font-semibold  mb-2 text-text18 ">
+                                            {{ $video->title }}
+                                        </h3>
+                                        <p class="text-white text-sm line-clamp-2 text-text14">
+                                            {{ $video->description }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                    <div class="absolute top-1/2 -translate-y-1/2 flex justify-between w-full px-4 z-10">
+                        <button id="slider-button-left"
+                            class=" group bg-bgRosa !p-2 flex justify-center items-center border border-none !w-12 !h-12 transition-all duration-500 rounded-full hover:bg-bgAzul hover:text-white"
+                            data-carousel-prev>
+                            <i class="fa-solid fa-chevron-left fa-xl"></i>
+                        </button>
+                        <button id="slider-button-right"
+                            class=" group bg-bgRosa !p-2 flex justify-center items-center border border-none  !w-12 !h-12 transition-all duration-500 rounded-full hover:bg-bgAzul  hover:text-white"
+                            data-carousel-next>
+                            <i class="fa-solid fa-chevron-right fa-xl"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -1470,6 +1523,30 @@
                     secondCircle.setAttribute("fill", "#42BAE2");
                 }
             };
+        });
+    </script>
+
+
+    <script>
+        var swiper = new Swiper("#sliderVideos", {
+            loop: false,
+            slidesPerView: 3,
+            spaceBetween: 30,
+            navigation: {
+                nextEl: "#sliderVideos #slider-button-right",
+                prevEl: "#sliderVideos #slider-button-left",
+            },
+            breakpoints: {
+
+                1028: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                },
+                990: {
+                    slidesPerView: 2,
+                    spaceBetween: 0
+                }
+            }
         });
     </script>
 @stop

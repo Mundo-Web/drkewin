@@ -13,6 +13,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
+        "sode/extend": "dev-master",
         "phpmailer/phpmailer": "^6.9"
     },
     "require-dev": {

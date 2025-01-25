@@ -27,6 +27,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\StaffController;
 
 use App\Http\Controllers\RotacionController;
+use App\Http\Controllers\StoryController;
 use App\Http\Controllers\SubscriberController;
 
 /*
@@ -127,7 +128,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::resource('/rotaciones', RotacionController::class);
         Route::post('/rotaciones/deleteRotacion', [RotacionController::class, 'deleteRotacion'])->name('rotaciones.deleteRotacion');
         Route::post('/rotaciones/updateVisible', [RotacionController::class, 'updateVisible'])->name('rotaciones.updateVisible');
-
+        //Crud videos
+        Route::resource('/videos', StoryController::class);
+        Route::post('/videos/deleteVideo', [StoryController::class, 'deleteVideo'])->name('videos.deleteVideo');
 
         //t
 

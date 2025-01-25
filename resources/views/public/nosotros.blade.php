@@ -26,6 +26,35 @@
             border-radius: 0.75rem !important;
         }
     </style>
+    <style>
+        /* Estilos solo para este slider */
+        #desktopSlideServicios .swiper-pagination {
+            position: absolute;
+            top: 0;
+            right: 0;
+            /* Alinea la barra a la derecha */
+            width: 12px;
+            /* Ajusta el ancho de la barra */
+            height: 100%;
+            background-color: transparent;
+            /* Fondo opcional */
+        }
+
+        #desktopSlideServicios .swiper-pagination-progressbar {
+            /* Ocupa todo el ancho del contenedor */
+            background-color: rgba(0, 0, 0, 0.1);
+            /* Fondo de la barra */
+            border-radius: 6px;
+            /* Bordes redondeados */
+        }
+
+        #desktopSlideServicios .swiper-pagination-progressbar-fill {
+            background-color: #42BAE2;
+            /* Color del progreso */
+            border-radius: 6px;
+            /* Bordes redondeados */
+        }
+    </style>
 @section('content')
     <main class="flex flex-col  font-outfit ">
 
@@ -134,8 +163,8 @@
 
         </section>
         <!------------------------------------------------------
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ------------------------------------------------------
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ---------------------------------------------->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ------------------------------------------------------
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ---------------------------------------------->
 
         <!-- Sección de Rotaciones Médicas Internacionales -->
 
@@ -146,36 +175,65 @@
                     class="rounded-xl shadow-md md:hidden lg:flex" loading="lazy" />
             </div>
 
-            <!-- Información -->
+            <!-- Información de Rotaciones Medicas -->
             <div class="text-gray-700 ">
                 <h2 class="text-text48 font-bold text-textAzul">Rotaciones Médicas Internacionales</h2>
                 <p class="mt-4 text-textAzul text-text18">Explora prácticas clínicas en el extranjero, adquiere experiencia
                     global y mejora tus habilidades en entornos diversos. Una oportunidad para crecer como médico.</p>
 
                 <div class="mt-6 space-y-6">
-                    @foreach ($allRotaciones as $rotacion)
-                        <div class="flex items-start space-x-4">
-                            <div class="text-gray-100 p-3 rounded-full  ">
-                                <svg width="52" height="52" viewBox="0 0 52 52" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg" class="group">
-                                    <circle cx="26" cy="26" r="26" fill="#42BAE2" id="firstCircle"
-                                        class="group-hover:fill-bgCeleste md:duration-500"></circle>
-                                    <path
-                                        d="M16.4004 26.2598H25.7409M26.2598 35.6004V16.4004M21.3301 23.1463V19.7734M19.6436 21.4598H23.0166M19.6436 31.449H23.0166M29.3734 28.0761H32.7463M29.3734 24.9626H32.7463M18.995 35.6004H33.0058C34.4387 35.6004 35.6004 34.4387 35.6004 33.0058V18.995C35.6004 17.562 34.4387 16.4004 33.0058 16.4004H18.995C17.562 16.4004 16.4004 17.562 16.4004 18.995V33.0058C16.4004 34.4387 17.562 35.6004 18.995 35.6004Z"
-                                        stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                        id="firstIcon" class="group-hover:stroke-bgWhite md:duration-500"></path>
-                                </svg>
+
+                    <div class="w-full relative">
+                        <div id="sliderRotaciones" class="swiper default-carousel swiper-container w-full">
+                            <div class="swiper-wrapper w-full mx-auto">
+                                @foreach ($allRotaciones as $rotacion)
+                                    <div class="swiper-slide text-center ">
+                                        <div class="flex flex-col items-center space-y-4 w-8/12 mx-auto">
+                                            <div class="text-gray-100 p-3 rounded-full">
+                                                <svg width="52" height="52" viewBox="0 0 52 52" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg" class="group">
+                                                    <circle cx="26" cy="26" r="26" fill="#42BAE2"
+                                                        id="firstCircle" class="group-hover:fill-bgCeleste md:duration-500">
+                                                    </circle>
+                                                    <path
+                                                        d="M16.4004 26.2598H25.7409M26.2598 35.6004V16.4004M21.3301 23.1463V19.7734M19.6436 21.4598H23.0166M19.6436 31.449H23.0166M29.3734 28.0761H32.7463M29.3734 24.9626H32.7463M18.995 35.6004H33.0058C34.4387 35.6004 35.6004 34.4387 35.6004 33.0058V18.995C35.6004 17.562 34.4387 16.4004 33.0058 16.4004H18.995C17.562 16.4004 16.4004 17.562 16.4004 18.995V33.0058C16.4004 34.4387 17.562 35.6004 18.995 35.6004Z"
+                                                        stroke="#ffffff" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" id="firstIcon"
+                                                        class="group-hover:stroke-bgWhite md:duration-500"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="text-center">
+                                                <h3 class="text-textAzul font-bold text-text24">
+                                                    {{ $rotacion->titulo }}
+                                                </h3>
+                                                <p class="mt-2 text-gray-600 text-16">{{ $rotacion->descripcion }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
-                            <div>
-                                <h3 class="text-textAzul font-bold text-text24">{{ $rotacion->titulo }}</h3>
-                                <p class="mt-2 text-gray-600 text-16">{{ $rotacion->descripcion }}</p>
+                            <div class="absolute top-1/2 -translate-y-1/2 flex justify-between w-full px-4 z-10">
+                                <button id="slider-button-left"
+                                    class=" group bg-bgRosa !p-2 flex justify-center items-center border border-none !w-12 !h-12 transition-all duration-500 rounded-full hover:bg-bgAzul hover:text-white"
+                                    data-carousel-prev>
+                                    <i class="fa-solid fa-chevron-left fa-xl"></i>
+                                </button>
+                                <button id="slider-button-right"
+                                    class=" group bg-bgRosa !p-2 flex justify-center items-center border border-none  !w-12 !h-12 transition-all duration-500 rounded-full hover:bg-bgAzul  hover:text-white"
+                                    data-carousel-next>
+                                    <i class="fa-solid fa-chevron-right fa-xl"></i>
+                                </button>
                             </div>
+                            <div class="swiper-pagination"></div>
                         </div>
-                    @endforeach
+                    </div>
 
 
                 </div>
             </div>
+
+
         </section>
 
         <!-- Sección de Procedimientos Especializados -->
@@ -189,30 +247,39 @@
             <div class="w-11/12 mx-auto ">
                 <div class="hidden  relative lg:flex">
                     <div id="desktopSlideServicios"
-                        class="swiper vertical-slide-carousel swiper-container relative h-[450px]">
+                        class="swiper vertical-slide-carousel swiper-container relative h-[450px] flex w-full gap-10">
                         <div class="swiper-wrapper">
-                            @foreach ($allServicios as $servicio)
-                                <div class="swiper-slide">
-                                    <div
-                                        class="flex items-center justify-between border-b-2
+                            @foreach ($allServicios->chunk(3) as $groupServicios)
+                                <div class="swiper-slide w-10/12 clear-right">
+                                    @foreach ($groupServicios as $servicio)
+                                        <div
+                                            class=" flex items-center justify-between border-b-2
                                      py-8 space-x-8">
-                                        <div class="flex items-center justify-center space-x-4 w-9/12">
-                                            <div class="w-1/6  text-textWhite rounded-full ">
-                                                <img src="{{ $servicio->url_image }}" alt="{{ $servicio->title }}"
-                                                    class="bg-bgAzul w-[96px] h-[96px] rounded-full p-1" loading="lazy" />
+                                            <div class="flex items-center justify-center space-x-4 w-9/12">
+                                                <div class="ml-8 w-2/12  text-textWhite rounded-full ">
+                                                    <img src="{{ $servicio->url_image }}" alt="{{ $servicio->title }}"
+                                                        class="bg-bgAzul w-[90px] h-[90px] rounded-full p-1 object-cover"
+                                                        loading="lazy" />
+                                                </div>
+                                                <div class="w-10/12 flex space-x-8 items-center justify-center">
+                                                    <h4 class=" w-4/12 text-text32 font-semibold text-textAzul">
+                                                        {{ $servicio->title }}</h4>
+                                                    <p class="w-8/12 text-text16 text-textAzul">
+                                                        {{ $servicio->extracto }}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div class="w-5/6 flex space-x-8 items-center justify-center">
-                                                <h4 class=" w-2/6 text-text32 font-semibold text-textAzul">
-                                                    {{ $servicio->title }}</h4>
-                                                <p class="w-4/6 text-text16 text-textAzul">{{ $servicio->extracto }}</p>
-                                            </div>
+                                            <x-boton-solicitar-cita :generales="$generales"></x-boton-solicitar-cita>
                                         </div>
-                                        <x-boton-solicitar-cita :generales="$generales"></x-boton-solicitar-cita>
-                                    </div>
+                                    @endforeach
+                                    {{-- Agrega elementos vacíos si faltan servicios para completar el grupo --}}
+                                    @for ($i = count($groupServicios); $i < 3; $i++)
+                                        <div class="w-full border-b-2 py-8 opacity-0"></div>
+                                    @endfor
                                 </div>
                             @endforeach
                         </div>
-                        <div class="swiper-pagination !right-10 !left-full !top-1/3 !translate-y-8"></div>
+                        <div class="swiper-pagination"></div>
                     </div>
                 </div>
                 <div class="relative hidden md:flex lg:hidden">
@@ -363,6 +430,20 @@
 @section('scripts_improtados')
 
     <script>
+        var swiper = new Swiper("#sliderRotaciones", {
+            loop: false,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+
+            },
+            navigation: {
+                nextEl: "#sliderRotaciones #slider-button-right",
+                prevEl: "#sliderRotaciones #slider-button-left",
+            },
+        });
+
+
         var swiper = new Swiper("#slideCertificaciones", {
             loop: true,
             fraction: true,
@@ -418,6 +499,10 @@
                 clickable: true
             },
             breakpoints: {
+                1024: {
+                    slidesPerView: 3,
+
+                },
                 // Pantallas medianas (768px o menos)
                 768: {
                     slidesPerView: 2,
@@ -443,17 +528,22 @@
 
         var swiper = new Swiper("#desktopSlideServicios", {
             loop: false,
-            direction: 'vertical',
-            mousewheelControl: true,
-            mousewheel: {
-                releaseOnEdges: true,
-            },
-            spaceBetween: 30,
+            speed: 800,
             grabCursor: true,
+            watchSlidesProgress: true,
+            direction: "vertical",
             slidesPerView: 3,
+            slidesPerGroup: 3,
+            spaceBetween: 20,
+            mousewheel: true,
+            effect: "fade",
+            fadeEffect: {
+                crossFade: true
+            },
             pagination: {
-                el: ".vertical-slide-carousel .swiper-pagination",
-                clickable: true,
+                el: "#desktopSlideServicios .swiper-pagination",
+                type: "progressbar",
+                clickable: true, // Si deseas que sea clickeable
             },
         });
         var swiper = new Swiper("#mobileSlideServicios", {
