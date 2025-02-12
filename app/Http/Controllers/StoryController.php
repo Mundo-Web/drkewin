@@ -29,18 +29,22 @@ class StoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
         $data = $request->validate([
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-
+            'youtube_url' => 'required|url', // Asegúrate de que la URL sea válida
         ]);
 
-        // Extraer la UID de YouTube (si se proporcionó un enlace)
-
+        // Extraer la UID de YouTube
         $data['uid'] = Text::getYTVideoId($request->youtube_url);
 
+        // Validar que se haya obtenido un ID válido
+        if (!$data['uid']) {
+            return redirect()->back()->withErrors(['youtube_url' => 'La URL de YouTube no es válida o no se pudo extraer el ID.']);
+        }
 
         // Guardar los datos en la base de datos
         Story::create($data);
@@ -48,6 +52,7 @@ class StoryController extends Controller
         // Redirigir con un mensaje de éxito
         return redirect()->route('videos.index')->with('success', 'Evento creado con éxito.');
     }
+
 
     /**
      * Display the specified resource.
