@@ -29,6 +29,23 @@ class StoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    public function ObtenerUuidYoutube($url)
+    {
+        $patterns = [
+            '/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/', // URL estándar
+            '/(?:https?:\/\/)?(?:www\.)?youtu\.be\/([a-zA-Z0-9_-]+)/', // URL corta
+            '/(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]+)/', // URL embebida
+            '/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)&.+/', // URL con parámetros adicionales
+            '/(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/', //URL de short
+        ];
+        foreach ($patterns as $pattern) {
+            if (preg_match($pattern, $url, $matches)) {
+                return $matches[1];
+            }
+        }
+        return null;
+    }
+
 
     public function store(Request $request)
     {
@@ -39,7 +56,7 @@ class StoryController extends Controller
         ]);
 
         // Extraer la UID de YouTube
-        $data['uid'] = Text::getYTVideoId($request->youtube_url);
+        $data['uid'] = $this->ObtenerUuidYoutube($request->youtube_url);
 
         // Validar que se haya obtenido un ID válido
         if (!$data['uid']) {
