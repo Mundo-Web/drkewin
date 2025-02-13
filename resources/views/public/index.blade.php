@@ -443,9 +443,9 @@
                         </a>
 
                         <!-- <a href="#imc"
-                                                                                                                                                                                                                                                                                                                                                                                                            class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
-                                                                                                                                                                                                                                                                                                                                                                                                            Calcula tu IMC
-                                                                                                                                                                                                                                                                                                                                                                                                        </a> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                    class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
+                                                                                                                                                                                                                                                                                                                                                                                                                                    Calcula tu IMC
+                                                                                                                                                                                                                                                                                                                                                                                                                                </a> -->
                     </div>
 
                     <div class="flex flex-col gap-5">
@@ -568,7 +568,7 @@
                                 </p>
 
                                 <div class="flex justify-center items-center absolute -bottom-[25px] md:w-auto">
-                                    <a href="{{ route('servicios', $servicio->id) }}"
+                                    <a href="{{ route('servicios', ['slug' => $servicio->slug]) }}"
                                         class="bg-bgCeleste py-3 px-10 rounded-xl inline-block text-center text-textWhite font-semibold text-text16 xl:text-text20 w-full md:w-auto group-hover:bg-bgAzul md:duration-500">
                                         Ver más
                                     </a>
@@ -606,7 +606,7 @@
 
                                             <div
                                                 class="flex justify-center items-center absolute -bottom-[25px] md:w-auto">
-                                                <a href="{{ route('servicios', $servicio->id) }}"
+                                                <a href="{{ route('servicios', ['slug' => $servicio->slug]) }}"
                                                     class="bg-bgCeleste py-3 px-10 rounded-xl inline-block text-center text-textWhite font-semibold text-text16 xl:text-text20 w-full md:w-auto group-hover:bg-bgAzul md:duration-500">
                                                     Ver más
                                                 </a>

@@ -47,20 +47,41 @@ class IndexController extends Controller
   public function servicios(Request $request)
   {
     $generales = General::all()->first();
-    $servicio = Service::where('status', '=', true)->where('visible', '=', true)->first();
+
+    // Inicializa la consulta de servicios
+    $query = Service::where('status', '=', true)->where('visible', '=', true);
+
+    // Verifica si se proporciona un slug en la request
+    if ($request->has('slug')) {
+      $slug = $request->input('slug');
+      // Filtra los servicios por slug
+      $query->where('slug', '=', $slug);
+    }
+
+    // Obtiene el primer servicio (o null si no hay coincidencias)
+    $servicio = $query->first();
+
+    // Si no se encuentra el servicio, puedes redirigir o mostrar un mensaje de error
+    if (!$servicio) {
+      return redirect()->back()->with('error', 'Servicio no encontrado.');
+      // O también puedes retornar una vista específica para errores 404
+      // return abort(404);
+    }
+
     $modificarTextServicio = ucfirst(strtolower($servicio->title));
     $servicioAlbum = Album::where('name', $modificarTextServicio)->first();
-    // Si el álbum no existe, manejar el caso
-    // Si el álbum no existe, manejar el caso
+
     if (!$servicioAlbum) {
-      return redirect()->back()->with('error', 'El álbum "certificados" no existe.');
+      return redirect()->back()->with('error', 'El álbum no existe.');
     }
-    // Obtener las imágenes del álbum
+
     $servicioGaleria = $servicioAlbum->images;
 
+    // Obtiene todos los servicios (sin filtro de slug) para mostrarlos en la vista
     $servicios = Service::where('status', '=', true)->where('visible', '=', true)->get();
     $albumPerfil = Album::where('name', 'Perfil')->with('images')->first();
     $perfil = $albumPerfil ? $albumPerfil->images->first() : null;
+
     return view('public.servicios', compact('generales', 'servicios', 'servicio', 'perfil', 'servicioGaleria'));
   }
   public function detalle_servicio($id)
