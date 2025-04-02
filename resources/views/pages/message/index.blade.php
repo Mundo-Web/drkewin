@@ -17,11 +17,12 @@
                                 <th>Nombre</th>
                                 <th>Correo</th>
                                 <th>Teléfono</th>
+                                <th>Fecha de mensaje</th>
                                 <th>Acción</th>
                             </tr>
                         </thead>
                         <tbody>
-                          
+
 
                             @foreach ($mensajes as $item)
                                 <tr>
@@ -38,6 +39,7 @@
                                     </td>
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->phone }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->locale('es')->isoFormat('D [de] MMMM [de] YYYY') }}
                                     <td>
                                         <form action="" method="POST">
                                             @csrf
@@ -50,14 +52,7 @@
                             @endforeach
 
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Correo</th>
-                                <th>Teléfono</th>
-                                <th>Tool</th>
-                            </tr>
-                        </tfoot>
+
                     </table>
 
                 </div>
@@ -68,7 +63,10 @@
 
     <script>
         $('document').ready(function() {
-            new DataTable('#tabladatos', {ordering: false});
+            new DataTable('#tabladatos', {
+                ordering: true,
+                select: true
+            });
 
         })
 

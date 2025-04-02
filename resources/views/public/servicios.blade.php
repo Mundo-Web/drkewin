@@ -1,3 +1,6 @@
+<?php
+$randomImage = $imagesGaleria->random();
+?>
 @extends('components.public.matrix')
 
 @section('css_improtados')
@@ -129,12 +132,12 @@
         <section class=" bg-white mt-4 md:mt-10 w-11/12  md:max-w-6xl mx-auto pt-32">
             <div class="">
                 <div class="text-center md:text-start">
-                    <h2 class="text-text32  md:text-text64 font-bold text-textAzul mb-4">
-                        Atención Especializada <br /> para tu Bienestar
+                    <h2 class="text-text32  md:text-text64 font-bold text-textAzul mb-4 text-center">
+                        Conoce nuestros servicios en cirugía mínimamente invasiva
                     </h2>
-                    <p class="text-text18 md:text-text24 text-textCeleste mb-12 font-semibold">
-                        Descubre Soluciones Personalizadas
-                    </p>
+                    <!--<p class="text-text18 md:text-text24 text-textCeleste mb-12 font-semibold">
+                                                                                                                                                    Descubre Soluciones Personalizadas
+                                                                                                                                                </p>-->
                 </div>
                 <!--Servicios desktop-->
                 <div class="hidden md:grid  grid-cols-2 lg:grid-cols-3 gap-4" data-aos="fade-up" data-aos-offset="150">
@@ -242,7 +245,7 @@
             <div class="w-11/12  md:max-w-6xl mx-auto  ">
                 <!-- Título y descripción -->
                 <div class="text-center mb-12 md:w-1/2 mx-auto">
-                    <p class="text-blue-500 font-semibold text-text18 md:text-text24">Beneficios</p>
+                    <!-- <p class="text-blue-500 font-semibold text-text18 md:text-text24">Beneficios</p>-->
                     <h2 class="text-textAzul font-bold mb-4 text-text48">Beneficios del proceso</h2>
                     <p id="servicio-extracto" class="text-textAzul leading- text-text18 ">
                         {{ $servicio->extracto }}
@@ -316,19 +319,57 @@
             data-aos="fade-up" data-aos-offset="150">
             <!-- Texto -->
             <div class="lg:w-1/2 text-start md:text-left">
-                <h2 class="text-textCeleste text-text18 md:text-text24 font-semibold">Servicio</h2>
-                <h1 class="text-text48 font-bold text-textAzul mb-4 text-center md:text-start">Sobre el Proceso</h1>
-                <div id="servicio-process" class="text-textAzul flex flex-col text-text18 mb-4 gap-4">
 
-                    {!! $servicio->process !!}
-                </div>
+                <h1 class="text-text48 leading-[44px] font-bold text-textAzul mb-4 text-center md:text-start">Proceso de
+                    evaluación pre
+                    operatoria</h1>
+                <ol class="text-lg font-light text-textAzul list-decimal ml-12">
+                    <li class="mb-4">
+                        <span class="text-xl  font-semibold">Consulta especializada: </span>Valoración de sintomas,
+                        condición de
+                        salud previa y antecedentes
+                        médicos.
 
-                <x-boton-solicitar-cita :generales="$generales"></x-boton-solicitar-cita>
+                    </li>
+                    <li class="mb-4">
+                        <span class="text-xl  font-semibold">Examenes de diagnóstico: </span> Evaluación de estudio de
+                        ecografía, resonancia magnetica o tomográfica
+                        según corresponda, asi como estudios de laboratorio.
+
+                    </li>
+                    <li class="mb-4">
+                        <span class="text-xl  font-semibold">Planteamiento quirúrgico: </span> Explicación del
+                        procedimiento quirúrgico, beneficios, riesgos, proceso
+                        de recuperación y control.
+
+                    </li>
+                    <li class="mb-4">
+                        <span class="text-xl  font-semibold">Examen pre operatorio: </span> Evaluación por cardiólogia para
+                        riesgo pre operatorio, evaluación por
+                        anestesiólogia.
+
+                    </li>
+                    <li class="mb-8">
+                        <span class="text-xl  font-semibold">Instrucción pre operatoria</span> Recomendación sobre ayuno
+                        pre operatorio, suspensión de medicación y
+                        proceso post quirúrgico inmediato.
+                    </li>
+                    <x-boton-solicitar-cita :generales="$generales"></x-boton-solicitar-cita>
+                </ol>
+
+                <!--   <h2 class="text-textCeleste text-text18 md:text-text24 font-semibold">Servicio</h2>
+                                                                                                                            <h1 class="text-text48 font-bold text-textAzul mb-4 text-center md:text-start">Sobre el Proceso</h1>
+                                                                                                                            <div id="servicio-process" class="text-textAzul flex flex-col text-text18 mb-4 gap-4">
+
+                                                                                                                                    {!! $servicio->process !!}
+                                                                                                                                </div>-->
+
+
             </div>
 
             <!-- Imagen -->
             <div class="lg:w-1/2">
-                <img src="https://i.ibb.co/LpQhq5h/image.png" alt="Proceso médico"
+                <img src="{{ asset($randomImage->url_image) }}" alt="Proceso médico"
                     class="rounded-lg shadow-lg w-full h-[720px] object-cover" loading="lazy" />
             </div>
         </section>

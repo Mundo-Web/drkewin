@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProcessAlbumImages;
 use App\Models\Album;
 use App\Models\AlbumImage;
 use Illuminate\Http\Request;
@@ -93,49 +94,87 @@ class AlbumController extends Controller
         }
     }
 
-    public function uploadImages(Request $request, Album $album)
+    /* public function uploadImages(Request $request, Album $album)
     {
         $request->validate([
-            'images.*' => 'required|image|mimes:png,jpg|max:2048', // Validar todas las imágenes
+            'images.*' => 'required|image|mimes:png,jpg,jpeg|max:10240',
         ], [
-            'images.*.required' => 'Por favor selecciona al menos una imagen para cargar.',
-            'images.*.image' => 'El archivo debe ser una imagen válida.',
-            'images.*.mimes' => 'Solo se permiten imágenes con formato PNG o JPG.',
             'images.*.max' => 'El tamaño máximo permitido por imagen es 10MB.',
         ]);
 
-        if ($request->hasFile('images')) {
+        if (!$request->hasFile('images')) {
+            return back()->with('error', 'No se seleccionaron imágenes.');
+        }
+
+        // Crear carpeta temporal única
+        $tempFolder = 'temp/' . Str::uuid();
+        $tempFiles = [];
+
+        foreach ($request->file('images') as $file) {
+            $tempName = Str::random(10) . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs($tempFolder, $tempName);
+            $tempFiles[] = $tempName;
+        }
+
+        // Despachar job para procesar en segundo plano
+        ProcessAlbumImages::dispatch($album, $tempFiles, $tempFolder);
+
+        return redirect()
+            ->route('albums.show', $album->id)
+            ->with('success', 'Las imágenes se están procesando en segundo plano.');
+    }*/
+    public function uploadImages(Request $request, Album $album)
+    {
+        try {
+            $request->validate([
+                'images.*' => 'required|image|mimes:png,jpg,jpeg|max:10240',
+            ], [
+                'images.*.required' => 'Por favor selecciona al menos una imagen para cargar.',
+                'images.*.image' => 'El archivo debe ser una imagen válida.',
+                'images.*.mimes' => 'Solo se permiten imágenes con formato PNG o JPG.',
+                'images.*.max' => 'El tamaño máximo permitido por imagen es 10MB.',
+            ]);
+
+            if (!$request->hasFile('images')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No se seleccionaron imágenes válidas.'
+                ], 400);
+            }
+
             $manager = new ImageManager(new Driver());
+            $uploadedCount = 0;
 
             foreach ($request->file('images') as $file) {
-                // Generar un nombre único para la imagen
                 $nombreImagen = Str::random(10) . '_' . $file->getClientOriginalName();
-
-                // Leer la imagen con Intervention Image
-                $img = $manager->read($file);
-
-                // Ruta para guardar la imagen en una carpeta específica del álbum
                 $ruta = 'storage/images/albums/' . $album->name . '/';
 
-                // Crear la carpeta si no existe
                 if (!is_dir(public_path($ruta))) {
                     mkdir(public_path($ruta), 0777, true);
                 }
 
-                // Guardar la imagen en la carpeta
+                $img = $manager->read($file);
                 $img->save(public_path($ruta . $nombreImagen));
 
-                // Guardar la información en la base de datos
                 $album->images()->create([
                     'url_image' => $ruta . $nombreImagen,
                     'name_image' => $nombreImagen,
                 ]);
+
+                $uploadedCount++;
             }
 
-            return redirect()->route('albums.show', $album->id)->with('success', 'Imágenes subidas y optimizadas correctamente.');
+            return response()->json([
+                'success' => true,
+                'message' => $uploadedCount . ' imágenes subidas correctamente.',
+                'count' => $uploadedCount
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al procesar imágenes: ' . $e->getMessage()
+            ], 500);
         }
-
-        return back()->with('error', 'No se pudo subir las imágenes.');
     }
     /*  public function uploadImages(Request $request, Album $album)
     {

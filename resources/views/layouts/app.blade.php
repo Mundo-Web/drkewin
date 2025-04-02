@@ -38,6 +38,9 @@
 
     <script src="https://cdn.tiny.cloud/1/0ivxwwh4ikqrvmr5gbv61vf2xxpax8guf0jn0had0m9n443d/tinymce/7/tinymce.min.js"
         referrerpolicy="origin"></script>
+    <!--  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>-->
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 

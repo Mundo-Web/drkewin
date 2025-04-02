@@ -15,8 +15,7 @@
                 <a href="{{ route('servicios') }}"
                     class="{{ Route::currentRouteName() === 'servicios' ? 'text-textCeleste font-bold' : '' }} ">Servicios</a>
                 <a href="{{ route('nosotros') }}"
-                    class="{{ Route::currentRouteName() === 'nosotros' ? 'text-textCeleste font-bold' : '' }} ">Acerca
-                    del Doctor</a>
+                    class="{{ Route::currentRouteName() === 'nosotros' ? 'text-textCeleste font-bold' : '' }} ">Conoceme</a>
                 <a href="{{ route('blogs') }}"
                     class="{{ Route::currentRouteName() === 'blogs' ? 'text-textCeleste font-bold' : '' }} ">Blogs</a>
 

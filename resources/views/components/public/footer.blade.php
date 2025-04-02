@@ -58,8 +58,8 @@
                         <a href="{{ route('index') }}" class="font-normal text-text14 xl:text-text18 block">Inicio</a>
                         <a href="{{ route('servicios') }}"
                             class="font-normal text-text14 xl:text-text18 block">Servicios</a>
-                        <a href="{{ route('nosotros') }}" class="font-normal text-text14 xl:text-text18 block">Acerca
-                            del Doctor</a>
+                        <a href="{{ route('nosotros') }}"
+                            class="font-normal text-text14 xl:text-text18 block">Conoceme</a>
                         <a href="{{ route('blogs') }}" class="font-normal text-text14 xl:text-text18 block">Blogs</a>
                     </div>
                 </div>
@@ -68,9 +68,9 @@
                         Datos de contacto
                     </p>
                     <div class="flex flex-col gap-2">
-                        <p class="font-normal text-text14 xl:text-text18">
+                        <!--  <p class="font-normal text-text14 xl:text-text18">
                             {{ $generales->address }}, {{ $generales->inside }} {{ $generales->district }}
-                        </p>
+                        </p>-->
                         <div class="font-normal text-text14 xl:text-text18">
                             <p>Correo Electrónico:</p>
                             <p href="#">{{ $generales->email }}</p>
@@ -80,13 +80,13 @@
                             {{-- <p href="#">{{$generales->office_phone}}</p> --}}
                         </div>
 
-                        <div class="font-normal text-text14 xl:text-text18 py-2">
+                        <!--     <div class="font-normal text-text14 xl:text-text18 py-2">
                             <p class="font-bold">Centro Médico Qualis</p>
                             <p>Dirección : <a target="_blank" href="https://g.co/kgs/Dp16ft">Av. Brasil 2730</a></p>
                             <p>Consultorio Nro 503</p>
                             <p>Pueblo Libre</p>
 
-                        </div>
+                        </div>-->
 
                         <div class="font-normal text-text14 xl:text-text18 py-2">
                             <p class="font-bold">Clínica Integrasalud</p>

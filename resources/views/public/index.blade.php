@@ -443,9 +443,9 @@
                         </a>
 
                         <!-- <a href="#imc"
-                                                                                                                                                                                                                                                                                                                                                                                                                                    class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
-                                                                                                                                                                                                                                                                                                                                                                                                                                    Calcula tu IMC
-                                                                                                                                                                                                                                                                                                                                                                                                                                </a> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Calcula tu IMC
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </a> -->
                     </div>
 
                     <div class="flex flex-col gap-5">
@@ -629,7 +629,7 @@
                     Explora nuestras historias
                 </h3>
                 <h2 class="font-bold text-textAzul text-text48 md:text-text64 leading-none md:leading-tight">
-                    Conoce Nuestras Actividades y Procedimientos Especializados
+                    Conoce nuestros procedimientos especializados
                 </h2>
             </div>
 
@@ -687,11 +687,12 @@
                             <!-- Conoce al Dr. Kewin Quispe de la Roca --> Conoce al Dr. Kewin Quispe de la Roca
                         </p>
                         <h2 class="font-bold text-[40px] md:text-text56  leading-tight">
-                            <!-- Explora el Mundo de la Gastroenterología con el Dr. Kewin -->
+                            <!-- Explora el Mundo de la Gastroenterología con el Dr. Kewin-->
                             Su compromiso con la seguridad y la calidad en cada procedimiento asegura el éxito en tu
                             cirugía.
 
                         </h2>
+                        <!-- <img src="/images/img/doctor_2.png" />-->
                     </div>
                     <div class="md:basis-1/2 flex flex-col gap-4">
                         <p class="font-medium text-text16 xl:text-text22 text-justify">
@@ -763,7 +764,7 @@
                         Proceso de una intervención quirúrgica
                     </h2>
                     <h2 class="font-bold text-text48 xl:text-text52 text-textAzul leading-none md:leading-tight py-5">
-                        ¿Qué necesito para ser candidato a una Cirugía?
+                        ¿ Qué necesito para calificar a una cirugía ?
                     </h2>
                     <p class="font-medium text-text18 xl:text-text22 text-textAzul" data-aos="fade-up"
                         data-aos-offset="150">
@@ -1090,12 +1091,10 @@
 
 
                                             <img src="{{ $testimonio->url_image_antes }}"
-                                                class="h-[200px] md:h-[400px] absolute opacity-50 md:left-1/3 myBox"
-                                                alt="testimonios" loading="lazy" />
+                                                class="h-full w-full object-contain rounded-3xl  myBox" alt="testimonios"
+                                                loading="lazy" />
 
-                                            <img src="{{ $testimonio->url_image_posterior }}"
-                                                class="h-[200px] md:h-[400px] absolute top-1/4 left-1/4 md:left-1/2 z-[1] myBox"
-                                                alt="testimonios" loading="lazy" />
+
 
 
                                         </div>
@@ -1116,9 +1115,9 @@
                 data-aos-offset="150">
                 <div class="flex flex-col 2md:flex-row gap-10">
                     <div class="flex flex-col-reverse 2md:flex-col basis-1/2 gap-4">
-                        <p class="font-medium text-text24">
-                            El Dr. Kewin Quipe de la Roca mantiene una actualización constante
-                        </p>
+                        <!--  <p class="font-medium text-text24">
+                                            El Dr. Kewin Quipe de la Roca mantiene una actualización constante
+                                        </p>-->
                         <h1 class="font-bold text-text36 xl:text-text52 leading-none md:leading-tight">
                             Miembro de las sociedades de
                             cirugía especializada más prestigiosas
@@ -1134,7 +1133,7 @@
                                     <div class="swiper-slide">
                                         <div class="flex justify-center items-center">
                                             <img src="{{ asset($logo->url_image) }}" alt="Apebem"
-                                                class="w-[217px] h-[122px]" loading="lazy" />
+                                                class="w-auto h-[122px] object-cover" loading="lazy" />
                                         </div>
                                     </div>
                                 @endforeach

@@ -82,7 +82,18 @@ class IndexController extends Controller
     $albumPerfil = Album::where('name', 'Perfil')->with('images')->first();
     $perfil = $albumPerfil ? $albumPerfil->images->first() : null;
 
-    return view('public.servicios', compact('generales', 'servicios', 'servicio', 'perfil', 'servicioGaleria'));
+    // Buscar el álbum "certificados"
+    $albumGaleria = Album::where('name', 'Galeria')->first();
+
+    // Si el álbum no existe, manejar el caso
+    if (!$albumGaleria) {
+      return redirect()->back()->with('error', 'El álbum "galeria" no existe.');
+    }
+
+    // Obtener las imágenes del álbum
+    $imagesGaleria = $albumGaleria->images;
+
+    return view('public.servicios', compact('generales', 'servicios', 'servicio', 'perfil', 'servicioGaleria', 'imagesGaleria'));
   }
   public function detalle_servicio($id)
   {

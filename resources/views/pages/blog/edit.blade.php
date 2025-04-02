@@ -60,7 +60,7 @@
 
 
                             <div class="md:col-span-5">
-                                <label for="description">Imagen de servicio (808x445 px)</label>
+                                <label for="description">Imagen actual del bog </label>
                                 <div class="relative mb-2 mt-2">
                                     <img src="{{ asset($blog->url_image) }}"
                                         class="max-w-xs max-h-48 object-cover  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -69,7 +69,8 @@
 
 
                             <div class="md:col-span-5">
-                                <label for="image">Imagen principal</label>
+                                <label for="image">Imagen principal <span class="text-red-500">( formato jpg,png |
+                                        resolucion 1920 x 1280 )</span></label>
                                 <div class="relative mb-2  mt-2">
                                     <input id="image" name="image"
                                         class="p-2.5 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"

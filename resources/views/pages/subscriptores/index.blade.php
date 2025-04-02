@@ -41,13 +41,7 @@
                             @endforeach
 
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Correo</th>
-                                <th>Fecha de Subscripcion</th>
-                                <th>Acción</th>
-                            </tr>
-                        </tfoot>
+
                     </table>
 
                 </div>
