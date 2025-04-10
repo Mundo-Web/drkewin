@@ -6,7 +6,10 @@ use App\Http\Requests\StoreGeneralRequest;
 use App\Http\Requests\UpdateGeneralRequest;
 use App\Models\General;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class GeneralController extends Controller
 {
@@ -16,8 +19,8 @@ class GeneralController extends Controller
     public function index()
     {
         //llames a los registros para mostrarlos en tabla
-        
-        
+
+
     }
 
     /**
@@ -51,16 +54,15 @@ class GeneralController extends Controller
     {
         //El que muestra el form para editar
         //return "mostrar el unico registro";
-    
+
         $general = General::find(1);
 
         // if (!$general) {
         //     return redirect()->back()->with('error', 'El registro no existe');
         // }
 
-        
+
         return view('pages.general.edit', compact('general'));
-        
     }
 
     /**
@@ -68,17 +70,66 @@ class GeneralController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $general = General::findOrFail($id);
 
-            $general = General::findOrfail($id); 
+        // Validación de campos
+        $validatedData = $request->validate([
+            'hero_video' => 'nullable|file|mimes:mp4,webm|max:20480',
+            'title1' => 'required|string|max:255',
+            'title2' => 'nullable|string|max:255',
+            'description' => 'nullable',
+            'address' => 'nullable',
+            'inside' => 'nullable',
+            'district' => 'nullable',
+            'country' => 'nullable',
+            'email' => 'nullable',
+            'cellphone' => 'nullable',
+            'office_phone' => 'nullable',
+            'whatsapp' => 'nullable',
+            'mensaje_whatsapp' => 'nullable',
+            'schedule' => 'nullable',
+            'facebook' => 'nullable',
+            'instagram' => 'nullable',
+            'youtube' => 'nullable',
+            'linkedin' => 'nullable',
+            'tiktok' => 'nullable',
+            'twitter' => 'nullable'
+        ]);
 
-            // Actualizar los campos del registro con los datos del formulario
-            $general->update($request->all());
+        try {
+            DB::beginTransaction();
 
-            // Guardar 
-            $general->save();  
+            // Manejar la subida del video
+            if ($request->hasFile('hero_video')) {
+                // Eliminar video anterior
+                if ($general->hero_video_url) {
+                    $oldPath = public_path($general->hero_video_url);
+                    if (File::exists($oldPath)) {
+                        File::delete($oldPath);
+                    }
+                }
 
-            return back()->with('success', 'Registro actualizado correctamente');
+                // Guardar nuevo video
+                $video = $request->file('hero_video');
+                $videoName = 'video_' . time() . '.' . $video->getClientOriginalExtension();
+                $video->move(public_path('storage/videos/hero'), $videoName);
+                $ruta = 'storage/videos/hero';
+                if (!file_exists($ruta)) {
+                    mkdir($ruta, 0777, true); // Se crea la ruta con permisos de lectura, escritura y ejecución
+                }
+                $general->hero_video_url = 'storage/videos/hero/' . $videoName;
+            }
 
+            // Actualizar todos los campos del modelo
+            $general->update($validatedData);
+
+            DB::commit();
+
+            return back()->with('success', 'Datos actualizados correctamente');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Error al actualizar: ' . $e->getMessage())->withInput();
+        }
     }
 
     /**

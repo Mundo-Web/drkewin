@@ -413,15 +413,40 @@
             }
 
         }
+
+        /* Añade estos estilos para el video */
+
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
     </style>
 
 @stop
 {{-- style="background-image: url({{asset('images/img/Hero_Doctor_mobile.png')}})" --}}
 @section('content')
-    <main class="flex flex-col gap-20 font-outfit">
+    <main class="flex flex-col gap-20 font-outfit z-0">
+        <div class="absolute inset-0 w-full  h-[141vh] lg:h-[185vh] z-10">
+            @if ($generales->hero_video_url)
+                <video autoplay muted loop playsinline class="w-full  h-[141vh] lg:h-[185vh] object-cover  hero-video">
+                    <source src="{{ asset($generales->hero_video_url) }}" type="video/mp4">
+                    Tu navegador no soporta videos HTML5.
+                </video>
+                <!-- Overlay para mejor legibilidad -->
+                <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+            @else
+                <!-- Fallback a imagen si no hay video -->
+                <div class="bg__image-header bg-cover bg-center bg-no-repeat w-full h-full"></div>
+            @endif
+        </div>
         <section class="bg__image-header bg-cover bg-center bg-no-repeat sm:w-full h-full pt-24 md:pt-32">
-            <div class="flex flex-col items-center lg:flex-row gap-10 md:gap-32 w-11/12 md:max-w-6xl mx-auto text-textWhite mt-12 lg:items-start"
+
+
+            <div class="flex flex-col items-center lg:flex-row gap-10 md:gap-32 w-11/12 md:max-w-6xl mx-auto text-textWhite mt-12 lg:items-start relative z-10"
                 data-aos="fade-up" data-aos-offset="150">
+
+
                 <div class="flex flex-col gap-10 basis-1/2 justify-center ">
                     <div class="flex flex-col gap-8 md:gap-5">
                         <h1 class="font-bold text-[50px] md:text-text36 2md:text-text64 leading-none 2md:leading-tight">
@@ -443,9 +468,9 @@
                         </a>
 
                         <!-- <a href="#imc"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Calcula tu IMC
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </a> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Calcula tu IMC
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </a> -->
                     </div>
 
                     <div class="flex flex-col gap-5">
@@ -1116,8 +1141,8 @@
                 <div class="flex flex-col 2md:flex-row gap-10">
                     <div class="flex flex-col-reverse 2md:flex-col basis-1/2 gap-4">
                         <!--  <p class="font-medium text-text24">
-                                            El Dr. Kewin Quipe de la Roca mantiene una actualización constante
-                                        </p>-->
+                                                                                                                                                                                                        El Dr. Kewin Quipe de la Roca mantiene una actualización constante
+                                                                                                                                                                                                    </p>-->
                         <h1 class="font-bold text-text36 xl:text-text52 leading-none md:leading-tight">
                             Miembro de las sociedades de
                             cirugía especializada más prestigiosas
