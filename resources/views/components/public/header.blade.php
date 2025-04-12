@@ -26,7 +26,7 @@
                     <!-- Modal de Servicios -->
                     <!-- Modal de Servicios ajustado -->
                     <div x-show="open" @click.away="open = false" x-transition.origin.top.right
-                        class="fixed top-10 left-4 bg-white rounded-xl shadow-xl z-50 max-h-[70vh] overflow-y-auto w-64"
+                        class="fixed top-10 left-4 bg-white rounded-xl shadow-xl z-50 max-h-[70vh] overflow-y-auto w-[20rem]"
                         x-cloak style="max-height: calc(100vh - 100px);">
                         <div class="p-4 space-y-2">
                             @foreach ($servicios as $servicio)
