@@ -427,9 +427,10 @@
 {{-- style="background-image: url({{asset('images/img/Hero_Doctor_mobile.png')}})" --}}
 @section('content')
     <main class="flex flex-col gap-20 font-outfit z-0">
-        <div class="absolute inset-0 w-full  h-[141vh] lg:h-[185vh] z-10">
+        <div class="absolute inset-0 w-full  h-[141vh] lg:h-[185vh] xl:h-[1165px] z-10">
             @if ($generales->hero_video_url)
-                <video autoplay muted loop playsinline class="w-full  h-[141vh] lg:h-[185vh] object-cover  hero-video">
+                <video autoplay muted loop playsinline
+                    class="w-full  h-[141vh] lg:h-[185vh] xl:h-[1165px] object-cover  hero-video">
                     <source src="{{ asset($generales->hero_video_url) }}" type="video/mp4">
                     Tu navegador no soporta videos HTML5.
                 </video>
@@ -468,9 +469,9 @@
                         </a>
 
                         <!-- <a href="#imc"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Calcula tu IMC
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </a> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Calcula tu IMC
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </a> -->
                     </div>
 
                     <div class="flex flex-col gap-5">
@@ -1141,8 +1142,8 @@
                 <div class="flex flex-col 2md:flex-row gap-10">
                     <div class="flex flex-col-reverse 2md:flex-col basis-1/2 gap-4">
                         <!--  <p class="font-medium text-text24">
-                                                                                                                                                                                                        El Dr. Kewin Quipe de la Roca mantiene una actualización constante
-                                                                                                                                                                                                    </p>-->
+                                                                                                                                                                                                                                            El Dr. Kewin Quipe de la Roca mantiene una actualización constante
+                                                                                                                                                                                                                                        </p>-->
                         <h1 class="font-bold text-text36 xl:text-text52 leading-none md:leading-tight">
                             Miembro de las sociedades de
                             cirugía especializada más prestigiosas
