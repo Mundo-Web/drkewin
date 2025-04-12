@@ -414,36 +414,61 @@
 
         }
 
-        /* Añade estos estilos para el video */
-
-
-        .hero-content {
+        .hero-slider {
             position: relative;
+            width: 100%;
+            min-height: 90vh;
+            overflow: hidden;
+        }
+
+        .slider-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
             z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 2;
         }
     </style>
 
 @stop
 {{-- style="background-image: url({{asset('images/img/Hero_Doctor_mobile.png')}})" --}}
 @section('content')
-    <main class="flex flex-col gap-20 font-outfit z-0">
-        <div class="absolute inset-0 w-full  h-[141vh] lg:h-[185vh] xl:h-[1165px] z-10">
-            @if ($generales->hero_video_url)
-                <video autoplay muted loop playsinline
-                    class="w-full  h-[141vh] lg:h-[185vh] xl:h-[1165px] object-cover  hero-video">
-                    <source src="{{ asset($generales->hero_video_url) }}" type="video/mp4">
-                    Tu navegador no soporta videos HTML5.
-                </video>
-                <!-- Overlay para mejor legibilidad -->
-                <div class="absolute inset-0 bg-black bg-opacity-40"></div>
-            @else
-                <!-- Fallback a imagen si no hay video -->
-                <div class="bg__image-header bg-cover bg-center bg-no-repeat w-full h-full"></div>
-            @endif
-        </div>
-        <section class="bg__image-header bg-cover bg-center bg-no-repeat sm:w-full h-full pt-24 md:pt-32">
+    <main class="flex flex-col gap-20 font-outfit">
+        <!-- Sección Hero con Slider de Fondo -->
+        <section class="hero-slider relative w-full min-h-[90vh] pt-24 md:pt-32 overflow-hidden">
+            <!-- Slider de Fondo -->
+            <div class="slider-container absolute top-0 left-0 w-full h-full">
+                @foreach ($albumSliders as $index => $image)
+                    <div class="slide {{ $loop->first ? 'active' : '' }}"
+                        style="background-image: url('{{ asset($image->url_image) }}')" data-index="{{ $index }}"
+                        aria-hidden="{{ !$loop->first ? 'true' : 'false' }}"
+                        alt="{{ $image->name_image ?? 'Imagen de fondo' }}">
+                    </div>
+                @endforeach
+            </div>
 
-
+            <!-- Overlay para mejor legibilidad -->
+            <div class="absolute inset-0 bg-black/30 z-1"></div>
             <div class="flex flex-col items-center lg:flex-row gap-10 md:gap-32 w-11/12 md:max-w-6xl mx-auto text-textWhite mt-12 lg:items-start relative z-10"
                 data-aos="fade-up" data-aos-offset="150">
 
@@ -469,9 +494,9 @@
                         </a>
 
                         <!-- <a href="#imc"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Calcula tu IMC
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </a> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Calcula tu IMC
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </a> -->
                     </div>
 
                     <div class="flex flex-col gap-5">
@@ -1142,8 +1167,8 @@
                 <div class="flex flex-col 2md:flex-row gap-10">
                     <div class="flex flex-col-reverse 2md:flex-col basis-1/2 gap-4">
                         <!--  <p class="font-medium text-text24">
-                                                                                                                                                                                                                                            El Dr. Kewin Quipe de la Roca mantiene una actualización constante
-                                                                                                                                                                                                                                        </p>-->
+                                                                                                                                                El Dr. Kewin Quipe de la Roca mantiene una actualización constante
+                                                                                                                                            </p>-->
                         <h1 class="font-bold text-text36 xl:text-text52 leading-none md:leading-tight">
                             Miembro de las sociedades de
                             cirugía especializada más prestigiosas
@@ -1259,6 +1284,47 @@
 @section('scripts_improtados')
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            // Configuración básica del slider
+            const sliderConfig = {
+                transitionTime: 5000, // 5 segundos entre transiciones
+                fadeDuration: 1500 // 1.5 segundos de duración del fade
+            };
+
+            // Inicializa el slider solo si hay más de una imagen
+            function initBackgroundSlider() {
+                const slides = document.querySelectorAll('.slide');
+
+                if (slides.length > 1) {
+                    startSliderTransition();
+                }
+            }
+
+            // Maneja la transición entre slides
+            function startSliderTransition() {
+                const slides = document.querySelectorAll('.slide');
+                let currentIndex = 0;
+
+                const transitionInterval = setInterval(() => {
+                    // Oculta la slide actual
+                    slides[currentIndex].classList.remove('active');
+                    slides[currentIndex].setAttribute('aria-hidden', 'true');
+
+                    // Calcula el próximo índice
+                    currentIndex = (currentIndex + 1) % slides.length;
+
+                    // Muestra la siguiente slide
+                    slides[currentIndex].classList.add('active');
+                    slides[currentIndex].setAttribute('aria-hidden', 'false');
+
+                }, sliderConfig.transitionTime);
+
+                // Limpiar intervalo si el componente se desmonta (opcional)
+                return () => clearInterval(transitionInterval);
+            }
+
+            // Inicializa el slider
+            initBackgroundSlider();
+
             var especialidades = new Swiper(".especialidades", {
                 slidesPerView: 4,
                 spaceBetween: 20,

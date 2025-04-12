@@ -74,7 +74,7 @@ class GeneralController extends Controller
 
         // Validación de campos
         $validatedData = $request->validate([
-
+            'hero_video' => 'nullable|file|mimes:mp4,webm|max:20480',
             'title1' => 'required|string|max:255',
             'title2' => 'nullable|string|max:255',
             'description' => 'nullable',
@@ -96,14 +96,40 @@ class GeneralController extends Controller
             'twitter' => 'nullable'
         ]);
 
+        try {
+            DB::beginTransaction();
 
+            // Manejar la subida del video
+            if ($request->hasFile('hero_video')) {
+                // Eliminar video anterior
+                if ($general->hero_video_url) {
+                    $oldPath = public_path($general->hero_video_url);
+                    if (File::exists($oldPath)) {
+                        File::delete($oldPath);
+                    }
+                }
 
-        // Actualizar todos los campos del modelo
-        $general->update($validatedData);
+                // Guardar nuevo video
+                $video = $request->file('hero_video');
+                $videoName = 'video_' . time() . '.' . $video->getClientOriginalExtension();
+                $video->move(public_path('storage/videos/hero'), $videoName);
+                $ruta = 'storage/videos/hero';
+                if (!file_exists($ruta)) {
+                    mkdir($ruta, 0777, true); // Se crea la ruta con permisos de lectura, escritura y ejecución
+                }
+                $general->hero_video_url = 'storage/videos/hero/' . $videoName;
+            }
 
+            // Actualizar todos los campos del modelo
+            $general->update($validatedData);
 
+            DB::commit();
 
-        return back()->with('success', 'Datos actualizados correctamente');
+            return back()->with('success', 'Datos actualizados correctamente');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Error al actualizar: ' . $e->getMessage())->withInput();
+        }
     }
 
     /**
