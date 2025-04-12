@@ -14,12 +14,12 @@
         <div class="hidden lg:flex justify-center items-center gap-10 font-semibold text-text18 xl:text-text22">
             <nav class="flex justify-center items-center gap-10 text-center" data-aos="fade-up" data-aos-offset="150">
                 <a href="{{ route('index') }}"
-                    class="{{ Route::currentRouteName() === 'index' ? 'text-textCeleste font-bold' : '' }}">Inicio</a>
+                    class="{{ Route::currentRouteName() === 'index' ? 'text-textCeleste font-bold' : '' }} [text-shadow:_0_2px_4px_rgba(0,0,0,0.5)]">Inicio</a>
 
                 <!-- Enlace de Servicios con modal -->
                 <div class="relative" x-data="{ open: false }">
                     <button @click="open = true"
-                        class="{{ Route::currentRouteName() === 'servicios' ? 'text-textCeleste font-bold' : '' }} flex items-center gap-1 hover:text-textCeleste transition-colors">
+                        class="{{ Route::currentRouteName() === 'servicios' ? 'text-textCeleste font-bold' : '' }} flex items-center gap-1  transition-colors [text-shadow:_0_2px_4px_rgba(0,0,0,0.5)]">
                         Servicios <i class="fa-solid fa-chevron-down text-xs ml-2"></i>
                     </button>
 
@@ -48,9 +48,9 @@
                 </div>
 
                 <a href="{{ route('nosotros') }}"
-                    class="{{ Route::currentRouteName() === 'nosotros' ? 'text-textCeleste font-bold' : '' }}">Conoceme</a>
+                    class="{{ Route::currentRouteName() === 'nosotros' ? 'text-textCeleste font-bold' : '' }} [text-shadow:_0_2px_4px_rgba(0,0,0,0.5)]">Conoceme</a>
                 <a href="{{ route('blogs') }}"
-                    class="{{ Route::currentRouteName() === 'blogs' ? 'text-textCeleste font-bold' : '' }}">Blogs</a>
+                    class="{{ Route::currentRouteName() === 'blogs' ? 'text-textCeleste font-bold' : '' }} [text-shadow:_0_2px_4px_rgba(0,0,0,0.5)]">Blogs</a>
             </nav>
 
             <x-boton-solicitar-cita :generales="$generales" data-aos="fade-up" data-aos-offset="150"></x-boton-solicitar-cita>

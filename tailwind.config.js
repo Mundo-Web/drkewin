@@ -120,6 +120,7 @@ export default {
                 colorAdd: "#2D694B",
                 textWhite: "#FFFFFF",
                 textCeleste: "#42BAE2",
+                textCelesteStrong: "#0ea5e9",
                 textAzul: "#254F9A",
             },
             borderColor: {

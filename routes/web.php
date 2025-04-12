@@ -27,6 +27,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\StaffController;
 
 use App\Http\Controllers\RotacionController;
+use App\Http\Controllers\SlideController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\SubscriberController;
 
@@ -97,6 +98,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::resource('/servicios', ServiceController::class);
         Route::post('/servicios/deleteService', [ServiceController::class, 'deleteService'])->name('servicio.deleteService');
         Route::post('/servicios/updateVisible', [ServiceController::class, 'updateVisible'])->name('servicio.updateVisible');
+
+        Route::resource('/slides', SlideController::class);
+        Route::post('/slides/deleteSlide', [SlideController::class, 'deleteSlide'])->name('slide.deleteSlide');
+        Route::post('/slides/updateVisible', [SlideController::class, 'updateVisible'])->name('slide.updateVisible');
 
 
         //Blog

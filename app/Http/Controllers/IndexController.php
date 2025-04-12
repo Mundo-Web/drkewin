@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use PhpParser\Node\Stmt\TryCatch;
 use App\Helpers\EmailConfig;
+use App\Models\Slide;
 use App\Models\Story;
 use App\Models\Subscriber;
 
@@ -41,10 +42,10 @@ class IndexController extends Controller
     $albumPortada = Album::where('name', 'Portada')->with('images')->first();
     $imagenPortada = $albumPortada ? $albumPortada->images->first() : null;
     $videos = Story::latest()->get();
-    $albumSlidersWhitImages = Album::where('name', 'Sliders')->with('images')->first();
-    $albumSliders = $albumSlidersWhitImages->images;
 
-    return view('public.index', compact('servicios', 'titulos', 'generales', 'testimonios', 'logos', 'perfil', 'imagenPortada', 'videos', 'albumSliders'));
+    $slides = Slide::where('status', true)->where('visible', true)->get();
+
+    return view('public.index', compact('servicios', 'titulos', 'generales', 'testimonios', 'logos', 'perfil', 'imagenPortada', 'videos', 'slides'));
   }
 
   public function servicios(Request $request)

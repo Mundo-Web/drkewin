@@ -414,58 +414,39 @@
 
         }
 
-
-
-        .hero-content {
+        .hero-slider {
             position: relative;
+            width: 100%;
+            min-height: 90vh;
+            overflow: hidden;
+        }
+
+        .slider-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
             z-index: 1;
         }
 
-
-        .hero-main-slider {
-            position: relative;
-            width: 100%;
-        }
-
-        .hero-slider-container {
-            width: 100%;
-            height: 100%;
-        }
-
-        .hero-slider-container .swiper-slide {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Estilos para la paginación y navegación */
-        .hero-slider-container .swiper-pagination-bullet {
-            width: 12px;
-            height: 12px;
-            background: white;
-            opacity: 0.5;
-        }
-
-        .hero-slider-container .swiper-pagination-bullet-active {
+        .slide.active {
             opacity: 1;
-            background: #42bae2;
-        }
-
-        .hero-slider-container .swiper-button-next,
-        .hero-slider-container .swiper-button-prev {
-            color: white;
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 50%;
-            backdrop-filter: blur(4px);
-        }
-
-        .hero-slider-container .swiper-button-next:after,
-        .hero-slider-container .swiper-button-prev:after {
-            font-size: 24px;
-            font-weight: bold;
+            z-index: 2;
         }
     </style>
 
@@ -473,59 +454,134 @@
 {{-- style="background-image: url({{asset('images/img/Hero_Doctor_mobile.png')}})" --}}
 @section('content')
     <main class="flex flex-col gap-20 font-outfit">
-        <!-- Sección Hero con Slider Completo -->
-        <section class="hero-main-slider relative w-full h-full  overflow-hidden">
-            <!-- Slider Principal -->
-            <div class="swiper hero-slider-container absolute top-0 inset-0 left-0 w-full h-full">
-                <div class="swiper-wrapper h-full">
-                    @foreach ($slides as $slide)
-                        <div class="swiper-slide py-32">
-                            <!-- Imagen de fondo -->
-                            <div class="absolute inset-0 bg-cover bg-center z-0"
-                                style="background-image: url('{{ asset($slide->image) }}')"></div>
-
-                            <!-- Overlay para mejor legibilidad -->
-                            <div class="absolute inset-0  bg-gradient-to-b from-[#254f9a]/60 to-transparent z-1"></div>
-
-                            <!-- Contenido del slide -->
-                            <div
-                                class="flex flex-col items-center lg:flex-row gap-10 md:gap-32 w-11/12 md:max-w-6xl mx-auto text-textWhite mt-12 lg:items-start relative z-10 h-full justify-start">
-                                <div class="flex flex-col gap-10 basis-full lg:basis-8/12 justify-start">
-                                    <div class="flex flex-col gap-8 md:gap-5">
-                                        <h1
-                                            class="slide-title font-medium text-[50px] md:text-text36 2md:text-text64 leading-none 2md:leading-tight [text-shadow:_0_2px_4px_rgba(0,0,0,0.8)]">
-                                            {{ $slide->title }}
-                                        </h1>
-                                        <div
-                                            class="font-medium text-text18 xl:text-text22 [text-shadow:_0_1px_2px_rgba(0,0,0,0.3)]">
-                                            {!! $slide->description !!}
-                                        </div>
-                                    </div>
-                                    <div class="font-semibold text-text18 xl:text-text22">
-                                        <a href="{{ $slide->btn_link }}"
-                                            class="bg-bgCeleste py-3 px-5 rounded-xl inline-block text-center hover:bg-bgCelesteStrong md:duration-500 w-full md:w-auto">
-                                            {{ $slide->btn_text }}
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-
-
+        <!-- Sección Hero con Slider de Fondo -->
+        <section class="hero-slider relative w-full min-h-[90vh] pt-24 md:pt-32 overflow-hidden">
+            <!-- Slider de Fondo -->
+            <div class="slider-container absolute top-0 left-0 w-full h-full">
+                @foreach ($albumSliders as $index => $image)
+                    <div class="slide {{ $loop->first ? 'active' : '' }}"
+                        style="background-image: url('{{ asset($image->url_image) }}')" data-index="{{ $index }}"
+                        aria-hidden="{{ !$loop->first ? 'true' : 'false' }}"
+                        alt="{{ $image->name_image ?? 'Imagen de fondo' }}">
+                    </div>
+                @endforeach
             </div>
 
-            <!-- Slider de especialidades (se mantiene igual) -->
-            <div class=" relative z-10" id="servicios">
+            <!-- Overlay para mejor legibilidad -->
+            <div class="absolute inset-0 bg-black/30 z-1"></div>
+            <div class="flex flex-col items-center lg:flex-row gap-10 md:gap-32 w-11/12 md:max-w-6xl mx-auto text-textWhite mt-12 lg:items-start relative z-10"
+                data-aos="fade-up" data-aos-offset="150">
+
+
+                <div class="flex flex-col gap-10 basis-1/2 justify-center ">
+                    <div class="flex flex-col gap-8 md:gap-5">
+                        <h1 class="font-bold text-[50px] md:text-text36 2md:text-text64 leading-none 2md:leading-tight">
+                            <!-- {{ $generales->title1 }} --> <!-- Explora un Nuevo Horizonte de Salud con el Dr. Kewin -->
+                            <!-- Explora un Nuevo Horizonte de Salud con el Dr. Kewin -->
+                            Explore una atención personalizada en cirugía con nuestro equipo
+                            <!--  Explore una atención personalizada en cirugía con nuestro equipo -->
+                        </h1>
+                        <p class="font-medium text-text18 xl:text-text22">
+                            {{ $generales->description }}
+                        </p>
+                    </div>
+                    <div
+                        class="font-semibold text-text18 xl:text-text22 flex flex-col md:flex-row items-center justify-start gap-5">
+                        <a target="_blank"
+                            href="https://api.whatsapp.com/send?phone={{ $generales->whatsapp }}&text={{ $generales->mensaje_whatsapp }}"
+                            class="bg-bgCeleste py-3 px-5 rounded-xl inline-block text-center hover:bg-bgCelesteStrong md:duration-500 w-full md:w-auto">
+                            Solicitar una cita
+                        </a>
+
+                        <!-- <a href="#imc"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        class="bg-bgWhiteWeak text-textAzul py-3 px-8 rounded-xl inline-block text-center w-full md:w-auto">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Calcula tu IMC
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </a> -->
+                    </div>
+
+                    <div class="flex flex-col gap-5">
+                        <div class="flex gap-2">
+                            <div>
+                                <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M6 8.5C4.5 8.5 4.5 10.5 6 10.5L8.00052 10.5C8.5528 10.5 9 10.9445 9 11.4968V21C9 22.5 11 22.5 11 21C11 19.5 11 16.5 12 16.5C13 16.5 13 19.5 13 21C13 22.5 15 22.5 15 21V11.5C15 10.9477 15.4477 10.5 16 10.5H18C19.5 10.5 19.5 8.5 18 8.5H6Z"
+                                        stroke="white" stroke-linecap="round" />
+                                    <path
+                                        d="M14 5C14 6.10457 13.1046 7 12 7C10.8954 7 10 6.10457 10 5C10 3.89543 10.8954 3 12 3C13.1046 3 14 3.89543 14 5Z"
+                                        stroke="white" />
+                                </svg>
+                            </div>
+                            <h2 class="font-medium text-text18 xl:text-text22">
+                                Cirugía segura
+                            </h2>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <div>
+                                <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M6 8.5C4.5 8.5 4.5 10.5 6 10.5L8.00052 10.5C8.5528 10.5 9 10.9445 9 11.4968V21C9 22.5 11 22.5 11 21C11 19.5 11 16.5 12 16.5C13 16.5 13 19.5 13 21C13 22.5 15 22.5 15 21V11.5C15 10.9477 15.4477 10.5 16 10.5H18C19.5 10.5 19.5 8.5 18 8.5H6Z"
+                                        stroke="white" stroke-linecap="round" />
+                                    <path
+                                        d="M14 5C14 6.10457 13.1046 7 12 7C10.8954 7 10 6.10457 10 5C10 3.89543 10.8954 3 12 3C13.1046 3 14 3.89543 14 5Z"
+                                        stroke="white" />
+                                </svg>
+                            </div>
+                            <h2 class="font-medium text-text18 xl:text-text22">
+                                Rápida recuperación
+                            </h2>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <div>
+                                <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M6 8.5C4.5 8.5 4.5 10.5 6 10.5L8.00052 10.5C8.5528 10.5 9 10.9445 9 11.4968V21C9 22.5 11 22.5 11 21C11 19.5 11 16.5 12 16.5C13 16.5 13 19.5 13 21C13 22.5 15 22.5 15 21V11.5C15 10.9477 15.4477 10.5 16 10.5H18C19.5 10.5 19.5 8.5 18 8.5H6Z"
+                                        stroke="white" stroke-linecap="round" />
+                                    <path
+                                        d="M14 5C14 6.10457 13.1046 7 12 7C10.8954 7 10 6.10457 10 5C10 3.89543 10.8954 3 12 3C13.1046 3 14 3.89543 14 5Z"
+                                        stroke="white" />
+                                </svg>
+                            </div>
+                            <h2 class="font-medium text-text18 xl:text-text22">
+                                Menor dolor post operatorio
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="image-container flex justify-center items-center basis-1/2 relative md:mt-24">
+                    <!-- md:mt-24 - mt-12  xl:mt-32-->
+                    <div class="hidden md:flex flex-col justify-end h-full items-end">
+                        <img src="{{ asset('images/img/doctor_kewin_2.png') }}" alt="doctor Kewin" class="w-[95%]"
+                            loading="lazy" />
+                    </div>
+                    <div class="relative md:absolute bottom-0">
+                        @if ($perfil)
+                            <img src="{{ asset($perfil->url_image) }}" alt="Dr. Kewin" class="h-full w-full"
+                                loading="lazy" />
+                        @else
+                            <p>No hay imagen disponible para el perfil.</p>
+                        @endif
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:mt-32" id="servicios">
                 <div
                     class="swiper especialidades bg-bgCeleste font-semibold text-text18 md:text-text28 text-center text-textWhite">
                     <div class="swiper-wrapper py-4 items-center">
+
                         @foreach ($titulos as $titulo)
                             <div class="swiper-slide">
                                 <p>{{ $titulo->name }}</p>
                             </div>
                         @endforeach
+
                     </div>
                 </div>
             </div>
@@ -599,7 +655,8 @@
                                                 {!! $servicio->extracto !!}<!-- {!! Str::limit($servicio->extracto, 250) !!} -->
                                             </p>
 
-                                            <div class="flex justify-center items-center absolute -bottom-[25px] md:w-auto">
+                                            <div
+                                                class="flex justify-center items-center absolute -bottom-[25px] md:w-auto">
                                                 <a href="{{ route('servicios', ['slug' => $servicio->slug]) }}"
                                                     class="bg-bgCeleste py-3 px-10 rounded-xl inline-block text-center text-textWhite font-semibold text-text16 xl:text-text20 w-full md:w-auto group-hover:bg-bgAzul md:duration-500">
                                                     Ver más
@@ -1110,8 +1167,8 @@
                 <div class="flex flex-col 2md:flex-row gap-10">
                     <div class="flex flex-col-reverse 2md:flex-col basis-1/2 gap-4">
                         <!--  <p class="font-medium text-text24">
-                                                                                                                                                                                                                                                                                                                                            El Dr. Kewin Quipe de la Roca mantiene una actualización constante
-                                                                                                                                                                                                                                                                                                                                        </p>-->
+                                                                                                                                                El Dr. Kewin Quipe de la Roca mantiene una actualización constante
+                                                                                                                                            </p>-->
                         <h1 class="font-bold text-text36 xl:text-text52 leading-none md:leading-tight">
                             Miembro de las sociedades de
                             cirugía especializada más prestigiosas
@@ -1227,30 +1284,46 @@
 @section('scripts_improtados')
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            document.querySelectorAll('.slide-title, .slide-description').forEach(element => {
-                element.innerHTML = element.innerHTML.replace(/\*(.*?)\*/g, '<strong>$1</strong>');
-            });
-            // Slider principal
-            var heroSlider = new Swiper(".hero-slider-container", {
-                loop: true,
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: ".hero-slider-container .swiper-pagination",
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: ".hero-slider-container .swiper-button-next",
-                    prevEl: ".hero-slider-container .swiper-button-prev",
-                },
-                effect: 'fade',
-                fadeEffect: {
-                    crossFade: true
-                },
-            });
+            // Configuración básica del slider
+            const sliderConfig = {
+                transitionTime: 5000, // 5 segundos entre transiciones
+                fadeDuration: 1500 // 1.5 segundos de duración del fade
+            };
 
+            // Inicializa el slider solo si hay más de una imagen
+            function initBackgroundSlider() {
+                const slides = document.querySelectorAll('.slide');
+
+                if (slides.length > 1) {
+                    startSliderTransition();
+                }
+            }
+
+            // Maneja la transición entre slides
+            function startSliderTransition() {
+                const slides = document.querySelectorAll('.slide');
+                let currentIndex = 0;
+
+                const transitionInterval = setInterval(() => {
+                    // Oculta la slide actual
+                    slides[currentIndex].classList.remove('active');
+                    slides[currentIndex].setAttribute('aria-hidden', 'true');
+
+                    // Calcula el próximo índice
+                    currentIndex = (currentIndex + 1) % slides.length;
+
+                    // Muestra la siguiente slide
+                    slides[currentIndex].classList.add('active');
+                    slides[currentIndex].setAttribute('aria-hidden', 'false');
+
+                }, sliderConfig.transitionTime);
+
+                // Limpiar intervalo si el componente se desmonta (opcional)
+                return () => clearInterval(transitionInterval);
+            }
+
+            // Inicializa el slider
+            initBackgroundSlider();
 
             var especialidades = new Swiper(".especialidades", {
                 slidesPerView: 4,
