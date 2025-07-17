@@ -317,6 +317,117 @@
 
                                                         </div>
                                                     </div>
+
+                                                    <!-- Sección SEO -->
+                                                    <h2
+                                                        class="md:col-span-5 text-lg font-semibold text-slate-800 mt-4 dark:text-white">
+                                                        Configuración SEO</h2>
+
+                                                    <div class="md:col-span-5">
+                                                        <label for="meta_title">Meta Título (SEO)</label>
+                                                        <div class="relative mb-2">
+                                                            <div
+                                                                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                                                <i class="fa-solid fa-tag"></i>
+                                                            </div>
+                                                            <input type="text" id="meta_title" name="meta_title"
+                                                                value="{{ $general->meta_title }}" maxlength="60"
+                                                                class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                                placeholder="Título optimizado para motores de búsqueda (máx. 60 caracteres)">
+                                                        </div>
+                                                        <small class="text-gray-500">Máximo 60 caracteres. Este será el título que aparece en los resultados de búsqueda.</small>
+                                                    </div>
+
+                                                    <div class="md:col-span-5">
+                                                        <label for="meta_description">Meta Descripción (SEO)</label>
+                                                        <div class="relative mb-2">
+                                                            <div
+                                                                class="absolute top-3 left-0 flex items-center pl-3 pointer-events-none">
+                                                                <i class="fa-solid fa-align-left"></i>
+                                                            </div>
+                                                            <textarea id="meta_description" name="meta_description" rows="3" maxlength="160"
+                                                                class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                                placeholder="Descripción que aparecerá en los resultados de búsqueda (máx. 160 caracteres)">{{ $general->meta_description }}</textarea>
+                                                        </div>
+                                                        <small class="text-gray-500">Máximo 160 caracteres. Esta descripción aparece en los resultados de búsqueda.</small>
+                                                    </div>
+
+                                                    <div class="md:col-span-5">
+                                                        <label for="meta_keywords">Palabras Clave (Keywords)</label>
+                                                        <div class="relative mb-2">
+                                                            <div
+                                                                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                                                <i class="fa-solid fa-key"></i>
+                                                            </div>
+                                                            <input type="text" id="meta_keywords" name="meta_keywords"
+                                                                value="{{ $general->meta_keywords }}"
+                                                                class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                                placeholder="palabras, clave, separadas, por, comas">
+                                                        </div>
+                                                        <small class="text-gray-500">Palabras clave relevantes separadas por comas.</small>
+                                                    </div>
+
+                                                    <div class="md:col-span-5">
+                                                        <label for="canonical_url">URL Canónica</label>
+                                                        <div class="relative mb-2">
+                                                            <div
+                                                                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                                                <i class="fa-solid fa-link"></i>
+                                                            </div>
+                                                            <input type="url" id="canonical_url" name="canonical_url"
+                                                                value="{{ $general->canonical_url }}"
+                                                                class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                                placeholder="https://ejemplo.com">
+                                                        </div>
+                                                        <small class="text-gray-500">URL principal de su sitio web para evitar contenido duplicado.</small>
+                                                    </div>
+
+                                                    <!-- Open Graph (Redes Sociales) -->
+                                                    <h2
+                                                        class="md:col-span-5 text-lg font-semibold text-slate-800 mt-4 dark:text-white">
+                                                        Open Graph (Redes Sociales)</h2>
+
+                                                    <div class="md:col-span-3">
+                                                        <label for="og_title">Título para Redes Sociales</label>
+                                                        <div class="relative mb-2">
+                                                            <div
+                                                                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                                                <i class="fa-solid fa-share-alt"></i>
+                                                            </div>
+                                                            <input type="text" id="og_title" name="og_title"
+                                                                value="{{ $general->og_title }}" maxlength="60"
+                                                                class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                                placeholder="Título al compartir en redes sociales">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="md:col-span-2">
+                                                        <label for="og_image">Imagen para Redes Sociales</label>
+                                                        <div class="relative mb-2">
+                                                            <div
+                                                                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                                                <i class="fa-solid fa-image"></i>
+                                                            </div>
+                                                            <input type="url" id="og_image" name="og_image"
+                                                                value="{{ $general->og_image }}"
+                                                                class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                                placeholder="/images/og-image.jpg">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="md:col-span-5">
+                                                        <label for="og_description">Descripción para Redes Sociales</label>
+                                                        <div class="relative mb-2">
+                                                            <div
+                                                                class="absolute top-3 left-0 flex items-center pl-3 pointer-events-none">
+                                                                <i class="fa-solid fa-comment"></i>
+                                                            </div>
+                                                            <textarea id="og_description" name="og_description" rows="2" maxlength="200"
+                                                                class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                                placeholder="Descripción que aparecerá al compartir en redes sociales">{{ $general->og_description }}</textarea>
+                                                        </div>
+                                                        <small class="text-gray-500">Descripción optimizada para cuando el contenido se comparte en redes sociales.</small>
+                                                    </div>
                                                     <!-- <div class="md:col-span-2">
                                             <label for="city">City</label>
                                             <input type="text" name="city" id="city" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
