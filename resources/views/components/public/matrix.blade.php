@@ -1,13 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="es" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="language" content="spanish">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description"
-        content="Expertos en vesícula, hernias, balón gástrico, cinta gástrica, problema de obesidad e induvicales. Consulta el precio aquí.">
+    
+    {{-- SEO Meta Tags --}}
+    @if(isset($generales))
+        <title>{{ $generales->meta_title ?? 'Dr. Kewin Quispe - experto en cirugía gastrointestinal' }}</title>
+        <meta name="description" content="{{ $generales->meta_description ?? 'Expertos en vesícula, hernias, balón gástrico, cinta gástrica, problema de obesidad e induvicales. Consulta el precio aquí.' }}">
+        <meta name="keywords" content="{{ $generales->meta_keywords ?? 'cirugía, vesícula, hernias, balón gástrico, obesidad' }}">
+        
+        {{-- Canonical URL --}}
+        @if($generales->canonical_url)
+            <link rel="canonical" href="{{ $generales->canonical_url }}">
+        @endif
+        
+        {{-- Open Graph Meta Tags --}}
+        <meta property="og:title" content="{{ $generales->og_title ?? $generales->meta_title ?? 'Dr. Kewin Quispe - experto en cirugía gastrointestinal' }}">
+        <meta property="og:description" content="{{ $generales->og_description ?? $generales->meta_description ?? 'Expertos en vesícula, hernias, balón gástrico, cinta gástrica, problema de obesidad e induvicales.' }}">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ request()->url() }}">
+        @if($generales->og_image)
+            <meta property="og:image" content="{{ asset($generales->og_image) }}">
+            <meta property="og:image:alt" content="{{ $generales->og_title ?? 'Dr. Kewin Quispe' }}">
+        @endif
+        <meta property="og:site_name" content="Dr. Kewin Quispe">
+        
+        {{-- Twitter Card Meta Tags --}}
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ $generales->og_title ?? $generales->meta_title ?? 'Dr. Kewin Quispe - experto en cirugía gastrointestinal' }}">
+        <meta name="twitter:description" content="{{ $generales->og_description ?? $generales->meta_description ?? 'Expertos en vesícula, hernias, balón gástrico, cinta gástrica, problema de obesidad e induvicales.' }}">
+        @if($generales->og_image)
+            <meta name="twitter:image" content="{{ asset($generales->og_image) }}">
+        @endif
+        
+        {{-- Structured Data --}}
+        @if($generales->structured_data)
+            <script type="application/ld+json">
+                {!! $generales->structured_data !!}
+            </script>
+        @endif
+    @else
+        <title>Dr. Kewin Quispe - experto en cirugía gastrointestinal</title>
+        <meta name="description" content="Expertos en vesícula, hernias, balón gástrico, cinta gástrica, problema de obesidad e induvicales. Consulta el precio aquí.">
+    @endif
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     {{-- fontawesome --}}
@@ -29,7 +67,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dr. Kewin Quispe - experto en cirugía gastrointestinal</title>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
