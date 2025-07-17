@@ -93,7 +93,16 @@ class GeneralController extends Controller
             'youtube' => 'nullable',
             'linkedin' => 'nullable',
             'tiktok' => 'nullable',
-            'twitter' => 'nullable'
+            'twitter' => 'nullable',
+            // Campos SEO
+            'meta_title' => 'nullable|string|max:60',
+            'meta_description' => 'nullable|string|max:160',
+            'meta_keywords' => 'nullable|string',
+            'og_title' => 'nullable|string|max:60',
+            'og_description' => 'nullable|string|max:200',
+            'og_image' => 'nullable|string',
+            'canonical_url' => 'nullable|url',
+            'structured_data' => 'nullable|string'
         ]);
 
 
