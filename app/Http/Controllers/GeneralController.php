@@ -95,11 +95,11 @@ class GeneralController extends Controller
             'tiktok' => 'nullable',
             'twitter' => 'nullable',
             // Campos SEO
-            'meta_title' => 'nullable|string|max:60',
-            'meta_description' => 'nullable|string|max:160',
+            'meta_title' => 'nullable|string',
+            'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
-            'og_title' => 'nullable|string|max:60',
-            'og_description' => 'nullable|string|max:200',
+            'og_title' => 'nullable|string',
+            'og_description' => 'nullable|string',
             'og_image' => 'nullable|string',
             'canonical_url' => 'nullable|url',
             'structured_data' => 'nullable|string'
