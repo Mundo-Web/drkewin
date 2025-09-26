@@ -21,7 +21,7 @@
                         <thead>
                             <tr>
                                 <th>Titulo</th>
-                                <th>Slug</th>
+
                                 <th>Categoría</th>
                                 <th>Imagen</th>
                                 <th>Visible</th>
@@ -33,9 +33,9 @@
                             @foreach($posts as $item)
                                 <tr>
                                     <td>{{$item->title}}</td>
-                                    <td><code class="text-xs bg-gray-100 px-2 py-1 rounded">{{$item->slug}}</code></td>
+                                 
                                     <td>{{$item->categories->name}}</td>
-                                    <td class="px-3 py-2"><img class="w-20" src="{{ asset($item->url_image) }}" alt="{{$item->title}}"></td>
+                                    <td class="px-3 py-2"><img class="w-20 h-10 object-cover" src="{{ asset($item->url_image) }}" alt="{{$item->title}}"></td>
                                     <td>
                                         <form method="POST" action="">
                                           @csrf
@@ -71,7 +71,7 @@
                         <tfoot>
                             <tr>
                                 <th>Titulo</th>
-                                <th>Slug</th>
+                                
                                 <th>Categoría</th>
                                 <th>Imagen</th>
                                 <th>Visible</th>
