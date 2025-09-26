@@ -21,6 +21,7 @@
                         <thead>
                             <tr>
                                 <th>Titulo</th>
+                                <th>Slug</th>
                                 <th>Categoría</th>
                                 <th>Imagen</th>
                                 <th>Visible</th>
@@ -32,8 +33,9 @@
                             @foreach($posts as $item)
                                 <tr>
                                     <td>{{$item->title}}</td>
+                                    <td><code class="text-xs bg-gray-100 px-2 py-1 rounded">{{$item->slug}}</code></td>
                                     <td>{{$item->categories->name}}</td>
-                                    <td class="px-3 py-2"><img class="w-20" src="{{ asset('storage/images/posts/'.$item->name_image) }}" alt=""></td>
+                                    <td class="px-3 py-2"><img class="w-20" src="{{ asset($item->url_image) }}" alt="{{$item->title}}"></td>
                                     <td>
                                         <form method="POST" action="">
                                           @csrf
@@ -56,6 +58,7 @@
                                         {{-- {{  route('servicios.destroy', $item->id) }} --}}
                                         <form action=" " method="POST">
                                             @csrf
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             <a data-idService='{{$item->id}}' class="btn_delete bg-red-600 px-3 py-2 rounded text-white cursor-pointer"><i class="fa-regular fa-trash-can"></i></a>
                                             <!-- <a href="" class="bg-red-600 p-2 rounded text-white"><i class="fa-regular fa-trash-can"></i></a> -->
                                         </form>
@@ -68,6 +71,7 @@
                         <tfoot>
                             <tr>
                                 <th>Titulo</th>
+                                <th>Slug</th>
                                 <th>Categoría</th>
                                 <th>Imagen</th>
                                 <th>Visible</th>
@@ -95,6 +99,7 @@
             $( ".btn_delete" ).on( "click", function(e) {
                 
                 var id = $(this).attr('data-idService');
+                console.log('ID a eliminar:', id); // Debug
 
                 Swal.fire({
                     title: "Seguro que deseas eliminar?",
@@ -113,7 +118,7 @@
                                 url: '{{ route("blog.deleteBlog") }}',
                                 method: 'POST',
                                 data:{
-                                    _token: $('input[name="_token"]').val(),
+                                    _token: '{{ csrf_token() }}',
                                     id: id,
                                    
                                 }
@@ -127,7 +132,14 @@
 
                             location.reload();
                         
-                         })         
+                        }).fail(function(xhr, status, error) {
+                            console.error('Error:', xhr.responseJSON);
+                            Swal.fire({
+                                title: "Error",
+                                text: "Hubo un problema al eliminar el post",
+                                icon: "error"
+                            });
+                        });         
                        
 
                     }
@@ -155,7 +167,7 @@
                     url: "{{ route('blog.updateVisible') }}",
                     method: 'POST',
                     data:{
-                        _token: $('input[name="_token"]').val(),
+                        _token: '{{ csrf_token() }}',
                         status: status,
                         id: id,
                         field: field,

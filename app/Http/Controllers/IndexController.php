@@ -133,29 +133,37 @@ class IndexController extends Controller
   public function blogs(Request $request)
   {
     // Obtener el post más reciente
-    $latestPost = Blog::latest()->first();
+    $latestPost = Blog::where('status', true)->latest()->first();
 
-    // Obtener los 3 posts siguientes
-    $otherPosts = Blog::where('id', '!=', $latestPost->id)
-      ->latest()
-      ->take(3)
-      ->get();
+    // Si no hay posts, mandar colecciones vacías
+    if (!$latestPost) {
+      $otherPosts = collect();
+      $allPosts = Blog::where('status', true)->paginate(12);
+    } else {
+      // Obtener los 3 posts siguientes
+      $otherPosts = Blog::where('id', '!=', $latestPost->id)
+        ->where('status', true)
+        ->latest()
+        ->take(3)
+        ->get();
 
-    // Obtener todos los posts restantes
-    $allPosts = Blog::where('id', '!=', $latestPost->id)
-      ->latest()
-      ->paginate(12);
+      // Obtener todos los posts restantes
+      $allPosts = Blog::where('id', '!=', $latestPost->id)
+        ->whereNotIn('id', $otherPosts->pluck('id'))
+        ->where('status', true)
+        ->latest()
+        ->paginate(12);
+    }
     $generales = General::all()->first();
 
     $categoriaId = $request->get('categoria_id', null);
 
     // Obtener posts por categoría (si se selecciona)
-    $query = Blog::query();
+    $query = Blog::where('status', true);
 
     if ($categoriaId && $categoriaId != "todos") {
       $query->where('category_id', $categoriaId);
     }
-
 
     $posts = $query->paginate(12); // Cambia 10 
 
@@ -171,18 +179,16 @@ class IndexController extends Controller
   {
     $categoriaId = $request->get('categoria_id', null);
 
-
     // Obtener posts por categoría (si se selecciona)
-    $query = Blog::query();
-    if ($categoriaId) {
-      $query->where('categoria_id', $categoriaId);
+    $query = Blog::where('status', true);
+    
+    if ($categoriaId && $categoriaId != "todos") {
+      $query->where('category_id', $categoriaId);
     }
 
     $posts = $query->paginate(10); // Cambia 10 
 
-
     if ($request->ajax()) {
-
       return view('public.filtro_posts', compact('posts'))->render();
     }
 
@@ -192,15 +198,18 @@ class IndexController extends Controller
 
   public function detalle_post($slug)
   {
-    $post = Blog::where('slug', $slug)->first();
+    $post = Blog::where('slug', $slug)->where('status', true)->first();
     $otherPosts = Blog::where('slug', '!=', $slug)
+      ->where('status', true)
       ->latest()
       ->take(3)
       ->get();
     $generales = General::all()->first();
+    
     if (!$post) {
       return redirect()->route('blogs')->with('error', 'Post no encontrado.');
     }
+    
     $url = url("/blogs/post/{$slug}");
     $title = $post->title;
     return view('public.post', compact('generales', 'post', 'otherPosts', 'url', 'title'));

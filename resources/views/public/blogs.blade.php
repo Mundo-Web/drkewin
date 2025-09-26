@@ -123,6 +123,7 @@
 
 
         <!-- Blog Principal -->
+        @if($latestPost)
         <section class="pt-6 md:pt-12 lg:pt-44 bg-white mt-4 md:mt-10 w-11/12  md:max-w-6xl mx-auto">
             <h2 class="text-textAzul font-bold text-start text-text20">Descubre lo nuevo en Medicina</h2>
             <h1 class="text-text56 font-bold text-textAzul text-start mb-8">Nuestro Blog de artículos</h1>
@@ -165,8 +166,18 @@
                 </div>
             </div>
         </section>
+        @else
+        <section class="pt-6 md:pt-12 lg:pt-44 bg-white mt-4 md:mt-10 w-11/12  md:max-w-6xl mx-auto">
+            <h2 class="text-textAzul font-bold text-start text-text20">Descubre lo nuevo en Medicina</h2>
+            <h1 class="text-text56 font-bold text-textAzul text-start mb-8">Nuestro Blog de artículos</h1>
+            <div class="text-center py-12">
+                <p class="text-text24 text-textAzul">No hay publicaciones disponibles en este momento.</p>
+            </div>
+        </section>
+        @endif
 
         <!-- Últimas publicaciones -->
+        @if($allPosts->count() > 0)
         <section class="p-6 md:p-12 bg-white " data-aos="fade-up" data-aos-offset="150">
             <div class="flex flex-col md:flex-row justify-between items-center mb-12 w-11/12  md:max-w-6xl mx-auto">
                 <div class="w-full md:w-3/6">
@@ -205,6 +216,7 @@
             </div>
 
         </section>
+        @endif
 
         <!-- Suscripción -->
         <section class="bg-bgCeleste py-14 text-white text-center" data-aos="fade-up" data-aos-offset="150">

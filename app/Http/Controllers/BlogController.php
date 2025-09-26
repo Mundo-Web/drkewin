@@ -24,7 +24,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $posts = Blog::all();
+        $posts = Blog::where('status', true)->get();
        
         return view('pages.blog.index', compact('posts'));
     }
@@ -302,39 +302,54 @@ class BlogController extends Controller
 
     public function deleteBlog(Request $request)
     {
-        //Recupero el id mandado mediante ajax
-        $id = $request->id;
-        //Busco el servicio con id como parametro
-        $service = Blog::findOrfail($id); 
-        //Modifico el status a false
-        $service->status = false;
-        //Guardo 
-        $service->save();
+        try {
+            //Recupero el id mandado mediante ajax
+            $id = $request->id;
+            //Busco el servicio con id como parametro
+            $blog = Blog::findOrfail($id); 
+            //Modifico el status a false (eliminado lógico)
+            $blog->status = false;
+            //Guardo 
+            $blog->delete();
 
-        // Devuelvo una respuesta JSON u otra respuesta según necesites
-        return response()->json(['message' => 'Post eliminado.']);
+            // Devuelvo una respuesta JSON exitosa
+            return response()->json([
+                'success' => true,
+                'message' => 'Post eliminado correctamente.'
+            ]);
+        } catch (\Exception $e) {
+            // En caso de error
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al eliminar el post: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
 
 
-       public function updateVisible(Request $request)
+    public function updateVisible(Request $request)
     {
-        // Lógica para manejar la solicitud AJAX
-        //return response()->json(['mensaje' => 'Solicitud AJAX manejada con éxito']);
-        $id = $request->id;
+        try {
+            $id = $request->id;
+            $field = $request->field;
+            $status = $request->status;
 
-        $field = $request->field;
+            $blog = Blog::findOrFail($id);
+            
+            $blog->$field = $status;
+            $blog->save();
 
-        $status = $request->status;
-
-        $service = Blog::findOrFail($id);
-        
-        $service->$field = $status;
-
-        $service->save();
-
-         return response()->json(['message' => 'Servicio eliminado.']);
-    
+            return response()->json([
+                'success' => true,
+                'message' => 'Estado actualizado correctamente.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al actualizar: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
 
